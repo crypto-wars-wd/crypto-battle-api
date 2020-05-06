@@ -6,10 +6,9 @@ const {
 const apiRoutes = new Router();
 const authRoutes = new Router();
 
-
 apiRoutes.use('/api', authRoutes);
 
-// region Auth
+//  authRoutes
 authRoutes.route('/auth')
   .post(AuthController.index);
 
