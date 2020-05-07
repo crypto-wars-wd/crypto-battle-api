@@ -9,11 +9,11 @@ const validators = require('./validators');
 
 
 const socialSignIn = async (req, res, next) => {
-  const { validation_error } = validators.validate(
+  const { validationError } = validators.validate(
     Object.assign(req.body, { nightMode: req.headers.nightmode }), validators.authentication.socialAuthShcema,
   );
 
-  if (validation_error) return render.error(res, validation_error);
+  if (validationError) return render.error(res, validationError);
   const { user, session, message } = await Strategies.socialStrategy(req, res, next);
 
   if (message) return render.unauthorized(res, message);
@@ -28,9 +28,9 @@ const validateAuthToken = async (req, res) => {
 };
 
 const hasSocialAccount = async (req, res) => {
-  const { params, validation_error } = validators.validate(req.query, validators.authentication.hasSocialShcema);
+  const { params, validationError } = validators.validate(req.query, validators.authentication.hasSocialShcema);
 
-  if (validation_error) return render.error(res, validation_error);
+  if (validationError) return render.error(res, validationError);
   const result = await UserModel.findUserBySocial(params);
 
   return render.success(res, hasSocialView({ result: !!result }));
@@ -39,9 +39,9 @@ const hasSocialAccount = async (req, res) => {
 const createUser = async (req, res) => {
   if (!validators.keyValidator.validate(req.headers['api-key'])) return render.unauthorized(res);
 
-  const { validation_error, params } = validators.validate(req.body, validators.authentication.createUserSchema);
+  const { validationError, params } = validators.validate(req.body, validators.authentication.createUserSchema);
 
-  if (validation_error) return render.error(res, validation_error);
+  if (validationError) return render.error(res, validationError);
   const { user, session, message } = await UserModel.signUpSocial(params);
 
   if (message) return render.error(res, message);
