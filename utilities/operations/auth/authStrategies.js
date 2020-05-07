@@ -1,10 +1,10 @@
 const _ = require('lodash');
 const passport = require('passport');
-const render = require('../../concerns/render');
-const { Auth } = require('../../utilities/authentication');
+const render = require('../../../concerns/render');
+const { Auth } = require('../../authentication');
 
 exports.socialStrategy = async (req, res, next) => {
-  require('../../utilities/authentication/passport')(passport);
+  require('../../authentication/passport')(passport);
   const provider = req.route.path.match(/[a-z].*/)[0];
   const userFields = await pickFields({
     provider, req, res, next,

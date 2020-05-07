@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const { routes } = require('routes');
 
 const app = express();
