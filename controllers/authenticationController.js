@@ -1,12 +1,11 @@
-const Strategies = require('utilities/operations/auth/authStrategies');
-const render = require('concerns/render');
-const { UserModel } = require('models');
-const { setAuthHeaders } = require('utilities/authentication/sessions');
 const {
   signInView, validateAuthTokenView, hasSocialView,
-} = require('../views/authenticationController');
+} = require('views/authenticationController');
+const { UserModel } = require('models');
+const render = require('concerns/render');
+const Strategies = require('utilities/operations/auth/authStrategies');
+const { setAuthHeaders } = require('utilities/authentication/sessions');
 const validators = require('./validators');
-
 
 const socialSignIn = async (req, res, next) => {
   const { validationError } = validators.validate(

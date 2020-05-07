@@ -90,7 +90,7 @@ const userObjectCreate = ({
 const prepareToken = ({ user, session }) => {
   const access_token = jwt.sign({ name: user.name, id: user._id, sid: session.sid }, session.secret_token, { expiresIn: config.session_expiration });
 
-  return crypto.AES.encrypt(access_token, config.crypto_key).toString();
+  return crypto.AES.encrypt(access_token, process.env.CRYPTO_KEY || 'db5c57b3fc1c105e772a3784df6b798c').toString();
 };
 
 module.exports = {
