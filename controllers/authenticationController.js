@@ -9,7 +9,7 @@ const validators = require('./validators');
 
 const socialSignIn = async (req, res, next) => {
   const { validationError } = validators.validate(
-    Object.assign(req.body, { nightMode: req.headers.nightmode }), validators.authentication.socialAuthShcema,
+    Object.assign(req.body, req.params), validators.authentication.socialAuthShcema,
   );
 
   if (validationError) return render.error(res, validationError);

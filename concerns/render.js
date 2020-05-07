@@ -13,7 +13,7 @@ const unauthorized = (res, data) => res.status(401).send({
   message: data || 'No token provided.',
 });
 
-const badGatteway = (res) => res.status(503).send({
+const badGateway = (res) => res.status(503).send({
   success: false,
   message: 'Bad request',
 });
@@ -24,5 +24,5 @@ module.exports = {
   notFound,
   error,
   unauthorized,
-  badGatteway,
+  badGateway,
 };

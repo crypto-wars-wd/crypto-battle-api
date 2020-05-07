@@ -12,7 +12,6 @@ exports.socialAuthShcema = Joi.object().keys({
   avatar: Joi.string().pattern(new RegExp('^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&\'\\(\\)\\*\\+,;=.]+$')).allow('').default(''),
   alias: Joi.string().allow(''),
   allowEmail: Joi.boolean().default(false),
-  nightMode: Joi.boolean().default(false),
 }).unknown(true);
 
 exports.createUserSchema = Joi.object().keys({
@@ -21,7 +20,6 @@ exports.createUserSchema = Joi.object().keys({
   alias: Joi.string().allow(''),
   email: Joi.string().allow(null).default(null),
   id: Joi.string().required(),
-  nightMode: Joi.boolean().default(false),
   provider: Joi.string().required(),
   session: Joi.object().keys({
     sid: Joi.string().required(),

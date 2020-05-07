@@ -5,18 +5,16 @@ const { Auth } = require('utilities/authentication');
 
 exports.socialStrategy = async (req, res, next) => {
   require('utilities/authentication/passport')(passport);
-  const provider = req.route.path.match(/[a-z].*/)[0];
+  const { provider } = req.params;
   const userFields = await pickFields({
     provider, req, res, next,
   });
-  const nightMode = _.get(req, 'headers.nightmode', false);
-
-  return await Auth.socialAuth(Object.assign(userFields, { nightMode }));
+  return Auth.socialAuth(Object.assign(userFields));
 };
 
-const pickFields = async ({
+const pickFields = ({
   provider, req, res, next,
-}) => await new Promise((resolve) => {
+}) => new Promise((resolve) => {
   passport.authenticate(provider, (data) => {
     if (!data || !data.fields) return render.unauthorized(res, 'Invalid token');
     const {

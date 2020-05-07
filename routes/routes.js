@@ -9,7 +9,14 @@ const authRoutes = new Router();
 apiRoutes.use('/api', authRoutes);
 
 //  authRoutes
-authRoutes.route('/auth')
-  .post(AuthController.hasSocialAccount);
+authRoutes.route('/has-social-account')
+  .get(AuthController.hasSocialAccount);
+
+authRoutes.route('/auth/:provider')
+  .post(AuthController.socialSignIn);
+authRoutes.route('/validate-auth-token')
+  .post(AuthController.validateAuthToken);
+authRoutes.route('/create-user')
+  .post(AuthController.createUser);
 
 module.exports = apiRoutes;
