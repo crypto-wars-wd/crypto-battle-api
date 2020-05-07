@@ -1,12 +1,12 @@
+const Strategies = require('utilities/operations/auth/authStrategies');
+const render = require('concerns/render');
+const { UserModel } = require('models');
+const { setAuthHeaders } = require('utilities/authentication/sessions');
 const {
-  signInView, validateAuthTokenView, hasSocialView, beaxySignInView,
+  signInView, validateAuthTokenView, hasSocialView,
 } = require('../views/authenticationController');
-const render = require('../concerns/render');
-const { UserModel } = require('../models');
-const { setAuthHeaders } = require('../utilities/authentication/sessions');
 const validators = require('./validators');
-const Strategies = require('./authStrategies');
-const Beaxy = require('../utilities/authentication/beaxy');
+
 
 const socialSignIn = async (req, res, next) => {
   const { validation_error } = validators.validate(
@@ -36,29 +36,6 @@ const hasSocialAccount = async (req, res) => {
   return render.success(res, hasSocialView({ result: !!result }));
 };
 
-const beaxySignIn = async (req, res) => {
-  const { validation_error, params } = validators.validate(
-    Object.assign(req.body, { nightMode: req.headers.nightmode }), validators.authentication.socialBeaxySchema,
-  );
-
-  if (validation_error) return render.error(res, validation_error);
-  const {
-    user, session, message, beaxyPayload,
-  } = await Strategies.beaxyStrategy(params, res);
-
-  if (message) return render.unauthorized(res, message);
-  if (!session || !user) return;
-  setAuthHeaders(res, user, session);
-  return render.success(res, beaxySignInView({ user, beaxyPayload }));
-};
-
-const keepAlive = async (req, res, next) => {
-  if (!req.query.sid || !req.headers.um_session) return render.error(res, 'sid and um_session is required');
-  const { error } = await Beaxy.keepAlive(req.query.sid, req.headers.um_session, res);
-  if (error) return render.notFound(res, error);
-  next();
-};
-
 const createUser = async (req, res) => {
   if (!validators.keyValidator.validate(req.headers['api-key'])) return render.unauthorized(res);
 
@@ -76,7 +53,5 @@ module.exports = {
   hasSocialAccount,
   socialSignIn,
   validateAuthToken,
-  beaxySignIn,
-  keepAlive,
   createUser,
 };
