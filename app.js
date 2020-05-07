@@ -9,14 +9,17 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors({ exposedHeaders: [ 'access-token', 'expires-in', 'waivio-auth', 'um_session', 'api-key', 'nightmode' ] }));
+app.use(cors({ exposedHeaders: ['access-token', 'expires-in', 'waivio-auth', 'um_session', 'api-key', 'nightmode'] }));
 app.use(morgan('dev'));
 
 app.use('/', routes);
-
+// Last middleware which send data from "res.result.json" to client
+// eslint-disable-next-line no-unused-vars
 app.use((req, res, next) => {
   res.status(res.result.status || 200).json(res.result.json);
 });
+// middleware for handle error for each request
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;

@@ -10,6 +10,6 @@ apiRoutes.use('/api', authRoutes);
 
 //  authRoutes
 authRoutes.route('/auth')
-  .post(AuthController.index);
+  .post(AuthController.hasSocialAccount);
 
 module.exports = apiRoutes;
