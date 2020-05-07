@@ -1,10 +1,9 @@
 const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto-js');
-const config = require('../config');
-const Requests = require('../utilities/helpers/api/requests');
-const { User } = require('../database').models;
-const { OperationsHelper } = require('../utilities/helpers');
+const config = require('config');
+const Requests = require('utilities/helpers/api/requests');
+const { User } = require('database').models;
 
 const destroyLastSession = async ({ user }) => {
   if (_.get(user, 'auth.sessions', false) && user.auth.sessions.length > config.limit_sessions) {
@@ -50,13 +49,13 @@ const signUpSocial = async ({
   try {
     await user.save();
     const access_token = prepareToken({ user, session });
-    const { message } = await OperationsHelper.transportAction(userObjectCreate({
+    const { message } = userObjectCreate({
       userId: user.name,
       displayName: alias || '',
       posting_json_metadata: metadata,
       json_metadata: metadata,
       access_token,
-    }));
+    });
 
     if (message) {
       await User.deleteOne({ _id: user._id });

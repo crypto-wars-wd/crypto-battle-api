@@ -1,0 +1,50 @@
+{
+  "production" : {
+    "db": {
+      "host": "localhost",
+      "port": 27017,
+      "database": "crypto-battle"
+    },
+    "limit_sessions": 5,
+    "session_expiration": "10m",
+    "crypto-battleUrl": "https://www.crypto-battle.com/",
+    "appName": "crypto-battle"
+  },
+
+  "staging" : {
+    "db": {
+      "host": "localhost",
+      "port": 27017,
+      "database": "crypto-battle"
+    },
+    "limit_sessions": 5,
+    "session_expiration": "10m",
+    "crypto-battleUrl": "https://crypto-battledev.com/",
+    "appName": "crypto-battle"
+  },
+
+  "development": {
+    "db": {
+      "host": "localhost",
+      "port": 27017,
+      "database": "crypto-battle"
+    },
+    "limit_sessions": 5,
+    "session_expiration": "1000",
+    "crypto-battleUrl": "http://localhost:3001/",
+    "": "https://crypto-battledev.com/",
+    "appName": "crypto-battle"
+  },
+
+  "test": {
+    "db": {
+      "host": "localhost",
+      "port": 27017,
+      "database": "crypto-battletest"
+    },
+    "limit_sessions": 5,
+    "session_expiration": "2000",
+    "crypto-battleUrl": "https://test.crypto-battledev.com/",
+    "appName": "crypto-battle"
+  }
+}
