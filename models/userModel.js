@@ -11,8 +11,8 @@ const destroyLastSession = async ({ user }) => {
   }
 };
 
-const destroySession = async ({ user_id, session }) => {
-  await User.updateOne({ _id: user_id }, { $pull: { 'auth.sessions': { _id: session._id } } });
+const destroySession = async ({ userId, session }) => {
+  await User.updateOne({ _id: userId }, { $pull: { 'auth.sessions': { _id: session._id } } });
 };
 
 const findUserBySocial = async ({ id, provider }) => User.findOne({ 'auth.provider': provider, 'auth.id': id });
@@ -28,7 +28,7 @@ const findUserById = async (id) => {
 const findUserByName = async ({ name }) => User.findOne({ name });
 
 const signUpSocial = async ({
-  userName, alias, provider, avatar, id, session, postLocales, nightMode, email,
+  userName, alias, provider, avatar, id, session, email,
 }) => {
   if (avatar) avatar = await Requests.uploadAvatar({ userName, imageUrl: avatar });
 
@@ -42,10 +42,6 @@ const signUpSocial = async ({
     'auth.provider': provider,
     'auth.id': id,
   });
-
-  user.user_metadata.settings.postLocales = postLocales;
-  user.user_metadata.settings.nightmode = nightMode;
-
   try {
     await user.save();
     const access_token = prepareToken({ user, session });
@@ -68,8 +64,8 @@ const signUpSocial = async ({
   return { user: user.toObject(), session };
 };
 
-const signInSocial = async ({ user_id, session }) => {
-  const user = await User.findOneAndUpdate({ _id: user_id }, { $push: { 'auth.sessions': session } }, { new: true, select: '+user_metadata' }).lean();
+const signInSocial = async ({ userId, session }) => {
+  const user = await User.findOneAndUpdate({ _id: userId }, { $push: { 'auth.sessions': session } }, { new: true, select: '+user_metadata' }).lean();
 
   await destroyLastSession({ user });
   return { user, session };

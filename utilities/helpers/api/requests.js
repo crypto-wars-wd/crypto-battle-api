@@ -1,6 +1,6 @@
 const axios = require('axios');
 const FormData = require('form-data');
-const config = require('../../../config');
+const config = require('config');
 
 const sendRequest = async ({
   path, type, params, access_token,

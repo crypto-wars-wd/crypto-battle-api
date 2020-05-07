@@ -10,6 +10,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(cors({ exposedHeaders: ['access-token', 'expires-in', 'waivio-auth', 'um_session', 'api-key', 'nightmode'] }));
 app.use(morgan('dev'));
 
