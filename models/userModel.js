@@ -2,7 +2,6 @@ const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto-js');
 const config = require('config');
-const Requests = require('utilities/helpers/api/requests');
 const { User } = require('database').models;
 
 const destroyLastSession = async ({ user }) => {
@@ -15,7 +14,7 @@ const destroySession = async ({ userId, session }) => {
   await User.updateOne({ _id: userId }, { $pull: { 'auth.sessions': { _id: session._id } } });
 };
 
-const findUserBySocial = async ({ id, provider }) => User.findOne({ 'auth.provider': provider, 'auth.id': id });
+const findUserBySocial = async ({ id, provider }) => User.findOne({ 'auth.provider': provider, 'auth.id': id }).lean();
 
 const findUserById = async (id) => {
   try {
@@ -28,15 +27,10 @@ const findUserById = async (id) => {
 const findUserByName = async ({ name }) => User.findOne({ name });
 
 const signUpSocial = async ({
-  userName, alias, provider, avatar, id, session, email,
+  userName, alias, provider, avatar, id, session,
 }) => {
-  if (avatar) avatar = await Requests.uploadAvatar({ userName, imageUrl: avatar });
-
-  const metadata = JSON.stringify({ profile: { name: alias, profile_image: avatar, email } });
   const user = new User({
     name: userName,
-    posting_json_metadata: metadata,
-    json_metadata: metadata,
     alias,
     'auth.sessions': [session],
     'auth.provider': provider,
@@ -44,13 +38,11 @@ const signUpSocial = async ({
   });
   try {
     await user.save();
-    const access_token = prepareToken({ user, session });
+    const accessToken = prepareToken({ user, session });
     const { message } = userObjectCreate({
       userId: user.name,
       displayName: alias || '',
-      posting_json_metadata: metadata,
-      json_metadata: metadata,
-      access_token,
+      accessToken,
     });
 
     if (message) {
@@ -60,33 +52,32 @@ const signUpSocial = async ({
   } catch (err) {
     return { message: err };
   }
-
   return { user: user.toObject(), session };
 };
 
 const signInSocial = async ({ userId, session }) => {
-  const user = await User.findOneAndUpdate({ _id: userId }, { $push: { 'auth.sessions': session } }, { new: true, select: '+user_metadata' }).lean();
+  const user = await User.findOneAndUpdate({ _id: userId }, { $push: { 'auth.sessions': session } }, { new: true }).lean();
 
   await destroyLastSession({ user });
   return { user, session };
 };
 
 const userObjectCreate = ({
-  userId, displayName, posting_json_metadata, access_token, json_metadata,
+  userId, displayName, accessToken,
 }) => ({
   params: {
     id: 'waivio_guest_create',
     json: {
-      userId, displayName, posting_json_metadata, json_metadata,
+      userId, displayName,
     },
   },
-  access_token,
+  accessToken,
 });
 
 const prepareToken = ({ user, session }) => {
-  const access_token = jwt.sign({ name: user.name, id: user._id, sid: session.sid }, session.secret_token, { expiresIn: config.session_expiration });
+  const accessToken = jwt.sign({ name: user.name, id: user._id, sid: session.sid }, session.secretToken, { expiresIn: config.session_expiration });
 
-  return crypto.AES.encrypt(access_token, process.env.CRYPTO_KEY || 'db5c57b3fc1c105e772a3784df6b798c').toString();
+  return crypto.AES.encrypt(accessToken, process.env.CRYPTO_KEY || 'db5c57b3fc1c105e772a3784df6b798c').toString();
 };
 
 module.exports = {

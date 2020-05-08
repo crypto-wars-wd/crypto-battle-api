@@ -16,7 +16,5 @@ authRoutes.route('/auth/:provider')
   .post(AuthController.socialSignIn);
 authRoutes.route('/validate-auth-token')
   .post(AuthController.validateAuthToken);
-authRoutes.route('/create-user')
-  .post(AuthController.createUser);
 
 module.exports = apiRoutes;

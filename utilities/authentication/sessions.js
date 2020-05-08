@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const { ObjectID } = require('bson');
 const crypto = require('crypto-js');
@@ -6,23 +7,22 @@ const config = require('config');
 const { User } = require('database').models;
 const moment = require('moment');
 const { destroySession } = require('models/userModel');
-const TokenSalt = require('./tokenSalt');
 const { encodeToken, decodeToken } = require('./tokenSalt');
 
 const generateSession = () => ({
   sid: new ObjectID(),
-  secret_token: crypto.SHA512(`${uuid()}`).toString(),
+  secretToken: crypto.SHA512(`${uuid()}`).toString(),
 });
 
-const removeAuthSession = async ({ user_id, session }) => {
-  await destroySession({ user_id, session });
+const removeAuthSession = async ({ userId, session }) => {
+  await destroySession({ userId, session });
 };
 
 const setAuthHeaders = (res, client, session) => {
-  const { access_token, expires_in } = tokenSign(client, session);
+  const { accessToken, expiresIn } = tokenSign(client, session);
 
-  res.setHeader('access-token', encodeToken({ access_token }));
-  res.setHeader('expires-in', expires_in);
+  res.setHeader('access-token', encodeToken({ accessToken }));
+  res.setHeader('expires-in', expiresIn);
   res.setHeader('waivio-auth', true);
 };
 
@@ -31,47 +31,47 @@ const setAuthSession = ({ req, user, session }) => {
 };
 
 const getAuthData = async ({ req }) => {
-  const access_token = req.headers['access-token'];
+  const accessToken = req.headers['access-token'];
 
-  if (!access_token) return { error: 'Token not found' };
-  const decoded_token = await TokenSalt.decodeToken({ access_token });
-  const payload = await jwt.decode(decoded_token);
+  if (!accessToken) return { error: 'Token not found' };
+  const decodedToken = await decodeToken({ accessToken });
+  const payload = await jwt.decode(decodedToken);
 
-  if (!payload || !payload.id || !decoded_token) return { error: 'Invalid token' };
-  return { payload, decoded_token };
+  if (!payload || !payload.id || !decodedToken) return { error: 'Invalid token' };
+  return { payload, decodedToken };
 };
 
 const findSession = ({ sessions, sid }) => _.find(sessions, (hash) => hash.sid === sid);
 
-const refreshSession = async ({ req, doc, old_session }) => {
-  const new_session = generateSession();
+const refreshSession = async ({ req, doc, oldSession }) => {
+  const newSession = generateSession();
 
-  await destroySession({ user_id: doc._id, session: old_session });
-  await User.updateOne({ _id: doc._id }, { $push: { 'auth.sessions': new_session } });
-  setAuthSession({ req, user: doc, session: new_session });
+  await destroySession({ userId: doc._id, session: oldSession });
+  await User.updateOne({ _id: doc._id }, { $push: { 'auth.sessions': newSession } });
+  setAuthSession({ req, user: doc, session: newSession });
 };
 
-const tokenSign = (self, token_hash) => {
-  const access_token = jwt.sign(
-    { name: self.name, id: self._id, sid: token_hash.sid },
-    token_hash.secret_token,
+const tokenSign = (self, tokenHash) => {
+  const accessToken = jwt.sign(
+    { name: self.name, id: self._id, sid: tokenHash.sid },
+    tokenHash.secretToken,
     { expiresIn: config.session_expiration },
   );
 
-  return { access_token, expires_in: jwt.decode(access_token).exp };
+  return { accessToken, expiresIn: jwt.decode(accessToken).exp };
 };
 
 const verifyToken = async ({
-  decoded_token, session, doc, req, res,
+  decodedToken, session, doc, req, res,
 }) => {
   try {
-    jwt.verify(decoded_token, session.secret_token);
+    jwt.verify(decodedToken, session.secretToken);
     setAuthSession({ req, user: doc, session });
     return { result: true };
   } catch (error) {
     if (error.message === 'jwt expired' && error.expiredAt > moment.utc().subtract(1, 'day')) {
       await refreshSession({
-        res, req, doc, old_session: session,
+        res, req, doc, oldSession: session,
       });
       return { result: true };
     }
@@ -80,10 +80,10 @@ const verifyToken = async ({
 };
 
 const confirmAuthToken = ({
-  req, user, session, decoded_token, secret_token,
+  req, user, session, decodedToken, secretToken,
 }) => {
   try {
-    jwt.verify(decoded_token, secret_token);
+    jwt.verify(decodedToken, secretToken);
     setAuthSession({ req, user, session });
     return { result: true };
   } catch (error) {

@@ -1,9 +1,9 @@
 const {
-  signInView, validateAuthTokenView, hasSocialView,
+  signInView, validateAuthTokenView,
 } = require('views/authenticationController');
 const { UserModel } = require('models');
 const render = require('concerns/render');
-const Strategies = require('utilities/operations/auth/authStrategies');
+const { Strategies } = require('utilities/operations');
 const { setAuthHeaders } = require('utilities/authentication/sessions');
 const validators = require('./validators');
 
@@ -32,25 +32,11 @@ const hasSocialAccount = async (req, res) => {
   if (validationError) return render.error(res, validationError);
   const result = await UserModel.findUserBySocial(params);
 
-  return render.success(res, hasSocialView({ result: !!result }));
-};
-
-const createUser = async (req, res) => {
-  if (!validators.keyValidator.validate(req.headers['api-key'])) return render.unauthorized(res);
-
-  const { validationError, params } = validators.validate(req.body, validators.authentication.createUserSchema);
-
-  if (validationError) return render.error(res, validationError);
-  const { user, session, message } = await UserModel.signUpSocial(params);
-
-  if (message) return render.error(res, message);
-  if (!session || !user) return;
-  return render.success(res, { result: true });
+  return render.success(res, !!result);
 };
 
 module.exports = {
   hasSocialAccount,
   socialSignIn,
   validateAuthToken,
-  createUser,
 };

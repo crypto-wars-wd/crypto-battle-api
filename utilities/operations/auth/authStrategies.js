@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const passport = require('passport');
 const render = require('concerns/render');
 const { Auth } = require('utilities/authentication');

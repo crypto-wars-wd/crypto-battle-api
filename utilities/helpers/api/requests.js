@@ -3,13 +3,13 @@ const FormData = require('form-data');
 const config = require('config');
 
 const sendRequest = async ({
-  path, type, params, access_token,
+  path, type, params, accessToken,
 }) => await axios({
   baseURL: path,
   method: type,
   data: params,
   headers: {
-    'access-token': access_token,
+    'access-token': accessToken,
     'waivio-auth': true,
   },
 })

@@ -10,21 +10,6 @@
     "crypto-battleUrl": "https://www.crypto-battle.com/",
     "appName": "crypto-battle",
     "authUrl": "https://waiviodev.com/",
-    "waivioUrl": "https://www.waivio.com/"
-  },
-
-  "staging" : {
-    "db": {
-      "host": "localhost",
-      "port": 27017,
-      "database": "crypto-battle"
-    },
-    "limit_sessions": 5,
-    "session_expiration": "10m",
-    "crypto-battleUrl": "https://crypto-battledev.com/",
-    "appName": "crypto-battle",
-    "authUrl": "https://waiviodev.com/",
-    "waivioUrl": "https://www.waivio.com/"
   },
 
   "development": {
@@ -39,7 +24,6 @@
     "": "https://crypto-battledev.com/",
     "appName": "crypto-battle",
     "authUrl": "https://waiviodev.com/",
-    "waivioUrl": "https://www.waivio.com/"
   },
 
   "test": {
@@ -53,6 +37,5 @@
     "crypto-battleUrl": "https://test.crypto-battledev.com/",
     "appName": "crypto-battle",
     "authUrl": "https://waiviodev.com/",
-    "waivioUrl": "https://www.waivio.com/"
   }
 }
