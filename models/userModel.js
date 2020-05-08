@@ -24,8 +24,6 @@ const findUserById = async (id) => {
   }
 };
 
-const findUserByEmail = async ({ email }) => User.findOne({ email });
-
 const signUpSocial = async ({
   alias, provider, avatar, id, session, email,
 }) => {
@@ -84,7 +82,6 @@ const prepareToken = ({ user, session }) => {
 module.exports = {
   signUpSocial,
   signInSocial,
-  findUserByEmail,
   findUserBySocial,
   destroyLastSession,
   destroySession,
