@@ -1,9 +1,9 @@
 const {
   signInView, validateAuthTokenView,
 } = require('views/authenticationController');
-const { UserModel } = require('models');
+const { userModel } = require('models');
 const render = require('concerns/render');
-const { Strategies } = require('utilities/operations');
+const { strategies } = require('utilities/operations');
 const { setAuthHeaders } = require('utilities/authentication/sessions');
 const validators = require('./validators');
 
@@ -13,7 +13,7 @@ const socialSignIn = async (req, res, next) => {
   );
 
   if (validationError) return render.error(res, validationError);
-  const { user, session, message } = await Strategies.socialStrategy(req, res, next);
+  const { user, session, message } = await strategies.socialStrategy(req, res, next);
 
   if (message) return render.unauthorized(res, message);
 
@@ -30,7 +30,7 @@ const hasSocialAccount = async (req, res) => {
   const { params, validationError } = validators.validate(req.query, validators.authentication.hasSocialShcema);
 
   if (validationError) return render.error(res, validationError);
-  const result = await UserModel.findUserBySocial(params);
+  const result = await userModel.findUserBySocial(params);
 
   return render.success(res, !!result);
 };

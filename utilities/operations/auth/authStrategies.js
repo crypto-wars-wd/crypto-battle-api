@@ -17,14 +17,13 @@ const pickFields = ({
   passport.authenticate(provider, (data) => {
     if (!data || !data.fields) return render.unauthorized(res, 'Invalid token');
     const {
-      userName, avatar, alias, locales,
+      userName, avatar, alias,
     } = req.body;
 
     data.fields.email = req.body.allowEmail ? data.fields.email : null;
     data.fields.userName = userName;
     data.fields.avatar = avatar;
     data.fields.alias = alias || '';
-    data.fields.postLocales = locales || ['en-US'];
 
     resolve(data.fields);
   })(req, res, next);

@@ -1,3 +1,3 @@
 module.exports = {
-  Strategies: require('./auth/authStrategies'),
+  strategies: require('./auth/authStrategies'),
 };
