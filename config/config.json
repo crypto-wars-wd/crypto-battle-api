@@ -9,7 +9,7 @@
     "session_expiration": "10m",
     "crypto-battleUrl": "https://www.crypto-battle.com/",
     "appName": "crypto-battle",
-    "authUrl": "https://waiviodev.com/",
+    "authUrl": "https://waiviodev.com/"
   },
 
   "development": {
@@ -23,7 +23,7 @@
     "crypto-battleUrl": "http://localhost:3001/",
     "": "https://crypto-battledev.com/",
     "appName": "crypto-battle",
-    "authUrl": "https://waiviodev.com/",
+    "authUrl": "https://waiviodev.com/"
   },
 
   "test": {
@@ -36,6 +36,6 @@
     "session_expiration": "2000",
     "crypto-battleUrl": "https://test.crypto-battledev.com/",
     "appName": "crypto-battle",
-    "authUrl": "https://waiviodev.com/",
+    "authUrl": "https://waiviodev.com/"
   }
 }
