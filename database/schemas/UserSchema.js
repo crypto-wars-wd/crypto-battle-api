@@ -19,10 +19,7 @@ const UserSchema = new Schema({
   health: { type: Number, default: 100 },
   alias: { type: String },
   avatar: { type: String },
-  objectsFollow: { type: [String], default: [] }, // arr of author_permlink of objects what user following
-  usersFollow: { type: [String], default: [] }, // arr of users which user follow
   auth: { type: UserAuthSchema },
-  followersCount: { type: Number, default: 0 },
 }, { timestamps: true });
 
 const UserModel = mongoose.model('User', UserSchema, 'User');
