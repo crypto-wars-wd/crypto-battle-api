@@ -18,6 +18,8 @@ const UserSchema = new Schema({
   level: { type: Number, default: 1 },
   health: { type: Number, default: 100 },
   alias: { type: String },
+  email: { type: String },
+  avatar: { type: String },
   objectsFollow: { type: [String], default: [] }, // arr of author_permlink of objects what user following
   usersFollow: { type: [String], default: [] }, // arr of users which user follow
   auth: { type: UserAuthSchema },

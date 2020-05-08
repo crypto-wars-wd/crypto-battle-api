@@ -16,15 +16,6 @@ const pickFields = ({
 }) => new Promise((resolve) => {
   passport.authenticate(provider, (data) => {
     if (!data || !data.fields) return render.unauthorized(res, 'Invalid token');
-    const {
-      userName, avatar, alias,
-    } = req.body;
-
-    data.fields.email = req.body.allowEmail ? data.fields.email : null;
-    data.fields.userName = userName;
-    data.fields.avatar = avatar;
-    data.fields.alias = alias || '';
-
     resolve(data.fields);
   })(req, res, next);
 });

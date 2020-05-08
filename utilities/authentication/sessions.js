@@ -19,9 +19,9 @@ const removeAuthSession = async ({ userId, session }) => {
 };
 
 const setAuthHeaders = (res, client, session) => {
-  const { accessToken, expiresIn } = tokenSign(client, session);
+  const { access_token, expiresIn } = tokenSign(client, session);
 
-  res.setHeader('access-token', encodeToken({ accessToken }));
+  res.setHeader('access-token', encodeToken({ access_token }));
   res.setHeader('expires-in', expiresIn);
   res.setHeader('waivio-auth', true);
 };
@@ -31,10 +31,10 @@ const setAuthSession = ({ req, user, session }) => {
 };
 
 const getAuthData = async ({ req }) => {
-  const accessToken = req.headers['access-token'];
+  const access_token = req.headers['access-token'];
 
-  if (!accessToken) return { error: 'Token not found' };
-  const decodedToken = await decodeToken({ accessToken });
+  if (!access_token) return { error: 'Token not found' };
+  const decodedToken = await decodeToken({ access_token });
   const payload = await jwt.decode(decodedToken);
 
   if (!payload || !payload.id || !decodedToken) return { error: 'Invalid token' };
@@ -52,13 +52,13 @@ const refreshSession = async ({ req, doc, oldSession }) => {
 };
 
 const tokenSign = (self, tokenHash) => {
-  const accessToken = jwt.sign(
+  const access_token = jwt.sign(
     { name: self.name, id: self._id, sid: tokenHash.sid },
     tokenHash.secretToken,
     { expiresIn: config.session_expiration },
   );
 
-  return { accessToken, expiresIn: jwt.decode(accessToken).exp };
+  return { access_token, expiresIn: jwt.decode(access_token).exp };
 };
 
 const verifyToken = async ({

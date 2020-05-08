@@ -27,7 +27,7 @@ const findUserById = async (id) => {
 const findUserByName = async ({ name }) => User.findOne({ name });
 
 const signUpSocial = async ({
-  userName, alias, provider, avatar, id, session,
+  userName, alias, provider, avatar, id, session, email,
 }) => {
   const user = new User({
     name: userName,
@@ -38,11 +38,11 @@ const signUpSocial = async ({
   });
   try {
     await user.save();
-    const accessToken = prepareToken({ user, session });
+    const access_token = prepareToken({ user, session });
     const { message } = userObjectCreate({
       userId: user.name,
       displayName: alias || '',
-      accessToken,
+      access_token,
     });
 
     if (message) {
@@ -63,7 +63,7 @@ const signInSocial = async ({ userId, session }) => {
 };
 
 const userObjectCreate = ({
-  userId, displayName, accessToken,
+  userId, displayName, access_token,
 }) => ({
   params: {
     id: 'waivio_guest_create',
@@ -71,13 +71,13 @@ const userObjectCreate = ({
       userId, displayName,
     },
   },
-  accessToken,
+  access_token,
 });
 
 const prepareToken = ({ user, session }) => {
-  const accessToken = jwt.sign({ name: user.name, id: user._id, sid: session.sid }, session.secretToken, { expiresIn: config.session_expiration });
+  const access_token = jwt.sign({ name: user.name, id: user._id, sid: session.sid }, session.secretToken, { expiresIn: config.session_expiration });
 
-  return crypto.AES.encrypt(accessToken, process.env.CRYPTO_KEY || 'db5c57b3fc1c105e772a3784df6b798c').toString();
+  return crypto.AES.encrypt(access_token, process.env.CRYPTO_KEY || 'db5c57b3fc1c105e772a3784df6b798c').toString();
 };
 
 module.exports = {
