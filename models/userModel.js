@@ -24,14 +24,15 @@ const findUserById = async (id) => {
   }
 };
 
-const findUserByName = async ({ name }) => User.findOne({ name });
+const findUserByEmail = async ({ email }) => User.findOne({ email });
 
 const signUpSocial = async ({
-  userName, alias, provider, avatar, id, session, email,
+  alias, provider, avatar, id, session, email,
 }) => {
   const user = new User({
-    name: userName,
+    email,
     alias,
+    avatar,
     'auth.sessions': [session],
     'auth.provider': provider,
     'auth.id': id,
@@ -40,7 +41,7 @@ const signUpSocial = async ({
     await user.save();
     const access_token = prepareToken({ user, session });
     const { message } = userObjectCreate({
-      userId: user.name,
+      userId: user.email,
       displayName: alias || '',
       access_token,
     });
@@ -83,7 +84,7 @@ const prepareToken = ({ user, session }) => {
 module.exports = {
   signUpSocial,
   signInSocial,
-  findUserByName,
+  findUserByEmail,
   findUserBySocial,
   destroyLastSession,
   destroySession,

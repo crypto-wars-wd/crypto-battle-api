@@ -12,13 +12,12 @@ const UserAuthSchema = new Schema({
 }, { _id: false });
 
 const UserSchema = new Schema({
-  name: {
+  email: {
     type: String, index: true, unique: true, required: true,
   },
   level: { type: Number, default: 1 },
   health: { type: Number, default: 100 },
   alias: { type: String },
-  email: { type: String },
   avatar: { type: String },
   objectsFollow: { type: [String], default: [] }, // arr of author_permlink of objects what user following
   usersFollow: { type: [String], default: [] }, // arr of users which user follow

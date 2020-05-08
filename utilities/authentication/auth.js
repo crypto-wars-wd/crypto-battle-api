@@ -2,22 +2,22 @@ const {
   signUpSocial,
   signInSocial,
   findUserBySocial,
-  findUserByName,
+  findUserByEmail,
 } = require('models/userModel');
 const { generateSession } = require('./sessions');
 
 exports.socialAuth = async ({
-  userName, alias, provider, avatar, id, postLocales, email,
+  alias, provider, avatar, id, postLocales, email,
 }) => {
   const userBySocial = await findUserBySocial({ id, provider });
   const session = generateSession();
 
-  if (!userBySocial && userName) {
-    const userByName = await findUserByName({ name: userName });
+  if (!userBySocial && email) {
+    const userByEmail = await findUserByEmail({ email });
 
-    if (userByName) return { message: 'User exist' };
+    if (userByEmail) return { message: 'User exist' };
     const { user, session: existSession, message } = await signUpSocial({
-      userName, alias, avatar, provider, id, session, postLocales, email,
+      alias, avatar, provider, id, session, postLocales, email,
     });
     return { message };
   }
