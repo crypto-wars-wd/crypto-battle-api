@@ -12,9 +12,6 @@ const UserAuthSchema = new Schema({
 }, { _id: false });
 
 const UserSchema = new Schema({
-  email: {
-    type: String, index: true, unique: true, required: true,
-  },
   level: { type: Number, default: 1 },
   health: { type: Number, default: 100 },
   alias: { type: String },
@@ -22,6 +19,8 @@ const UserSchema = new Schema({
   auth: { type: UserAuthSchema },
 }, { timestamps: true });
 
-const UserModel = mongoose.model('User', UserSchema, 'User');
+UserAuthSchema.index({ provider: 1, id: 1 }, { unique: true });
+
+const UserModel = mongoose.model('User', UserSchema, 'users');
 
 module.exports = UserModel;

@@ -8,7 +8,7 @@ exports.socialStrategy = async (req, res, next) => {
   const userFields = await pickFields({
     provider, req, res, next,
   });
-  return Auth.socialAuth(Object.assign(userFields));
+  return Auth.socialAuth(userFields);
 };
 
 const pickFields = ({
