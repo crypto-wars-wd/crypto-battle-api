@@ -5,7 +5,7 @@ const config = require('config');
 const { User } = require('database').models;
 
 const destroyLastSession = async ({ user }) => {
-  if (_.get(user, 'auth.sessions', false) && user.auth.sessions.length > config.limit_sessions) {
+  if (_.get(user, 'auth.sessions', false) && user.auth.sessions.length > config.limitSessions) {
     await User.updateOne({ _id: user._id }, { $pull: { 'auth.sessions': { _id: user.auth.sessions[0]._id } } });
   }
 };
