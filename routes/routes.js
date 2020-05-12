@@ -2,6 +2,7 @@ const { Router } = require('express');
 const {
   AuthController,
 } = require('controllers');
+const { validateAuthToken } = require('utilities/authentication').validateAuthToken;
 
 const apiRoutes = new Router();
 const authRoutes = new Router();
@@ -15,6 +16,6 @@ authRoutes.route('/has-social-account')
 authRoutes.route('/auth/:provider')
   .post(AuthController.socialSignIn);
 authRoutes.route('/validate-auth-token')
-  .post(AuthController.validateAuthToken);
+  .post(validateAuthToken, AuthController.validateAuthToken);
 
 module.exports = apiRoutes;

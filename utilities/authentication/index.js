@@ -1,5 +1,5 @@
 module.exports = {
-  ValidataAuthToken: require('./validateAuthToken'),
+  validateAuthToken: require('./validateAuthToken'),
   TokenSalt: require('./tokenSalt'),
   Passport: require('./passport'),
   Sessions: require('./sessions'),
