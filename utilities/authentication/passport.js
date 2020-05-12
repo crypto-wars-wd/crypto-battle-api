@@ -2,8 +2,8 @@ const FacebookStrategy = require('passport-facebook-token');
 const GoogleStrategy = require('passport-google-token').Strategy;
 
 module.exports = async (passport) => {
-  const facebookCredentials = { clientID: '', clientSecret: '' };
-  const googleCredentials = { clientID: '', clientSecret: '' };
+  const facebookCredentials = { clientID: process.env.FACEBOOK_CLIENT_ID || '', clientSecret: process.env.FACEBOOK_CLIENT_SECRET || '' };
+  const googleCredentials = { clientID: process.env.GOOGLE_CLIENT_ID || '', clientSecret: process.env.GOOGLE_CLIENT_SECRET };
 
   passport.use('facebook', new FacebookStrategy(facebookCredentials, getSocialFields));
   passport.use('google', new GoogleStrategy(googleCredentials, getSocialFields));

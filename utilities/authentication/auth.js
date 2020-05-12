@@ -18,5 +18,5 @@ exports.socialAuth = async ({
     return { message };
   }
   if (!userBySocial) return { message: 'Invalid data fields' };
-  return await signInSocial({ id, userId: userBySocial._id, session });
+  return signInSocial({ id, userId: userBySocial._id, session });
 };

@@ -14,6 +14,8 @@ const destroySession = async ({ userId, session }) => {
   await User.updateOne({ _id: userId }, { $pull: { 'auth.sessions': { _id: session._id } } });
 };
 
+const updateSession = (doc, newSession) => User.updateOne({ _id: doc._id }, { $push: { 'auth.sessions': newSession } });
+
 const findUserBySocial = async ({ id, provider }) => User.findOne({ 'auth.provider': provider, 'auth.id': id }).lean();
 
 const findUserById = async (id) => {
@@ -86,4 +88,5 @@ module.exports = {
   destroyLastSession,
   destroySession,
   findUserById,
+  updateSession,
 };

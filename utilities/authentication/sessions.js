@@ -4,9 +4,8 @@ const { ObjectID } = require('bson');
 const crypto = require('crypto-js');
 const { uuid } = require('uuidv4');
 const config = require('config');
-const { User } = require('database').models;
 const moment = require('moment');
-const { destroySession } = require('models/userModel');
+const { destroySession, updateSession } = require('models/userModel');
 const { encodeToken, decodeToken } = require('./tokenSalt');
 
 const generateSession = () => ({
@@ -47,7 +46,7 @@ const refreshSession = async ({ req, doc, oldSession }) => {
   const newSession = generateSession();
 
   await destroySession({ userId: doc._id, session: oldSession });
-  await User.updateOne({ _id: doc._id }, { $push: { 'auth.sessions': newSession } });
+  await updateSession(doc, newSession);
   setAuthSession({ req, user: doc, session: newSession });
 };
 
@@ -57,7 +56,6 @@ const tokenSign = (self, tokenHash) => {
     tokenHash.secretToken,
     { expiresIn: config.session_expiration },
   );
-
   return { access_token, expiresIn: jwt.decode(access_token).exp };
 };
 
