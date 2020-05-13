@@ -14,6 +14,9 @@ const UserAuthSchema = new Schema({
 const UserSchema = new Schema({
   level: { type: Number, default: 1 },
   health: { type: Number, default: 100 },
+  numberOfVictories: { type: Number, default: 0 },
+  numberOfLosses: { type: Number, default: 0 },
+  numberOfFights: { type: Number, default: 0 },
   alias: { type: String },
   avatar: { type: String },
   auth: { type: UserAuthSchema },
