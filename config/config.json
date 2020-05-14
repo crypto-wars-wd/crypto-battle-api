@@ -1,0 +1,31 @@
+{
+  "production" : {
+    "db": {
+      "host": "localhost",
+      "port": 27017,
+      "database": "crypto-battle"
+    },
+    "limitSessions": 5,
+    "sessionExpiration": "10m"
+  },
+
+  "development": {
+    "db": {
+      "host": "localhost",
+      "port": 27017,
+      "database": "crypto-battle"
+    },
+    "limitSessions": 5,
+    "sessionExpiration": "1000"
+  },
+
+  "test": {
+    "db": {
+      "host": "localhost",
+      "port": 27017,
+      "database": "crypto-battletest"
+    },
+    "limitSessions": 5,
+    "sessionExpiration": "2000"
+  }
+}
