@@ -1,0 +1,164 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API for Crypto Battle",
+    "version": "1.0.0",
+    "title": "Crypto Battle API",
+    "contact": {
+      "email": "borysan@wizardsdev.com"
+    }
+  },
+  "paths": {
+    "/api/auth/facebook": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "body",
+            "description": "facebook access_token",
+            "schema": {
+              "example": {
+                "access_token": "ya29.a0AfH6SMBfUydczmMP6cMR-41_a0I_A9-xLEblIjJQffRhU7hJnIoHJtjAQ1r_ueCdwPpsNGKqwlpnZVE4ECiqlYidPAFXstlZqjyRCGCRUzik4QkLfstU3Ps-lMIW0lbKBJZRdB3HTSV4EmdQHH5aG6S1sffxVZ-W3zeS"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User data with auth headers",
+            "examples": {
+              "data": {
+                "user": "user data"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/auth/google": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "body",
+            "description": "google access_token",
+            "schema": {
+              "example": {
+                "access_token": "ya29.a0AfH6SMBfUydczmMP6cMR-41_a0I_A9-xLEblIjJQffRhU7hJnIoHJtjAQ1r_ueCdwPpsNGKqwlpnZVE4ECiqlYidPAFXstlZqjyRCGCRUzik4QkLfstU3Ps-lMIW0lbKBJZRdB3HTSV4EmdQHH5aG6S1sffxVZ-W3zeS"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User data with auth headers",
+            "examples": {
+              "data": {
+                "user": "user data"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/validate-auth-token": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "Send access-token in headers. If token expired and valid, a new access token will respond. Auth headers are: 'access-token, expires-in, waivio-auth",
+        "parameters": [
+          {
+            "name": "access-token",
+            "in": "header",
+            "description": "user access token from response headers /auth/google or facebook ",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User data with auth headers",
+            "examples": {
+              "data": {
+                "user": "user data"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/create-battle": {
+      "post": {
+        "tags": [
+          "Battle"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "Send access-token in headers. If token expired and valid, a new access token will respond. Auth headers are: 'access-token, expires-in, waivio-auth",
+        "parameters": [
+          {
+            "name": "access-token",
+            "in": "header",
+            "description": "user access token from response headers /auth/google or facebook ",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "create battle body",
+            "in": "body",
+            "description": "googleaccess_token",
+            "schema": {
+              "example": {
+                "cryptoName": "BTC",
+                "playerId": "5ebd249c58f9b51db9a2b1f4",
+                "healthPoints": "220"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Battle data ",
+            "examples": {
+              "data": {
+                "user": "battle data"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  }
+}
