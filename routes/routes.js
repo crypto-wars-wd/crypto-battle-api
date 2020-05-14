@@ -21,6 +21,6 @@ authRoutes.route('/validate-auth-token')
 
 // battle routes
 authRoutes.route('/create-battle')
-  .post(battleController.createBattle);
+  .post(battleController.createBattle); // validateAuthToken.validateAuthToken,
 
 module.exports = apiRoutes;
