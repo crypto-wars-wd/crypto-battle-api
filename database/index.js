@@ -17,5 +17,6 @@ module.exports = {
   Mongoose: mongoose,
   models: {
     User: require('./schemas/UserSchema'),
+    Battle: require('./schemas/BattleSchema'),
   },
 };
