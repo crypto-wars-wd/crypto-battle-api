@@ -12,7 +12,7 @@ const BattleSchema = new Schema({
   warriors: { type: Array },
   playersInfo: { type: playersInfoSchema },
   steps: { type: Array },
-  gameStatus: { type: String },
+  gameStatus: { type: String, default: 'waiting' },
   winner: { type: Array },
   loser: { type: Array },
 }, { timestamps: true });
