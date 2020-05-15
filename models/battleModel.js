@@ -4,9 +4,8 @@ const createNewBattle = async ({
   cryptoName, playerId, healthPoints,
 }) => {
   const battle = new Battle({
-    warriors: [cryptoName],
-    'playersInfo.cryptoNames': [cryptoName],
-    'playersInfo.playersId': [playerId],
+    'playersInfo.firstPlayer.cryptoName': cryptoName,
+    'playersInfo.firstPlayer.playerID': playerId,
     'playersInfo.healthPoints': healthPoints,
   });
   try {
