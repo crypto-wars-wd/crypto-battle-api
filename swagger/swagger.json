@@ -8,7 +8,7 @@
       "email": "borysan@wizardsdev.com"
     }
   },
-  "host" : "localhost:3001",
+  "host": "localhost:3001",
   "paths": {
     "/api/auth/facebook": {
       "post": {
@@ -123,19 +123,12 @@
         "produces": [
           "application/json"
         ],
-        "description": "Send access-token in headers. If token expired and valid, a new access token will respond. Auth headers are: 'access-token, expires-in, waivio-auth",
+        "description": "This root for creating new battle from socket server. All properties are required",
         "parameters": [
-          {
-            "name": "access-token",
-            "in": "header",
-            "description": "user access token from response headers /auth/google or facebook ",
-            "type": "string",
-            "required": true
-          },
           {
             "name": "create battle body",
             "in": "body",
-            "description": "googleaccess_token",
+            "description": "all props are required",
             "schema": {
               "example": {
                 "cryptoName": "BTC",
@@ -149,14 +142,54 @@
         "responses": {
           "200": {
             "description": "Battle data ",
-            "examples": {
-              "data": {
-                "user": "battle data"
+            "schema": {
+              "example": {
+                "battle": {
+                  "playersInfo": {
+                    "firstPlayer": {
+                      "cryptoName": "BTC",
+                      "playerID": "5ebd249c58f9b51db9a2b1f4"
+                    },
+                    "healthPoints": 220
+                  },
+                  "steps": [],
+                  "gameStatus": "WAITING",
+                  "_id": "5ebeafff74f7224ef0ef8427",
+                  "createdAt": "2020-05-15T15:06:39.403Z",
+                  "updatedAt": "2020-05-15T15:06:39.403Z",
+                  "__v": 0
+                }
               }
             }
           },
-          "401": {
-            "description": "Unauthorized"
+          "422": {
+            "description": "Wrong data",
+            "schema": {
+              "example": {
+                "success": false,
+                "error": {
+                  "_original": {
+                    "cryptoName": "BTC",
+                    "playerID": "5ebd48d7d674a036484060ba",
+                    "healthPoints": ""
+                  },
+                  "details": [
+                    {
+                      "message": "\"healthPoints\" must be a number",
+                      "path": [
+                        "healthPoints"
+                      ],
+                      "type": "number.base",
+                      "context": {
+                        "label": "healthPoints",
+                        "value": "",
+                        "key": "healthPoints"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
         }
       }
