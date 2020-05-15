@@ -1,11 +1,11 @@
 const { faker, models } = require('test/testHelper');
 
 const createNewBattle = async ({
-  cryptoName, playerId, healthPoints,
+  cryptoName, playerID, healthPoints,
 } = {}) => {
   const battleData = {
     'playersInfo.firstPlayer.cryptoName': cryptoName || `${faker.name.firstName()}`,
-    'playersInfo.firstPlayer.playerID': playerId || `${faker.name.firstName()}${faker.random.number()}`,
+    'playersInfo.firstPlayer.playerID': playerID || `${faker.name.firstName()}${faker.random.number()}`,
     'playersInfo.healthPoints': healthPoints || `${faker.random.number()}`,
   };
 

@@ -19,11 +19,11 @@ const BattleSchema = new Schema({
   steps: { type: Array },
   gameStatus: { type: String, default: 'WAITING' },
   winner: {
-    playerId: { type: String },
+    playerID: { type: String },
     cryptoName: { type: String },
   },
   looser: {
-    playerId: { type: String },
+    playerID: { type: String },
     cryptoName: { type: String },
   },
 }, { timestamps: true });

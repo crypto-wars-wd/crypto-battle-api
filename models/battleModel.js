@@ -1,11 +1,11 @@
 const { Battle } = require('database').models;
 
 const createNewBattle = async ({
-  cryptoName, playerId, healthPoints,
+  cryptoName, playerID, healthPoints,
 }) => {
   const battle = new Battle({
     'playersInfo.firstPlayer.cryptoName': cryptoName,
-    'playersInfo.firstPlayer.playerID': playerId,
+    'playersInfo.firstPlayer.playerID': playerID,
     'playersInfo.healthPoints': healthPoints,
   });
   try {

@@ -8,7 +8,7 @@ describe('battleController', async () => {
     beforeEach(async () => {
       data = {
         cryptoName: `${faker.name.firstName()}`,
-        playerId: `${faker.name.firstName()}${faker.random.number()}`,
+        playerID: `${faker.name.firstName()}${faker.random.number()}`,
         healthPoints: faker.random.number(),
       };
       result = await chai.request(app)
@@ -24,8 +24,8 @@ describe('battleController', async () => {
     it('should return correct cryptoName in body', async () => {
       expect(result.body.battle.playersInfo.firstPlayer.cryptoName).to.be.eq(data.cryptoName);
     });
-    it('should return correct playerId in body', async () => {
-      expect(result.body.battle.playersInfo.firstPlayer.playerID).to.be.eq(data.playerId);
+    it('should return correct playerID in body', async () => {
+      expect(result.body.battle.playersInfo.firstPlayer.playerID).to.be.eq(data.playerID);
     });
     it('should return correct healthPoints in body', async () => {
       expect(result.body.battle.playersInfo.healthPoints).to.be.eq(data.healthPoints);
@@ -36,7 +36,7 @@ describe('battleController', async () => {
     beforeEach(async () => {
       data = {
         cryptoName: `${faker.name.firstName()}`,
-        playerId: `${faker.name.firstName()}${faker.random.number()}`,
+        playerID: `${faker.name.firstName()}${faker.random.number()}`,
       };
       result = await chai.request(app)
         .post('/api/create-battle')

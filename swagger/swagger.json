@@ -139,7 +139,7 @@
             "schema": {
               "example": {
                 "cryptoName": "BTC",
-                "playerId": "5ebd249c58f9b51db9a2b1f4",
+                "playerID": "5ebd249c58f9b51db9a2b1f4",
                 "healthPoints": "220"
               }
             },
