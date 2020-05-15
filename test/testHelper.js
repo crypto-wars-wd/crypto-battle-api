@@ -7,15 +7,14 @@ const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 chai.use(chaiHttp);
 chai.use(sinonChai);
-const { expect } = chai;
-const { Mongoose } = require('database');
+const { expect, assert } = chai;
+const { Mongoose, models } = require('database');
 const {
   userModel,
   battleModel,
 } = require('models');
 
 const dropDatabase = async () => {
-  const { models } = require('database');
   for (const model in models) {
     await models[model].deleteMany();
   }
@@ -28,8 +27,10 @@ module.exports = {
   userModel,
   battleModel,
   Mongoose,
+  models,
   faker,
   chai,
   expect,
+  assert,
   dropDatabase,
 };

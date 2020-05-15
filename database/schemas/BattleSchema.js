@@ -5,8 +5,8 @@ const { Schema } = mongoose;
 const BattleSchema = new Schema({
   playersInfo: {
     firstPlayer: {
-      cryptoName: { type: String },
-      playerID: { type: String },
+      cryptoName: { type: String, required: true },
+      playerID: { type: String, required: true },
       extraLife: { type: Number },
     },
     secondPlayer: {
@@ -14,10 +14,10 @@ const BattleSchema = new Schema({
       playerID: { type: String },
       extraLife: { type: Number },
     },
-    healthPoints: { type: Number },
+    healthPoints: { type: Number, required: true },
   },
   steps: { type: Array },
-  gameStatus: { type: String, default: 'waiting' },
+  gameStatus: { type: String, default: 'WAITING' },
   winner: {
     playerId: { type: String },
     cryptoName: { type: String },
