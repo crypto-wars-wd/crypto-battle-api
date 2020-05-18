@@ -1,12 +1,11 @@
 const {
-  expect, dropDatabase, userModel, faker, User,
+  expect, userModel, faker, User,
 } = require('test/testHelper');
 
 const { UserFactory } = require('test/factories');
 
 describe('userModel', async () => {
   describe('updateUserInfo', async () => {
-    dropDatabase();
     let user, data, updUser, resultUpdate;
     beforeEach(async () => {
       user = await UserFactory.createUser();

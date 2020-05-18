@@ -14,7 +14,7 @@ const verifyAuthToken = async (req, res, next) => {
   session = sessions.findSession({ sessions: user && user.auth && user.auth.sessions, sid: payload.sid });
   if (session) {
     const { result } = sessions.confirmAuthToken({
-      req, user, session, decodedToken, secretToken: session.secretToken,
+      req, user, session, decodedToken,
     });
     if (!result) return render.unauthorized(res);
     return next();

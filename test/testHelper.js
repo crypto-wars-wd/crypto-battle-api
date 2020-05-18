@@ -2,6 +2,8 @@ const chai = require('chai');
 const faker = require('faker');
 const chaiHttp = require('chai-http');
 const sinonChai = require('sinon-chai');
+const { ObjectID } = require('bson');
+const rewire = require('rewire');
 const chaiAsPromised = require('chai-as-promised');
 
 chai.use(chaiAsPromised);
@@ -33,4 +35,6 @@ module.exports = {
   expect,
   assert,
   dropDatabase,
+  ObjectID,
+  rewire,
 };

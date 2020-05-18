@@ -77,10 +77,10 @@ const verifyToken = async ({
 };
 
 const confirmAuthToken = ({
-  req, user, session, decodedToken, secretToken,
+  req, user, session, decodedToken,
 }) => {
   try {
-    jwt.verify(decodedToken, secretToken);
+    jwt.verify(decodedToken, session.secretToken);
     setAuthSession({ req, user, session });
     return { result: true };
   } catch (error) {
