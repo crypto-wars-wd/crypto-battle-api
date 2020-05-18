@@ -16,6 +16,22 @@ const createNewBattle = async ({
   return { battle: battle.toObject() };
 };
 
+const connectBattle = async ({
+  cryptoName, playerID, battleID,
+}) => {
+  try {
+    return {
+      battle: await Battle.findOneAndUpdate({ _id: battleID }, {
+        'playersInfo.secondPlayer.cryptoName': cryptoName,
+        'playersInfo.secondPlayer.playerID': playerID,
+        gameStatus: 'START',
+      }, { new: true }).lean(),
+    };
+  } catch (err) {
+    return { message: err };
+  }
+};
+
 module.exports = {
-  createNewBattle,
+  createNewBattle, connectBattle,
 };

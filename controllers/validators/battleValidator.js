@@ -7,3 +7,9 @@ exports.createBattleShcema = Joi.object().keys({
   playerID: Joi.string().required(),
   healthPoints: Joi.number().required(),
 }).options(options);
+
+exports.connectBattleShcema = Joi.object().keys({
+  cryptoName: Joi.string().required(),
+  playerID: Joi.string().required(),
+  battleID: Joi.string().required(),
+}).options(options);
