@@ -1,4 +1,4 @@
-const { faker, models } = require('test/testHelper');
+const { faker, Battle } = require('test/testHelper');
 
 const createNewBattle = async ({
   cryptoName, playerID, healthPoints,
@@ -9,10 +9,11 @@ const createNewBattle = async ({
     'playersInfo.healthPoints': healthPoints || `${faker.random.number()}`,
   };
 
-  const battle = new models.Battle(battleData);
+  const battle = new Battle(battleData);
 
   await battle.save();
-  return battle;
+  battle.toObject();
+  return { battle };
 };
 
 module.exports = { createNewBattle };

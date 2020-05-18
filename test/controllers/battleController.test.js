@@ -1,5 +1,5 @@
 const {
-  expect, app, faker, chai,
+  expect, app, faker, chai, Battle,
 } = require('test/testHelper');
 
 describe('battleController', async () => {
@@ -14,6 +14,10 @@ describe('battleController', async () => {
       result = await chai.request(app)
         .post('/api/create-battle')
         .send(data);
+    });
+    it('should exist', async () => {
+      const battle = Battle.findOne({ 'playersInfo.firstPlayer.playerID': data.playerID });
+      expect(battle).to.exist;
     });
     it('should return status 200', async () => {
       expect(result).to.have.status(200);
