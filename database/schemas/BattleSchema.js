@@ -16,7 +16,7 @@ const BattleSchema = new Schema({
     },
     healthPoints: { type: Number, required: true },
   },
-  steps: { type: Array },
+  steps: { type: Array, default: [] },
   gameStatus: { type: String, default: 'WAITING' },
   winner: {
     playerID: { type: String },
