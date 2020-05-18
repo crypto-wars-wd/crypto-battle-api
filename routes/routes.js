@@ -24,5 +24,7 @@ authRoutes.route('/create-battle')
   .post(battleController.createBattle);
 authRoutes.route('/connect-battle')
   .post(battleController.connectBattle);
+authRoutes.route('/stats-battle')
+  .post(battleController.statsBattle);
 
 module.exports = apiRoutes;
