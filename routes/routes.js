@@ -22,9 +22,10 @@ authRoutes.route('/validate-auth-token')
 
 // battle routes
 authRoutes.route('/create-battle')
-  .post(validateAuthToken.validateAuthToken, battleController.createBattle);
-// user routes
+  .post(battleController.createBattle);
+
 authRoutes.route('/update-user-info')
   // .post(validateAuthToken.validateAuthToken, userController.updateUserInfo);
   .post(userController.updateUserInfo);
+// user routes
 module.exports = apiRoutes;
