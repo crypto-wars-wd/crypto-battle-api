@@ -21,14 +21,14 @@ const connectBattle = async (req, res) => {
 };
 
 const statsBattle = async (req, res) => {
-  const { params, validationError } = validators.validate(req.body, validators.battle.connectBattleShcema);
+  const { params, validationError } = validators.validate(req.body, validators.battle.statsBattleShcema);
 
   if (validationError) return render.error(res, validationError);
-  const result = await battleModel.connectBattle(params);
+  const result = await battleModel.updateStatsBattle(params);
 
   return render.success(res, result);
 };
 
 module.exports = {
-  createBattle, connectBattle, statsBattle
+  createBattle, connectBattle, statsBattle,
 };

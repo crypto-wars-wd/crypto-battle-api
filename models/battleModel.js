@@ -32,6 +32,18 @@ const connectBattle = async ({
   }
 };
 
+const updateStatsBattle = async ({
+  _id, playersInfo, ...rest
+}) => {
+  try {
+    return {
+      battle: await Battle.findOneAndUpdate({ _id, playersInfo }, rest, { new: true }).lean(),
+    };
+  } catch (err) {
+    return { message: err };
+  }
+};
+
 module.exports = {
-  createNewBattle, connectBattle,
+  createNewBattle, connectBattle, updateStatsBattle,
 };

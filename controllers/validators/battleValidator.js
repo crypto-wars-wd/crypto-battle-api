@@ -34,8 +34,9 @@ exports.statsBattleShcema = Joi.object().keys({
       status: Joi.string().required(),
       price: Joi.number().required().unsafe(),
       playerID: Joi.string().required(),
-      healthPoints: Joi.string().required(),
+      healthPoints: Joi.number().required(),
     })),
+    messages: Joi.string(),
   })),
   winner: Joi.when('gameStatus', {
     is: 'END',
