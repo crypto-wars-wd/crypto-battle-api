@@ -1,5 +1,5 @@
 const {
-  expect, app, faker, chai, userModel, User, dropDatabase, ObjectID, sinon,
+  expect, app, chai, dropDatabase, ObjectID,
 } = require('test/testHelper');
 const { UserFactory, TokenFactory } = require('test/factories');
 
