@@ -19,12 +19,14 @@ authRoutes.route('/auth/:provider')
 authRoutes.route('/validate-auth-token')
   .post(validateAuthToken.validateAuthToken, authController.validateAuthToken);
 
-// battle routes
-authRoutes.route('/create-battle')
+// battles routes
+authRoutes.route('/create-battles')
   .post(battleController.createBattle);
-authRoutes.route('/connect-battle')
+authRoutes.route('/connect-battles')
   .post(battleController.connectBattle);
-authRoutes.route('/stats-battle')
+authRoutes.route('/stats-battles')
   .post(battleController.statsBattle);
+authRoutes.route('/show-battles-by-state/:state')
+  .get(battleController.showBattlesByState);
 
 module.exports = apiRoutes;

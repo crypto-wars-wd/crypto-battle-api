@@ -53,3 +53,7 @@ exports.statsBattleShcema = Joi.object().keys({
     }),
   }),
 }).options(options);
+
+exports.showBattlesByState = Joi.object().keys({
+  state: Joi.string().valid('all', 'waiting', 'start', 'end').required(),
+}).options(options);

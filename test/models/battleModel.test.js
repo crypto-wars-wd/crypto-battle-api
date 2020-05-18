@@ -16,11 +16,11 @@ describe('battleModel', async () => {
         healthPoints: battleData['playersInfo.healthPoints'],
       };
     });
-    it('should save new battle to db', async () => {
+    it('should save new battles to db', async () => {
       const actual = await battleModel.createNewBattle(mockData);
       assert(!actual.isNew); // if actual is saved to db it is not new
     });
-    it('should find battle', async () => {
+    it('should find battles', async () => {
       await battleModel.createNewBattle(mockData);
       const battle = await models.Battle.findOne({ 'playersInfo.firstPlayer.playerID': mockData.playerID });
       expect(battle.playersInfo.firstPlayer.cryptoName).to.be.eq('BTC');

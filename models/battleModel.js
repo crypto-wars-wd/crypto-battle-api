@@ -44,6 +44,16 @@ const updateStatsBattle = async ({
   }
 };
 
+const getBattlesByState = async ({ gameStatus }) => {
+  try {
+    return {
+      battles: await Battle.find({ gameStatus }).lean(),
+    };
+  } catch (err) {
+    return { message: err };
+  }
+};
+
 module.exports = {
-  createNewBattle, connectBattle, updateStatsBattle,
+  createNewBattle, connectBattle, updateStatsBattle, getBattlesByState
 };

@@ -12,7 +12,7 @@ describe('battleController', async () => {
         healthPoints: faker.random.number(),
       };
       result = await chai.request(app)
-        .post('/api/create-battle')
+        .post('/api/create-battles')
         .send(data);
     });
     it('should exist', async () => {
@@ -43,7 +43,7 @@ describe('battleController', async () => {
         playerID: `${faker.name.firstName()}${faker.random.number()}`,
       };
       result = await chai.request(app)
-        .post('/api/create-battle')
+        .post('/api/create-battles')
         .send(data);
     });
     it('should return status 200', async () => {
