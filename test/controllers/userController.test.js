@@ -20,6 +20,22 @@ describe('userController', async () => {
       authToken = tokenData.authToken;
     });
 
+    it('should return success', async () => {
+      const result = await chai.request(app)
+        .post('/api/update-user-info')
+        .set({ 'access-token': authToken })
+        .send(payload);
+      expect(result).to.have.status(200);
+    });
+    it('should return result to be deep equal to payload', async () => {
+      let result = null;
+      ({ body: result } = await chai.request(app)
+        .post('/api/update-user-info')
+        .set({ 'access-token': authToken })
+        .send(payload));
+      expect({ alias: result.user.alias, avatar: result.user.avatar })
+        .to.be.deep.eq({ alias: payload.alias, avatar: payload.avatar });
+    });
     it('should return unauthorized without access token', async () => {
       const result = await chai.request(app)
         .post('/api/update-user-info')
@@ -27,13 +43,32 @@ describe('userController', async () => {
         .send(payload);
       expect(result).to.have.status(401);
     });
-    it('should return success', async () => {
+    it('should return error empty body', async () => {
+      const result = await chai.request(app)
+        .post('/api/update-user-info')
+        .set({ 'access-token': authToken });
+      expect(result).to.have.status(422);
+    });
+    it('should return error missing id', async () => {
       const result = await chai.request(app)
         .post('/api/update-user-info')
         .set({ 'access-token': authToken })
-        .send(payload);
-      console.log(result);
-      expect(result).to.have.status(200);
+        .send({ alias: payload.alias, avatar: payload.avatar });
+      expect(result).to.have.status(422);
+    });
+    it('should return error missing alias', async () => {
+      const result = await chai.request(app)
+        .post('/api/update-user-info')
+        .set({ 'access-token': authToken })
+        .send({ avatar: payload.avatar, id: payload.id });
+      expect(result).to.have.status(422);
+    });
+    it('should return error missing avatar', async () => {
+      const result = await chai.request(app)
+        .post('/api/update-user-info')
+        .set({ 'access-token': authToken })
+        .send({ alias: payload.alias, id: payload.id });
+      expect(result).to.have.status(422);
     });
   });
 });
