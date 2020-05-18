@@ -1,6 +1,4 @@
 const _ = require('lodash');
-const jwt = require('jsonwebtoken');
-const crypto = require('crypto-js');
 const config = require('config');
 const { User } = require('database').models;
 
@@ -18,7 +16,7 @@ const updateSession = (doc, newSession) => User.updateOne({ _id: doc._id }, { $p
 
 const updateUserInfo = async ({ id, alias, avatar }) => {
   try {
-    return await User.findOneAndUpdate({ _id: id }, { alias, avatar }, { new: true }).lean();
+    return { user: await User.findOneAndUpdate({ _id: id }, { alias, avatar }, { new: true }).lean() };
   } catch (error) {
     return { error };
   }
