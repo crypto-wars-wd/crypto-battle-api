@@ -19,9 +19,7 @@ describe('userController', async () => {
       await user.save();
       authToken = tokenData.authToken;
     });
-    afterEach(() => {
-      sinon.restore();
-    });
+
     it('should return unauthorized without access token', async () => {
       const result = await chai.request(app)
         .post('/api/update-user-info')
@@ -34,6 +32,7 @@ describe('userController', async () => {
         .post('/api/update-user-info')
         .set({ 'access-token': authToken })
         .send(payload);
+      console.log(result);
       expect(result).to.have.status(200);
     });
   });
