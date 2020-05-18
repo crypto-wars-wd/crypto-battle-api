@@ -51,7 +51,7 @@ const refreshSession = async ({ req, doc, oldSession }) => {
 
 const tokenSign = (self, tokenHash) => {
   const accessToken = jwt.sign(
-    { email: self.email, id: self._id, sid: tokenHash.sid },
+    { id: self._id, sid: tokenHash.sid },
     tokenHash.secretToken,
     { expiresIn: config.sessionExpiration },
   );
