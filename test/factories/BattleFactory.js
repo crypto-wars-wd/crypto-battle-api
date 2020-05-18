@@ -13,7 +13,7 @@ const createNewBattle = async ({
 
   await battle.save();
   battle.toObject();
-  return { battle };
+  return battle;
 };
 
 module.exports = { createNewBattle };
