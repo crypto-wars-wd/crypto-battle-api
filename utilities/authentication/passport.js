@@ -9,7 +9,6 @@ module.exports = async (passport) => {
   passport.use('facebook', new FacebookStrategy(facebookCredentials, getSocialFields));
 };
 
-// eslint-disable-next-line camelcase
 const getSocialFields = async (accessToken, refreshToken, profile, next) => {
   const { provider } = profile;
   const {

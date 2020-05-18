@@ -1,3 +1,4 @@
 module.exports = {
-  AuthController: require('./authenticationController'),
+  authController: require('./authenticationController'),
+  battleController: require('./battleController'),
 };

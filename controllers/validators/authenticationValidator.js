@@ -8,8 +8,6 @@ exports.hasSocialShcema = Joi.object().keys({
 }).options(options);
 
 exports.socialAuthShcema = Joi.object().keys({
-  userName: Joi.string(),
   avatar: Joi.string().pattern(new RegExp('^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&\'\\(\\)\\*\\+,;=.]+$')).allow('').default(''),
   alias: Joi.string().allow(''),
-  allowEmail: Joi.boolean().default(false),
 }).unknown(true);
