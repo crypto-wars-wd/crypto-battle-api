@@ -14,6 +14,8 @@ describe('battleModel', async () => {
         cryptoName: battleData['playersInfo.firstPlayer.cryptoName'],
         playerID: battleData['playersInfo.firstPlayer.playerID'],
         healthPoints: battleData['playersInfo.healthPoints'],
+        alias: battleData['playersInfo.firstPlayer.alias'],
+        avatar: battleData['playersInfo.firstPlayer.avatar'],
       };
     });
     it('should save new battles to db', async () => {

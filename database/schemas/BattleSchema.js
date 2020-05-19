@@ -7,11 +7,15 @@ const BattleSchema = new Schema({
     firstPlayer: {
       cryptoName: { type: String, required: true },
       playerID: { type: String, required: true },
+      alias: { type: String, required: true },
+      avatar: { type: String, required: true },
       extraLife: { type: Number },
     },
     secondPlayer: {
       cryptoName: { type: String },
       playerID: { type: String },
+      alias: { type: String },
+      avatar: { type: String },
       extraLife: { type: Number },
     },
     healthPoints: { type: Number, required: true },
