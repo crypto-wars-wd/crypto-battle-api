@@ -11,6 +11,15 @@ const createBattle = async (req, res) => {
   return render.success(res, result);
 };
 
+const getCryptoCurrencies = async (req, res) => {
+  const { params, validationError } = validators.validate(req.body, validators.battle.createBattleShcema);
+
+  if (validationError) return render.error(res, validationError);
+  const result = await battleModel.createNewBattle(params);
+
+  return render.success(res, result);
+};
 module.exports = {
   createBattle,
+  getCryptoCurrencies,
 };

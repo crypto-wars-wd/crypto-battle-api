@@ -7,8 +7,10 @@ const { validateAuthToken } = require('utilities/authentication');
 
 const apiRoutes = new Router();
 const authRoutes = new Router();
+const battleRoutes = new Router();
 
 apiRoutes.use('/api', authRoutes);
+apiRoutes.use('/api', battleRoutes);
 
 //  authRoutes
 authRoutes.route('/has-social-account')
@@ -20,7 +22,10 @@ authRoutes.route('/validate-auth-token')
   .post(validateAuthToken.validateAuthToken, authController.validateAuthToken);
 
 // battle routes
-authRoutes.route('/create-battle')
+battleRoutes.route('/create-battle')
   .post(battleController.createBattle);
+battleRoutes.route('/crypto-currencies')
+  .get(battleController.createBattle);
+
 
 module.exports = apiRoutes;
