@@ -9,10 +9,6 @@ chai.use(chaiHttp);
 chai.use(sinonChai);
 const { expect, assert } = chai;
 const { Mongoose, models } = require('database');
-const {
-  userModel,
-  battleModel,
-} = require('models');
 
 const dropDatabase = async () => {
   for (const model in models) {
@@ -23,9 +19,8 @@ const dropDatabase = async () => {
 module.exports = {
   app: require('app'),
   ...require('database').models,
+  ...require('models'),
   sinon: require('sinon'),
-  userModel,
-  battleModel,
   Mongoose,
   models,
   faker,
