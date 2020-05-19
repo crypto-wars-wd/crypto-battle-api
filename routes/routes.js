@@ -25,7 +25,7 @@ authRoutes.route('/validate-auth-token')
 battleRoutes.route('/create-battle')
   .post(battleController.createBattle);
 battleRoutes.route('/crypto-currencies')
-  .get(battleController.createBattle);
+  .get(battleController.getCryptoCurrencies);
 
 
 module.exports = apiRoutes;
