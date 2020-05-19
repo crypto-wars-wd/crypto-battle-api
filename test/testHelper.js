@@ -5,6 +5,7 @@ const sinonChai = require('sinon-chai');
 const { ObjectID } = require('bson');
 const rewire = require('rewire');
 const chaiAsPromised = require('chai-as-promised');
+const crypto = require('crypto-js');
 
 chai.use(chaiAsPromised);
 chai.use(chaiHttp);
@@ -37,4 +38,5 @@ module.exports = {
   dropDatabase,
   ObjectID,
   rewire,
+  crypto,
 };
