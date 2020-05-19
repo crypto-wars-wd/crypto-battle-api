@@ -43,7 +43,7 @@ const logout = async (req, res) => {
   if (validationError) return render.error(res, validationError);
 
   const { payload, error } = await sessions.getAuthData({ req });
-  if (error) return render.error(res, error);
+  if (error) return render.unauthorized(res, error);
 
   ({ user } = await userModel.findUserById(params.id));
   const session = sessions.findSession({ sessions: user && user.auth && user.auth.sessions, sid: payload.sid });
