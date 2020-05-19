@@ -13,6 +13,8 @@ exports.createBattleShcema = Joi.object().keys({
 exports.connectBattleShcema = Joi.object().keys({
   cryptoName: Joi.string().required(),
   playerID: Joi.string().required(),
+  alias: Joi.string().required(),
+  avatar: Joi.string().required(),
   battleID: Joi.string().required(),
 }).options(options);
 
@@ -22,10 +24,14 @@ exports.statsBattleShcema = Joi.object().keys({
     firstPlayer: Joi.object().keys({
       cryptoName: Joi.string().required(),
       playerID: Joi.string().required(),
+      alias: Joi.string().required(),
+      avatar: Joi.string().required(),
     }),
     secondPlayer: Joi.object().keys({
       cryptoName: Joi.string().required(),
       playerID: Joi.string().required(),
+      alias: Joi.string().required(),
+      avatar: Joi.string().required(),
     }),
     healthPoints: Joi.number().required(),
   }).required(),

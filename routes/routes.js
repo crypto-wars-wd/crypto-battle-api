@@ -20,11 +20,11 @@ authRoutes.route('/validate-auth-token')
   .post(validateAuthToken.validateAuthToken, authController.validateAuthToken);
 
 // battles routes
-authRoutes.route('/create-battles')
+authRoutes.route('/create-battle')
   .post(battleController.createBattle);
-authRoutes.route('/connect-battles')
+authRoutes.route('/connect-battle')
   .post(battleController.connectBattle);
-authRoutes.route('/stats-battles')
+authRoutes.route('/stats-battle')
   .post(battleController.statsBattle);
 authRoutes.route('/show-battles-by-state/:state')
   .get(battleController.showBattlesByState);
