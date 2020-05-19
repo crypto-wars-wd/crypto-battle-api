@@ -37,7 +37,7 @@ const hasSocialAccount = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  let user, session;
+  let user;
 
   const { params, validationError } = validators.validate(req.body, validators.authentication.logoutShcema);
   if (validationError) return render.error(res, validationError);
@@ -46,7 +46,7 @@ const logout = async (req, res) => {
   if (error) return render.error(res, error);
 
   ({ user } = await userModel.findUserById(params.id));
-  session = sessions.findSession({ sessions: user && user.auth && user.auth.sessions, sid: payload.sid });
+  const session = sessions.findSession({ sessions: user && user.auth && user.auth.sessions, sid: payload.sid });
   await userModel.destroySession({ userId: user._id, session });
   return render.success(res);
 };
