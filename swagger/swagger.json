@@ -172,6 +172,76 @@
         }
       }
     },
+    "/api/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for destroing user session",
+        "parameters": [
+          {
+            "name": "access-token",
+            "in": "header",
+            "description": "user access token from response headers /auth/google or facebook ",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "id is required",
+            "schema": {
+              "example": {
+                "id": "5ebd20828796b71a9c4e89a5"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session deleted  "
+          },
+          "422": {
+            "description": "Wrong data",
+            "schema": {
+              "example": {
+                "success": false,
+                "error": {
+                  "_original": {},
+                  "details": [
+                    {
+                      "message": "\"id\" is required",
+                      "path": [
+                        "id"
+                      ],
+                      "type": "any.required",
+                      "context": {
+                        "label": "id",
+                        "key": "id"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "Token not found"
+              }
+            }
+          }
+
+        }
+      }
+    },
     "/api/create-battle": {
       "post": {
         "tags": [

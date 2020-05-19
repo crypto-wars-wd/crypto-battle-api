@@ -5,6 +5,7 @@ const { userModel } = require('models');
 const render = require('concerns/render');
 const { strategies } = require('utilities/operations');
 const { setAuthHeaders } = require('utilities/authentication/sessions');
+const { sessions } = require('utilities/authentication');
 const validators = require('./validators');
 
 const socialSignIn = async (req, res, next) => {
@@ -35,8 +36,24 @@ const hasSocialAccount = async (req, res) => {
   return render.success(res, !!result);
 };
 
+const logout = async (req, res) => {
+  let user, session;
+
+  const { params, validationError } = validators.validate(req.body, validators.authentication.logoutShcema);
+  if (validationError) return render.error(res, validationError);
+
+  const { payload, error } = await sessions.getAuthData({ req });
+  if (error) return render.error(res, error);
+
+  ({ user } = await userModel.findUserById(params.id));
+  session = sessions.findSession({ sessions: user && user.auth && user.auth.sessions, sid: payload.sid });
+  await userModel.destroySession({ userId: user._id, session });
+  return render.success(res);
+};
+
 module.exports = {
   hasSocialAccount,
   socialSignIn,
   validateAuthToken,
+  logout,
 };

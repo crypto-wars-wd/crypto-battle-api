@@ -18,12 +18,13 @@ authRoutes.route('/auth/:provider')
   .post(authController.socialSignIn);
 authRoutes.route('/validate-auth-token')
   .post(validateAuthToken.validateAuthToken, authController.validateAuthToken);
+authRoutes.route('/logout')
+  .post(authController.logout);
 // battle routes
 authRoutes.route('/create-battle')
   .post(battleController.createBattle);
 // user routes
 authRoutes.route('/update-user-info')
   .post(validateAuthToken.verifyAuthToken, userController.updateUserInfo);
-
 
 module.exports = apiRoutes;
