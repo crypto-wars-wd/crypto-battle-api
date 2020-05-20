@@ -65,4 +65,26 @@ describe('userModel', async () => {
       expect(findUser.auth.sessions.length).to.be.eq(1);
     });
   });
+  describe('test findTopWarriors', async () => {
+    let warriors, auth;
+    beforeEach(async () => {
+      await dropDatabase();
+      for (let i = 0; i < 15; i++) {
+        auth = {
+          id: new ObjectID(),
+          provider: faker.name.firstName(),
+        };
+        await UserFactory.createUser({ numberOfVictories: faker.random.number(), auth });
+      }
+    });
+
+    it('warriors should be an array with length 10', async () => {
+      ({ warriors } = await userModel.findTopWarriors());
+      expect(warriors).to.be.an('array').to.have.length(10);
+    });
+    it('sort numberOfVictories must be from biggest number to lowest', async () => {
+      ({ warriors } = await userModel.findTopWarriors());
+      expect(warriors[0].numberOfVictories).to.be.above(warriors[9].numberOfVictories);
+    });
+  });
 });

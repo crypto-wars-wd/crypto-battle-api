@@ -59,9 +59,9 @@ const signInSocial = async ({ userId, session }) => {
 
 const findTopWarriors = async () => {
   try {
-    return { warriors: await User.find().sort().lean() };
+    return { warriors: await User.find().sort({ numberOfVictories: 'desc' }).limit(10).lean() };
   } catch (error) {
-    return { error };
+    return { message: error };
   }
 };
 

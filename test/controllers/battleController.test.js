@@ -68,4 +68,14 @@ describe('battleController', async () => {
       expect(result).to.have.status(200);
     });
   });
+  describe('getTopWarriors', async () => {
+    let result;
+    beforeEach(async () => {
+      result = await chai.request(app)
+        .get('/api/top-warriors');
+    });
+    it('should return status 200', async () => {
+      expect(result).to.have.status(200);
+    });
+  });
 });

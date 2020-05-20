@@ -13,18 +13,20 @@ const createBattle = async (req, res) => {
 };
 
 const getCryptoCurrencies = async (req, res) => {
-  const result = await cryptoModel.findAllCrypto();
+  const { crypto, message } = await cryptoModel.findAllCrypto();
+  if (message) return render.error(res, message);
 
-  return render.success(res, result);
+  return render.success(res, { crypto });
 };
 
 const getTopWarriors = async (req, res) => {
-  const result = await userModel.findTopWarriors();
+  const { warriors, message } = await userModel.findTopWarriors();
+  if (message) return render.error(res, message);
 
-  return render.success(res, result);
+  return render.success(res, { warriors });
 };
 module.exports = {
-  createBattle,
   getCryptoCurrencies,
   getTopWarriors,
+  createBattle,
 };

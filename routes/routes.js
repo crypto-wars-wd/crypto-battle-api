@@ -12,8 +12,8 @@ const userRoutes = new Router();
 const battleRoutes = new Router();
 
 apiRoutes.use('/api', authRoutes);
-apiRoutes.use('/api', battleRoutes);
 apiRoutes.use('/api', userRoutes);
+apiRoutes.use('/api', battleRoutes);
 
 //  authRoutes
 authRoutes.route('/has-social-account')
@@ -30,7 +30,7 @@ battleRoutes.route('/create-battle')
 battleRoutes.route('/crypto-currencies')
   .get(battleController.getCryptoCurrencies);
 battleRoutes.route('/top-warriors')
-  .get(battleController.getCryptoCurrencies);
+  .get(battleController.getTopWarriors);
 // user routes
 userRoutes.route('/update-user-info')
   .post(validateAuthToken.verifyAuthToken, userController.updateUserInfo);
