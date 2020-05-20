@@ -5,7 +5,7 @@ const validators = require('./validators');
 
 const createBattle = async (req, res) => {
   const { params, validationError } = validators
-    .validate(req.body, validators.battle.createBattleShcema);
+    .validate(req.body, validators.battle.createBattleSchema);
   if (validationError) return render.error(res, validationError);
   const battle = await creating.battleWithPlayer1(req, res, params);
 
@@ -20,7 +20,11 @@ const getCryptoCurrencies = async (req, res) => {
 };
 
 const getTopWarriors = async (req, res) => {
-  const { warriors, error } = await userModel.findTopWarriors();
+  const { params, validationError } = validators
+    .validate(req.query, validators.battle.topWarriorsSchema);
+  if (validationError) return render.error(res, validationError);
+
+  const { warriors, error } = await userModel.findTopWarriors(params);
   if (error) return render.error(res, error);
 
   return render.success(res, { warriors });

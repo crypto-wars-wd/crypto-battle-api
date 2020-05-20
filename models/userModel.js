@@ -16,7 +16,10 @@ const updateSession = (doc, newSession) => User.updateOne({ _id: doc._id }, { $p
 
 const updateUserInfo = async ({ id, alias, avatar }) => {
   try {
-    return { user: await User.findOneAndUpdate({ _id: id }, { alias, avatar }, { new: true }).lean() };
+    return {
+      user: await User.findOneAndUpdate({ _id: id }, { alias, avatar }, { new: true })
+        .lean(),
+    };
   } catch (error) {
     return { message: error };
   }
@@ -57,9 +60,12 @@ const signInSocial = async ({ userId, session }) => {
   return { user, session };
 };
 
-const findTopWarriors = async () => {
+const findTopWarriors = async ({ limit, skip }) => {
   try {
-    return { warriors: await User.find().sort({ numberOfVictories: 'desc' }).limit(10).lean() };
+    return {
+      warriors: await User.find().sort({ numberOfVictories: 'desc' }).skip(skip).limit(limit)
+        .lean(),
+    };
   } catch (error) {
     return { error };
   }
