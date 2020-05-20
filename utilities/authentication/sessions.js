@@ -51,7 +51,7 @@ const refreshSession = async ({ req, doc, oldSession }) => {
 
 const tokenSign = (self, tokenHash) => {
   const accessToken = jwt.sign(
-    { email: self.email, id: self._id, sid: tokenHash.sid },
+    { id: self._id, sid: tokenHash.sid },
     tokenHash.secretToken,
     { expiresIn: config.sessionExpiration },
   );
@@ -77,10 +77,10 @@ const verifyToken = async ({
 };
 
 const confirmAuthToken = ({
-  req, user, session, decodedToken, secretToken,
+  req, user, session, decodedToken,
 }) => {
   try {
-    jwt.verify(decodedToken, secretToken);
+    jwt.verify(decodedToken, session.secretToken);
     setAuthSession({ req, user, session });
     return { result: true };
   } catch (error) {

@@ -4,11 +4,12 @@ const validators = require('./validators');
 
 const createBattle = async (req, res) => {
   const { params, validationError } = validators.validate(req.body, validators.battle.createBattleShcema);
-
   if (validationError) return render.error(res, validationError);
-  const result = await battleModel.createNewBattle(params);
 
-  return render.success(res, result);
+  const { battle, message } = await battleModel.createNewBattle(params);
+  if (message) return render.error(res, message);
+
+  return render.success(res, { battle });
 };
 
 const getCryptoCurrencies = async (req, res) => {

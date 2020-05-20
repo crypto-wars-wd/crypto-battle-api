@@ -11,3 +11,7 @@ exports.socialAuthShcema = Joi.object().keys({
   avatar: Joi.string().pattern(new RegExp('^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&\'\\(\\)\\*\\+,;=.]+$')).allow('').default(''),
   alias: Joi.string().allow(''),
 }).unknown(true);
+
+exports.logoutShcema = Joi.object().keys({
+  id: Joi.string().required(),
+}).options(options);
