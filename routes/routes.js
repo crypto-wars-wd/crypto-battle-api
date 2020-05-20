@@ -2,24 +2,28 @@ const { Router } = require('express');
 const {
   authController,
   battleController,
+  userController,
 } = require('controllers');
 const { validateAuthToken } = require('utilities/authentication');
 
 const apiRoutes = new Router();
 const authRoutes = new Router();
+const userRoutes = new Router();
+const battleRoutes = new Router();
 
 apiRoutes.use('/api', authRoutes);
+apiRoutes.use('/api', userRoutes);
+apiRoutes.use('/api', battleRoutes);
 
 //  authRoutes
 authRoutes.route('/has-social-account')
   .get(authController.hasSocialAccount);
-
 authRoutes.route('/auth/:provider')
   .post(authController.socialSignIn);
 authRoutes.route('/validate-auth-token')
   .post(validateAuthToken.validateAuthToken, authController.validateAuthToken);
 
-// battles routes
+// battle routes
 authRoutes.route('/create-battle')
   .post(battleController.createBattle);
 authRoutes.route('/connect-battle')
