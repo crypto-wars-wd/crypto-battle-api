@@ -1,6 +1,6 @@
 const { battleModel, cryptoModel, userModel } = require('models');
 const render = require('concerns/render');
-const { getBattleByState, checkResultBattle } = require('utilities/operations').battles;
+const { getBattlesByState, checkResultBattle } = require('utilities/operations').battles;
 const validators = require('./validators');
 
 const createBattle = async (req, res) => {
@@ -55,7 +55,7 @@ const showBattlesByState = async (req, res) => {
   const { params, validationError } = validators.validate(req.query, validators.battle.showBattlesByState);
   if (validationError) return render.error(res, validationError);
 
-  const { battles, message } = await getBattleByState(params);
+  const { battles, message } = await getBattlesByState(params);
   if (message) return render.error(res, message);
 
   return render.success(res, { battles });
