@@ -1,15 +1,12 @@
 const { Battle } = require('database').models;
 
 const createNewBattle = async ({
-  cryptoName, playerID, healthPoints, alias, avatar,
+  cryptoName, playerID, healthPoints,
 }) => {
-  console.log( alias)
   const battle = new Battle({
-    'playersInfo.firstPlayer.cryptoName': cryptoName,
-    'playersInfo.firstPlayer.playerID': playerID,
-    'playersInfo.firstPlayer.avatar': avatar,
-    'playersInfo.firstPlayer.alias': alias,
-    'playersInfo.healthPoints': healthPoints,
+    'firstPlayer.cryptoName': cryptoName,
+    'firstPlayer.playerID': playerID,
+    healthPoints,
   });
   try {
     await battle.save();

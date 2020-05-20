@@ -22,7 +22,7 @@ const UserSchema = new Schema({
   auth: { type: UserAuthSchema },
 }, { timestamps: true });
 
-UserAuthSchema.index({ provider: 1, id: 1 }, { unique: true });
+// UserAuthSchema.index({ provider: 1, id: 1 }, { unique: true });
 
 const UserModel = mongoose.model('User', UserSchema, 'users');
 
