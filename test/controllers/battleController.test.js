@@ -58,4 +58,14 @@ describe('battleController', async () => {
       expect(result.body.success).to.be.eq(false);
     });
   });
+  describe('getCryptoCurrencies', async () => {
+    let result;
+    beforeEach(async () => {
+      result = await chai.request(app)
+        .get('/api/crypto-currencies');
+    });
+    it('should return status 200', async () => {
+      expect(result).to.have.status(200);
+    });
+  });
 });

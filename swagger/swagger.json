@@ -427,6 +427,60 @@
 
         }
       }
+    },
+    "/api/crypto-currencies": {
+      "get": {
+        "tags": [
+          "Battle"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for getting all crypto data",
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "Crypto data",
+            "schema": {
+              "example": {
+                "crypto": [
+                  {
+                    "_id": "5ec4df1238f4df297ba49ca5",
+                    "numberOfVictories": 0,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "cryptoName": "ETH",
+                    "createdAt": "2020-05-20T07:41:06.318Z",
+                    "updatedAt": "2020-05-20T07:41:06.318Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4df1238f4df297ba49ca6",
+                    "numberOfVictories": 0,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "cryptoName": "BTC",
+                    "createdAt": "2020-05-20T07:41:06.325Z",
+                    "updatedAt": "2020-05-20T07:41:06.325Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4df1238f4df297ba49ca7",
+                    "numberOfVictories": 0,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "cryptoName": "ICX",
+                    "createdAt": "2020-05-20T07:41:06.327Z",
+                    "updatedAt": "2020-05-20T07:41:06.327Z",
+                    "__v": 0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
