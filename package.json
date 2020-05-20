@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "NODE_PATH=. node ./bin/www",
     "start-dev": "NODE_PATH=. nodemon ./bin/www",
     "test": "NODE_PATH=. NODE_ENV=test nyc --reporter=html mocha"
   },
@@ -45,6 +45,7 @@
     "mocha": "^7.1.2",
     "nodemon": "^2.0.4",
     "nyc": "^15.0.1",
+    "rewire": "^5.0.0",
     "sinon": "^9.0.2",
     "sinon-chai": "^3.5.0"
   }

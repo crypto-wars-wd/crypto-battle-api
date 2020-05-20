@@ -25,7 +25,7 @@
             "description": "facebook access_token",
             "schema": {
               "example": {
-                "access_token": "ya29.a0AfH6SMBfUydczmMP6cMR-41_a0I_A9-xLEblIjJQffRhU7hJnIoHJtjAQ1r_ueCdwPpsNGKqwlpnZVE4ECiqlYidPAFXstlZqjyRCGCRUzik4QkLfstU3Ps-lMIW0lbKBJZRdB3HTSV4EmdQHH5aG6S1sffxVZ-W3zeS"
+                "access_token": "EAAoetDkh80gBAHhpsPTdDgayEUsCsoD1OZCMaQOSPoPpGgi4dG4h5gsKML4wdWEnPZATO1GkDCq97fH2UVI1xOCOXNYpSnKWXXfmRcAqdFV5lTH9Wf2aPcoAeJ0f7mnGXp8hhP4Bzxynp3iZARiJGbY8GZAF1Pg0VuzHQwwYAmhWNhgXmqCb1FhwZCVoRlWOJMt2IqahcXQZDZD"
               }
             },
             "required": true
@@ -34,14 +34,33 @@
         "responses": {
           "200": {
             "description": "User data with auth headers",
-            "examples": {
-              "data": {
-                "user": "user data"
+            "schema": {
+              "example": {
+                "user": {
+                  "provider": "facebook",
+                  "level": 1,
+                  "health": 100,
+                  "numberOfVictories": 0,
+                  "numberOfLosses": 0,
+                  "numberOfFights": 0,
+                  "_id": "5ec2508a2814e541c9f682f6",
+                  "alias": "Борис Андржиевский",
+                  "avatar": "https://graph.facebook.com/v2.6/3082485935144934/picture?type=large",
+                  "createdAt": "2020-05-18T09:08:26.181Z",
+                  "updatedAt": "2020-05-18T09:08:26.181Z",
+                  "__v": 0
+                }
               }
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "Token not found"
+              }
+            }
           }
         }
       }
@@ -70,14 +89,33 @@
         "responses": {
           "200": {
             "description": "User data with auth headers",
-            "examples": {
-              "data": {
-                "user": "user data"
+            "schema": {
+              "example": {
+                "user": {
+                  "provider": "google",
+                  "level": 1,
+                  "health": 100,
+                  "numberOfVictories": 0,
+                  "numberOfLosses": 0,
+                  "numberOfFights": 0,
+                  "_id": "5ec251882814e541c9f682f8",
+                  "alias": "Борис Андржиевский",
+                  "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo.jpg",
+                  "createdAt": "2020-05-18T09:12:40.383Z",
+                  "updatedAt": "2020-05-18T09:12:40.383Z",
+                  "__v": 0
+                }
               }
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "Token not found"
+              }
+            }
           }
         }
       }
@@ -90,7 +128,7 @@
         "produces": [
           "application/json"
         ],
-        "description": "Send access-token in headers. If token expired and valid, a new access token will respond. Auth headers are: 'access-token, expires-in, waivio-auth",
+        "description": "Send access-token in headers. If token expired and valid, a new access token will respond. Auth headers are: access-token",
         "parameters": [
           {
             "name": "access-token",
@@ -103,14 +141,102 @@
         "responses": {
           "200": {
             "description": "User data with auth headers",
-            "examples": {
-              "data": {
-                "user": "user data"
+            "schema": {
+              "example": {
+                "user": {
+                  "provider": "google",
+                  "_id": "5ec251882814e541c9f682f8",
+                  "level": 1,
+                  "health": 100,
+                  "numberOfVictories": 0,
+                  "numberOfLosses": 0,
+                  "numberOfFights": 0,
+                  "alias": "Борис Андржиевский",
+                  "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo.jpg",
+                  "createdAt": "2020-05-18T09:12:40.383Z",
+                  "updatedAt": "2020-05-18T09:12:40.383Z",
+                  "__v": 0
+                }
               }
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "Token not found"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for destroing user session",
+        "parameters": [
+          {
+            "name": "access-token",
+            "in": "header",
+            "description": "user access token from response headers /auth/google or facebook ",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "id is required",
+            "schema": {
+              "example": {
+                "id": "5ebd20828796b71a9c4e89a5"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session deleted  "
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "Token not found"
+              }
+            }
+          },
+          "422": {
+            "description": "Wrong data",
+            "schema": {
+              "example": {
+                "success": false,
+                "error": {
+                  "_original": {},
+                  "details": [
+                    {
+                      "message": "\"id\" is required",
+                      "path": [
+                        "id"
+                      ],
+                      "type": "any.required",
+                      "context": {
+                        "label": "id",
+                        "key": "id"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
         }
       }
@@ -192,6 +318,364 @@
                     }
                   ]
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/update-user-info": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for updating alias and avatar",
+        "parameters": [
+          {
+            "name": "access-token",
+            "in": "header",
+            "description": "user access token from response headers /auth/google or facebook ",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "all props are required",
+            "schema": {
+              "example": {
+                "id": "5ebd20828796b71a9c4e89a5",
+                "alias": "Batman",
+                "avatar": "https://www.google.com/search?q=pictures&client=ubuntu&hs=0Nz&tbm=isch&source=iu&ictx=1&fir=w2DfUiGh9nbK5M%253A%252CgnBbb_yW79vLUM%252C_&vet=1&usg=AI4_-kQ-aUSr1t2oTUO2LLYPOb5bsCn-jw&sa=X&ved=2ahUKEwjR172Ngr3pAhWyyqYKHRZUCT0Q9QEwBXoECAgQOg#imgrc=w2DfUiGh9nbK5M:"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated data ",
+            "schema": {
+              "example": {
+                "user": {
+                  "_id": "5ebd20828796b71a9c4e89a5",
+                  "level": 1,
+                  "health": 100,
+                  "numberOfVictories": 0,
+                  "numberOfLosses": 0,
+                  "numberOfFights": 0,
+                  "alias": "Batman",
+                  "avatar": "https://www.google.com/search?q=pictures&client=ubuntu&hs=0Nz&tbm=isch&source=iu&ictx=1&fir=w2DfUiGh9nbK5M%253A%252CgnBbb_yW79vLUM%252C_&vet=1&usg=AI4_-kQ-aUSr1t2oTUO2LLYPOb5bsCn-jw&sa=X&ved=2ahUKEwjR172Ngr3pAhWyyqYKHRZUCT0Q9QEwBXoECAgQOg#imgrc=w2DfUiGh9nbK5M:",
+                  "auth": {
+                    "sessions": [
+                      {
+                        "_id": "5ebd20c88796b71a9c4e89a7",
+                        "sid": "5ebd20c8601d0d480941d004",
+                        "secretToken": "d2c88d9960d7dfbc423fc37b1b8a1c22200d6830212ce8899c38d29e8db0e934c8fb56a18f32fdb2bf1867c1df87b8b6c04025228c2fc4b15410b582adb75c0d"
+                      }
+                    ],
+                    "provider": "google",
+                    "id": "100171304431977375879"
+                  },
+                  "createdAt": "2020-05-14T10:42:10.028Z",
+                  "updatedAt": "2020-05-18T08:46:31.003Z",
+                  "__v": 0
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "Token not found"
+              }
+            }
+          },
+          "422": {
+            "description": "Wrong data",
+            "schema": {
+              "example": {
+                "success": false,
+                "error": {
+                  "_original": {
+                    "alias": "Batman",
+                    "avatar": "https://www.google.com/search?q=pictures&client=ubuntu&hs=0Nz&tbm=isch&source=iu&ictx=1&fir=w2DfUiGh9nbK5M%253A%252CgnBbb_yW79vLUM%252C_&vet=1&usg=AI4_-kQ-aUSr1t2oTUO2LLYPOb5bsCn-jw&sa=X&ved=2ahUKEwjR172Ngr3pAhWyyqYKHRZUCT0Q9QEwBXoECAgQOg#imgrc=w2DfUiGh9nbK5M:"
+                  },
+                  "details": [
+                    {
+                      "message": "\"id\" is required",
+                      "path": [
+                        "id"
+                      ],
+                      "type": "any.required",
+                      "context": {
+                        "label": "id",
+                        "key": "id"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/crypto-currencies": {
+      "get": {
+        "tags": [
+          "Battle"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for getting all crypto data",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Crypto data",
+            "schema": {
+              "example": {
+                "crypto": [
+                  {
+                    "_id": "5ec4df1238f4df297ba49ca5",
+                    "numberOfVictories": 0,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "cryptoName": "ETH",
+                    "createdAt": "2020-05-20T07:41:06.318Z",
+                    "updatedAt": "2020-05-20T07:41:06.318Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4df1238f4df297ba49ca6",
+                    "numberOfVictories": 0,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "cryptoName": "BTC",
+                    "createdAt": "2020-05-20T07:41:06.325Z",
+                    "updatedAt": "2020-05-20T07:41:06.325Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4df1238f4df297ba49ca7",
+                    "numberOfVictories": 0,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "cryptoName": "ICX",
+                    "createdAt": "2020-05-20T07:41:06.327Z",
+                    "updatedAt": "2020-05-20T07:41:06.327Z",
+                    "__v": 0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/top-warriors": {
+      "get": {
+        "tags": [
+          "Battle"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for getting top 10 warriors",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "top 10 warriors data",
+            "schema": {
+              "example": {
+                "warriors": [
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed2b",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 98340,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Alice",
+                    "avatar": "Ned62410",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd19",
+                      "provider": "Valentin",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.004Z",
+                    "updatedAt": "2020-05-20T09:47:30.004Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb10a6fac403cf5ed25",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 96580,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Timothy",
+                    "avatar": "Elwin86496",
+                    "auth": {
+                      "id": "5ec4fcb1418bc6a7f228fd13",
+                      "provider": "Dejon",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:29.984Z",
+                    "updatedAt": "2020-05-20T09:47:29.984Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed2d",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 72888,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Jarrell",
+                    "avatar": "Candido18213",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd1b",
+                      "provider": "Jaydon",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.007Z",
+                    "updatedAt": "2020-05-20T09:47:30.007Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed2e",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 68385,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Kyleigh",
+                    "avatar": "Isidro2909",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd1c",
+                      "provider": "Wilmer",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.009Z",
+                    "updatedAt": "2020-05-20T09:47:30.009Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed2f",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 64598,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Lexi",
+                    "avatar": "Laury53616",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd1d",
+                      "provider": "Jaeden",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.010Z",
+                    "updatedAt": "2020-05-20T09:47:30.010Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed2a",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 62765,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Dessie",
+                    "avatar": "Marcos90764",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd18",
+                      "provider": "Georgiana",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.002Z",
+                    "updatedAt": "2020-05-20T09:47:30.002Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed2c",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 56782,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Hortense",
+                    "avatar": "Hassie38085",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd1a",
+                      "provider": "Rodrigo",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.005Z",
+                    "updatedAt": "2020-05-20T09:47:30.005Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed32",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 42862,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Cassandra",
+                    "avatar": "Kadin65228",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd20",
+                      "provider": "Carroll",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.014Z",
+                    "updatedAt": "2020-05-20T09:47:30.014Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed31",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 38690,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Beverly",
+                    "avatar": "Americo61890",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd1f",
+                      "provider": "Elisha",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.013Z",
+                    "updatedAt": "2020-05-20T09:47:30.013Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb10a6fac403cf5ed27",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 35591,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Margarette",
+                    "avatar": "Sage68012",
+                    "auth": {
+                      "id": "5ec4fcb1418bc6a7f228fd15",
+                      "provider": "Dock",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:29.995Z",
+                    "updatedAt": "2020-05-20T09:47:29.995Z",
+                    "__v": 0
+                  }
+                ]
               }
             }
           }

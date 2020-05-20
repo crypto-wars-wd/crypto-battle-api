@@ -14,7 +14,7 @@ describe('battleController', async () => {
         avatar: `${faker.name.firstName()}${faker.random.number()}`,
       };
       result = await chai.request(app)
-        .post('/api/create-battles')
+        .post('/api/create-battle')
         .send(data);
     });
     it('should exist', async () => {
@@ -45,7 +45,7 @@ describe('battleController', async () => {
         playerID: `${faker.name.firstName()}${faker.random.number()}`,
       };
       result = await chai.request(app)
-        .post('/api/create-battles')
+        .post('/api/create-battle')
         .send(data);
     });
     it('should return status 200', async () => {
@@ -56,6 +56,26 @@ describe('battleController', async () => {
     });
     it('should return correct body success', async () => {
       expect(result.body.success).to.be.eq(false);
+    });
+  });
+  describe('getCryptoCurrencies', async () => {
+    let result;
+    beforeEach(async () => {
+      result = await chai.request(app)
+        .get('/api/crypto-currencies');
+    });
+    it('should return status 200', async () => {
+      expect(result).to.have.status(200);
+    });
+  });
+  describe('getTopWarriors', async () => {
+    let result;
+    beforeEach(async () => {
+      result = await chai.request(app)
+        .get('/api/top-warriors');
+    });
+    it('should return status 200', async () => {
+      expect(result).to.have.status(200);
     });
   });
 });

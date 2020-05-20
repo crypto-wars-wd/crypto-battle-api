@@ -1,6 +1,4 @@
 const _ = require('lodash');
-const jwt = require('jsonwebtoken');
-const crypto = require('crypto-js');
 const config = require('config');
 const { User } = require('database').models;
 
@@ -16,13 +14,21 @@ const destroySession = async ({ userId, session }) => {
 
 const updateSession = (doc, newSession) => User.updateOne({ _id: doc._id }, { $push: { 'auth.sessions': newSession } });
 
+const updateUserInfo = async ({ id, alias, avatar }) => {
+  try {
+    return { user: await User.findOneAndUpdate({ _id: id }, { alias, avatar }, { new: true }).lean() };
+  } catch (error) {
+    return { message: error };
+  }
+};
+
 const findUserBySocial = async ({ id, provider }) => User.findOne({ 'auth.provider': provider, 'auth.id': id }).lean();
 
 const findUserById = async (id) => {
   try {
     return { user: await User.findOne({ _id: id }).lean() };
   } catch (error) {
-    return { error };
+    return { message: error };
   }
 };
 
@@ -51,12 +57,22 @@ const signInSocial = async ({ userId, session }) => {
   return { user, session };
 };
 
+const findTopWarriors = async () => {
+  try {
+    return { warriors: await User.find().sort({ numberOfVictories: 'desc' }).limit(10).lean() };
+  } catch (error) {
+    return { message: error };
+  }
+};
+
 module.exports = {
+  destroyLastSession,
+  findUserBySocial,
+  findTopWarriors,
+  updateUserInfo,
+  destroySession,
+  updateSession,
   signUpSocial,
   signInSocial,
-  findUserBySocial,
-  destroyLastSession,
-  destroySession,
   findUserById,
-  updateSession,
 };
