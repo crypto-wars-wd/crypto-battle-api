@@ -27,8 +27,14 @@ const BattleSchema = new Schema({
 }, { toObject: { virtuals: true }, toJSON: { virtuals: true }, timestamps: true });
 
 BattleSchema.virtual('player1', {
-  ref: 'users',
+  ref: 'User',
   localField: 'firstPlayer.playerID',
+  foreignField: '_id',
+  justOne: true,
+});
+BattleSchema.virtual('player2', {
+  ref: 'User',
+  localField: 'secondPlayer.playerID',
   foreignField: '_id',
   justOne: true,
 });

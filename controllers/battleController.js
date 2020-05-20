@@ -1,13 +1,13 @@
-const { battleModel, cryptoModel, userModel } = require('models');
+const { cryptoModel, userModel } = require('models');
 const render = require('concerns/render');
+const { creating } = require('utilities/operations');
 const validators = require('./validators');
 
 const createBattle = async (req, res) => {
-  const { params, validationError } = validators.validate(req.body, validators.battle.createBattleShcema);
+  const { params, validationError } = validators
+    .validate(req.body, validators.battle.createBattleShcema);
   if (validationError) return render.error(res, validationError);
-
-  const { battle, message } = await battleModel.createNewBattle(params);
-  if (message) return render.error(res, message);
+  const battle = await creating.battleWithPlayer1(req, res, params);
 
   return render.success(res, { battle });
 };
