@@ -260,7 +260,9 @@
               "example": {
                 "cryptoName": "BTC",
                 "playerID": "5ebd249c58f9b51db9a2b1f4",
-                "healthPoints": "220"
+                "healthPoints": "220",
+                "avatar": "xcvbcxvbxcbv",
+                "alias": "Borik"
               }
             },
             "required": true
@@ -275,7 +277,9 @@
                   "playersInfo": {
                     "firstPlayer": {
                       "cryptoName": "BTC",
-                      "playerID": "5ebd249c58f9b51db9a2b1f4"
+                      "playerID": "5ebd249c58f9b51db9a2b1f4",
+                      "avatar": "xcvbcxvbxcbv",
+                      "alias": "Borik"
                     },
                     "healthPoints": 220
                   },

@@ -10,6 +10,8 @@ describe('battleController', async () => {
         cryptoName: `${faker.name.firstName()}`,
         playerID: `${faker.name.firstName()}${faker.random.number()}`,
         healthPoints: faker.random.number(),
+        alias: `${faker.name.firstName()}`,
+        avatar: `${faker.name.firstName()}${faker.random.number()}`,
       };
       result = await chai.request(app)
         .post('/api/create-battle')
