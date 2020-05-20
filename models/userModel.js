@@ -61,7 +61,7 @@ const findTopWarriors = async () => {
   try {
     return { warriors: await User.find().sort({ numberOfVictories: 'desc' }).limit(10).lean() };
   } catch (error) {
-    return { message: error };
+    return { error };
   }
 };
 

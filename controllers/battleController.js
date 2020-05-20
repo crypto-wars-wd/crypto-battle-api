@@ -13,15 +13,15 @@ const createBattle = async (req, res) => {
 };
 
 const getCryptoCurrencies = async (req, res) => {
-  const { crypto, message } = await cryptoModel.findAllCrypto();
-  if (message) return render.error(res, message);
+  const { crypto, error } = await cryptoModel.findAllCrypto();
+  if (error) return render.error(res, error);
 
   return render.success(res, { crypto });
 };
 
 const getTopWarriors = async (req, res) => {
-  const { warriors, message } = await userModel.findTopWarriors();
-  if (message) return render.error(res, message);
+  const { warriors, error } = await userModel.findTopWarriors();
+  if (error) return render.error(res, error);
 
   return render.success(res, { warriors });
 };
