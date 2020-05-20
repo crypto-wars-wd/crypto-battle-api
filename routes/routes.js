@@ -29,6 +29,8 @@ battleRoutes.route('/create-battle')
   .post(battleController.createBattle);
 battleRoutes.route('/crypto-currencies')
   .get(battleController.getCryptoCurrencies);
+battleRoutes.route('/top-warriors')
+  .get(battleController.getCryptoCurrencies);
 // user routes
 userRoutes.route('/update-user-info')
   .post(validateAuthToken.verifyAuthToken, userController.updateUserInfo);

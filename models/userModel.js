@@ -57,6 +57,14 @@ const signInSocial = async ({ userId, session }) => {
   return { user, session };
 };
 
+const findTopWarriors = async () => {
+  try {
+    return { warriors: await User.find().sort().lean() };
+  } catch (error) {
+    return { error };
+  }
+};
+
 module.exports = {
   signUpSocial,
   signInSocial,
@@ -66,4 +74,5 @@ module.exports = {
   findUserById,
   updateSession,
   updateUserInfo,
+  findTopWarriors,
 };

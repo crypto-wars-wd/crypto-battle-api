@@ -1,4 +1,4 @@
-const { battleModel, cryptoModel } = require('models');
+const { battleModel, cryptoModel, userModel } = require('models');
 const render = require('concerns/render');
 const validators = require('./validators');
 
@@ -17,7 +17,14 @@ const getCryptoCurrencies = async (req, res) => {
 
   return render.success(res, result);
 };
+
+const getTopWarriors = async (req, res) => {
+  const result = await userModel.findTopWarriors();
+
+  return render.success(res, result);
+};
 module.exports = {
   createBattle,
   getCryptoCurrencies,
+  getTopWarriors,
 };
