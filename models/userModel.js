@@ -18,7 +18,7 @@ const updateUserInfo = async ({ id, alias, avatar }) => {
   try {
     return { user: await User.findOneAndUpdate({ _id: id }, { alias, avatar }, { new: true }).lean() };
   } catch (error) {
-    return { error };
+    return { message: error };
   }
 };
 
@@ -28,7 +28,7 @@ const findUserById = async (id) => {
   try {
     return { user: await User.findOne({ _id: id }).lean() };
   } catch (error) {
-    return { error };
+    return { message: error };
   }
 };
 
