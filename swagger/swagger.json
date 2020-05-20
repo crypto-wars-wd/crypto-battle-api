@@ -205,6 +205,15 @@
           "200": {
             "description": "Session deleted  "
           },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "Token not found"
+              }
+            }
+          },
           "422": {
             "description": "Wrong data",
             "schema": {
@@ -228,17 +237,7 @@
                 }
               }
             }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "example": {
-                "success": false,
-                "message": "Token not found"
-              }
-            }
           }
-
         }
       }
     },
@@ -388,6 +387,15 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "Token not found"
+              }
+            }
+          },
           "422": {
             "description": "Wrong data",
             "schema": {
@@ -414,17 +422,7 @@
                 }
               }
             }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "example": {
-                "success": false,
-                "message": "Token not found"
-              }
-            }
           }
-
         }
       }
     },
@@ -437,8 +435,7 @@
           "application/json"
         ],
         "description": "This root for getting all crypto data",
-        "parameters": [
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Crypto data",
@@ -473,6 +470,209 @@
                     "cryptoName": "ICX",
                     "createdAt": "2020-05-20T07:41:06.327Z",
                     "updatedAt": "2020-05-20T07:41:06.327Z",
+                    "__v": 0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/top-warriors": {
+      "get": {
+        "tags": [
+          "Battle"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for getting top 10 warriors",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "top 10 warriors data",
+            "schema": {
+              "example": {
+                "warriors": [
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed2b",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 98340,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Alice",
+                    "avatar": "Ned62410",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd19",
+                      "provider": "Valentin",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.004Z",
+                    "updatedAt": "2020-05-20T09:47:30.004Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb10a6fac403cf5ed25",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 96580,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Timothy",
+                    "avatar": "Elwin86496",
+                    "auth": {
+                      "id": "5ec4fcb1418bc6a7f228fd13",
+                      "provider": "Dejon",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:29.984Z",
+                    "updatedAt": "2020-05-20T09:47:29.984Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed2d",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 72888,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Jarrell",
+                    "avatar": "Candido18213",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd1b",
+                      "provider": "Jaydon",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.007Z",
+                    "updatedAt": "2020-05-20T09:47:30.007Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed2e",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 68385,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Kyleigh",
+                    "avatar": "Isidro2909",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd1c",
+                      "provider": "Wilmer",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.009Z",
+                    "updatedAt": "2020-05-20T09:47:30.009Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed2f",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 64598,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Lexi",
+                    "avatar": "Laury53616",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd1d",
+                      "provider": "Jaeden",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.010Z",
+                    "updatedAt": "2020-05-20T09:47:30.010Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed2a",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 62765,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Dessie",
+                    "avatar": "Marcos90764",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd18",
+                      "provider": "Georgiana",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.002Z",
+                    "updatedAt": "2020-05-20T09:47:30.002Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed2c",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 56782,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Hortense",
+                    "avatar": "Hassie38085",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd1a",
+                      "provider": "Rodrigo",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.005Z",
+                    "updatedAt": "2020-05-20T09:47:30.005Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed32",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 42862,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Cassandra",
+                    "avatar": "Kadin65228",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd20",
+                      "provider": "Carroll",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.014Z",
+                    "updatedAt": "2020-05-20T09:47:30.014Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb20a6fac403cf5ed31",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 38690,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Beverly",
+                    "avatar": "Americo61890",
+                    "auth": {
+                      "id": "5ec4fcb2418bc6a7f228fd1f",
+                      "provider": "Elisha",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:30.013Z",
+                    "updatedAt": "2020-05-20T09:47:30.013Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5ec4fcb10a6fac403cf5ed27",
+                    "level": 1,
+                    "health": 100,
+                    "numberOfVictories": 35591,
+                    "numberOfLosses": 0,
+                    "numberOfFights": 0,
+                    "alias": "Margarette",
+                    "avatar": "Sage68012",
+                    "auth": {
+                      "id": "5ec4fcb1418bc6a7f228fd15",
+                      "provider": "Dock",
+                      "sessions": []
+                    },
+                    "createdAt": "2020-05-20T09:47:29.995Z",
+                    "updatedAt": "2020-05-20T09:47:29.995Z",
                     "__v": 0
                   }
                 ]
