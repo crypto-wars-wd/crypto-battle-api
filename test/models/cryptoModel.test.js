@@ -1,18 +1,19 @@
 const {
-  expect, dropDatabase, cryptoModel, assert, models,
+  expect, dropDatabase, cryptoModel,
 } = require('test/testHelper');
 const { CryptoFactory } = require('test/factories');
 
 describe('cryptoModel', async () => {
   describe('findAllCrypto', async () => {
-    let battleData, mockData;
-
     beforeEach(async () => {
       await dropDatabase();
-      const firstCrypto = await CryptoFactory.createNewCrypto();
+      await CryptoFactory.createNewCrypto();
+      await CryptoFactory.createNewCrypto();
+      await CryptoFactory.createNewCrypto();
     });
-    it('should ', async () => {
-
+    it('should return array of 3 object', async () => {
+      const { crypto } = await cryptoModel.findAllCrypto();
+      expect(crypto.length).to.be.eq(3);
     });
   });
 });
