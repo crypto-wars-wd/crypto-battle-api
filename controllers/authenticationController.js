@@ -54,8 +54,8 @@ const logout = async (req, res) => {
 };
 
 module.exports = {
+  validateAuthToken,
   hasSocialAccount,
   socialSignIn,
-  validateAuthToken,
   logout,
 };

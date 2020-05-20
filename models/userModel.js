@@ -66,13 +66,13 @@ const findTopWarriors = async () => {
 };
 
 module.exports = {
+  destroyLastSession,
+  findUserBySocial,
+  findTopWarriors,
+  updateUserInfo,
+  destroySession,
+  updateSession,
   signUpSocial,
   signInSocial,
-  findUserBySocial,
-  destroyLastSession,
-  destroySession,
   findUserById,
-  updateSession,
-  updateUserInfo,
-  findTopWarriors,
 };
