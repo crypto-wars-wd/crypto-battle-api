@@ -3,7 +3,6 @@ const { Battle } = require('database').models;
 const createNewBattle = async ({
   cryptoName, playerID, healthPoints, alias, avatar,
 }) => {
-  console.log(alias);
   const battle = new Battle({
     'playersInfo.firstPlayer.cryptoName': cryptoName,
     'playersInfo.firstPlayer.playerID': playerID,
@@ -58,6 +57,7 @@ const getBattlesByState = async ({ gameStatus }) => {
     return { message: err };
   }
 };
+
 
 module.exports = {
   createNewBattle, connectBattle, updateStatsBattle, getBattlesByState,

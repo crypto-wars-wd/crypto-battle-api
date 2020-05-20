@@ -38,7 +38,7 @@ exports.statsBattleShcema = Joi.object().keys({
   gameStatus: Joi.string().valid('START', 'END').required(),
   steps: Joi.array().items(Joi.object().keys({
     playersStats: Joi.array().items(Joi.object().keys({
-      widgetName: Joi.string().required(),
+      cryptoName: Joi.string().required(),
       status: Joi.string().required(),
       price: Joi.number().required().unsafe(),
       playerID: Joi.string().required(),

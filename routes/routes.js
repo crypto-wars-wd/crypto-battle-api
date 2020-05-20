@@ -31,11 +31,11 @@ battleRoutes.route('/crypto-currencies')
   .get(battleController.getCryptoCurrencies);
 battleRoutes.route('/top-warriors')
   .get(battleController.getTopWarriors);
-authRoutes.route('/connect-battle')
+battleRoutes.route('/connect-battle')
   .post(battleController.connectBattle);
-authRoutes.route('/stats-battle')
-  .post(battleController.statsBattle);
-authRoutes.route('/show-battles-by-state/:state')
+battleRoutes.route('/save-stats-battle')
+  .post(battleController.saveStatsBattle);
+battleRoutes.route('/show-battles-by-state/:state')
   .get(battleController.showBattlesByState);
 // user routes
 userRoutes.route('/update-user-info')

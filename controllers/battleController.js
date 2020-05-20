@@ -1,45 +1,71 @@
-const { battleModel } = require('models');
+const { battleModel, cryptoModel, userModel } = require('models');
 const render = require('concerns/render');
-const getBattleByState = require('utilities/operations').battles;
+const { getBattleByState, checkResultBattle } = require('utilities/operations').battles;
 const validators = require('./validators');
-
 
 const createBattle = async (req, res) => {
   const { params, validationError } = validators.validate(req.body, validators.battle.createBattleShcema);
-
   if (validationError) return render.error(res, validationError);
-  const result = await battleModel.createNewBattle(params);
 
-  return render.success(res, result);
+  const { battle, message } = await battleModel.createNewBattle(params);
+  if (message) return render.error(res, message);
+
+  return render.success(res, { battle });
+};
+
+const getCryptoCurrencies = async (req, res) => {
+  const { crypto, message } = await cryptoModel.findAllCrypto();
+  if (message) return render.error(res, message);
+
+  return render.success(res, { crypto });
+};
+
+const getTopWarriors = async (req, res) => {
+  const { warriors, message } = await userModel.findTopWarriors();
+  if (message) return render.error(res, message);
+
+  return render.success(res, { warriors });
 };
 
 const connectBattle = async (req, res) => {
   const { params, validationError } = validators.validate(req.body, validators.battle.connectBattleShcema);
-
   if (validationError) return render.error(res, validationError);
-  const result = await battleModel.connectBattle(params);
 
-  return render.success(res, result);
+  const { battle, message } = await battleModel.connectBattle(params);
+  if (message) return render.error(res, message);
+
+  return render.success(res, { battle });
 };
 
-const statsBattle = async (req, res) => {
+const saveStatsBattle = async (req, res) => {
   const { params, validationError } = validators.validate(req.body, validators.battle.statsBattleShcema);
-
   if (validationError) return render.error(res, validationError);
-  const result = await battleModel.updateStatsBattle(params);
 
-  return render.success(res, result);
+  const { battle, message } = await battleModel.updateStatsBattle(params);
+  if (message) return render.error(res, message);
+  if (battle.gameStatus === 'END') {
+    const { error } = await checkResultBattle(battle);
+    if (error) return render.error(res, message);
+  }
+
+  return render.success(res, { battle });
 };
 
 const showBattlesByState = async (req, res) => {
   const { params, validationError } = validators.validate(req.query, validators.battle.showBattlesByState);
-
   if (validationError) return render.error(res, validationError);
-  const result = await getBattleByState(params);
 
-  return render.success(res, result);
+  const { battles, message } = await getBattleByState(params);
+  if (message) return render.error(res, message);
+
+  return render.success(res, { battles });
 };
 
 module.exports = {
-  createBattle, connectBattle, statsBattle, showBattlesByState,
+  createBattle,
+  connectBattle,
+  saveStatsBattle,
+  showBattlesByState,
+  getCryptoCurrencies,
+  getTopWarriors,
 };
