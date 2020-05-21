@@ -10,6 +10,13 @@ const destroyLastSession = async ({ user }) => {
 
 const destroySession = async ({ userId, session }) => {
   await User.updateOne({ _id: userId }, { $pull: { 'auth.sessions': { _id: session._id } } });
+  try {
+    return {
+      successDestroy: await User.updateOne({ _id: userId }, { $pull: { 'auth.sessions': { _id: session._id } } }),
+    };
+  } catch (destroySessionError) {
+    return { destroySessionError };
+  }
 };
 
 const updateSession = (doc, newSession) => User.updateOne({ _id: doc._id }, { $push: { 'auth.sessions': newSession } });

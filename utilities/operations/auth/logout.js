@@ -11,5 +11,9 @@ exports.killSession = async (req, res, params) => {
 
   const session = sessions
     .findSession({ sessions: user && user.auth && user.auth.sessions, sid: payload.sid });
-  await userModel.destroySession({ userId: user._id, session });
+  const { successDestroy, destroySessionError } = await userModel
+    .destroySession({ userId: user._id, session });
+  if (destroySessionError) return render.error(res, destroySessionError);
+
+  return successDestroy;
 };
