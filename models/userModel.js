@@ -54,8 +54,8 @@ const signUpSocial = async ({
   });
   try {
     await user.save();
-  } catch (err) {
-    return { message: err };
+  } catch (errorSignUp) {
+    return { errorSignUp };
   }
   return { user: user.toObject(), session };
 };

@@ -13,9 +13,9 @@ const socialSignIn = async (req, res, next) => {
   );
 
   if (validationError) return render.error(res, validationError);
-  const { user, session, message } = await strategies.socialStrategy(req, res, next);
+  const { user, session, errorSignUp } = await strategies.socialStrategy(req, res, next);
 
-  if (message) return render.unauthorized(res, message);
+  if (errorSignUp) return render.unauthorized(res, errorSignUp);
 
   sessions.setAuthHeaders(res, user, session);
   return render.success(res, signInView({ user }));
