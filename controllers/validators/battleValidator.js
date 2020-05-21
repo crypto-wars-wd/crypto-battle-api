@@ -5,9 +5,12 @@ const options = { allowUnknown: true, stripUnknown: true };
 exports.createBattleShcema = Joi.object().keys({
   cryptoName: Joi.string().required(),
   playerID: Joi.string().required(),
-  alias: Joi.string().required(),
-  avatar: Joi.string().required(),
   healthPoints: Joi.number().required(),
+}).options(options);
+
+exports.topWarriorsSchema = Joi.object().keys({
+  limit: Joi.number().default(10),
+  skip: Joi.number().default(0),
 }).options(options);
 
 exports.connectBattleShcema = Joi.object().keys({
@@ -20,21 +23,19 @@ exports.connectBattleShcema = Joi.object().keys({
 
 exports.statsBattleShcema = Joi.array().items(Joi.object().keys({
   _id: Joi.string().required(),
-  playersInfo: Joi.object().keys({
-    firstPlayer: Joi.object().keys({
-      cryptoName: Joi.string().required(),
-      playerID: Joi.string().required(),
-      alias: Joi.string().required(),
-      avatar: Joi.string().required(),
-    }),
-    secondPlayer: Joi.object().keys({
-      cryptoName: Joi.string().required(),
-      playerID: Joi.string().required(),
-      alias: Joi.string().required(),
-      avatar: Joi.string().required(),
-    }),
-    healthPoints: Joi.number().required(),
-  }).required(),
+  firstPlayer: Joi.object().keys({
+    cryptoName: Joi.string().required(),
+    playerID: Joi.string().required(),
+    alias: Joi.string().required(),
+    avatar: Joi.string().required(),
+  }),
+  secondPlayer: Joi.object().keys({
+    cryptoName: Joi.string().required(),
+    playerID: Joi.string().required(),
+    alias: Joi.string().required(),
+    avatar: Joi.string().required(),
+  }),
+  healthPoints: Joi.number().required(),
   gameStatus: Joi.string().valid('START', 'END').required(),
   steps: Joi.array().items(Joi.object().keys({
     playersStats: Joi.array().items(Joi.object().keys({
