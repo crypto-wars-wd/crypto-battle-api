@@ -3,7 +3,7 @@ const {
 } = require('views/authenticationController');
 const { userModel } = require('models');
 const render = require('concerns/render');
-const { strategies } = require('utilities/operations');
+const { strategies, logoutUser } = require('utilities/operations');
 const { sessions } = require('utilities/authentication');
 const validators = require('./validators');
 
@@ -41,15 +41,8 @@ const logout = async (req, res) => {
     .validate(req.body, validators.authentication.logoutShcema);
   if (validationError) return render.error(res, validationError);
 
-  const { payload, error } = await sessions.getAuthData({ req });
-  if (error) return render.unauthorized(res, error);
+  await logoutUser.killSession(req, res, params);
 
-  const { user, message } = await userModel.findUserById(params.id);
-  if (message) return render.error(res, message);
-
-  const session = sessions
-    .findSession({ sessions: user && user.auth && user.auth.sessions, sid: payload.sid });
-  await userModel.destroySession({ userId: user._id, session });
   return render.success(res);
 };
 
