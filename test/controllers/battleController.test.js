@@ -5,14 +5,17 @@ const { UserFactory } = require('test/factories');
 
 describe('battleController', async () => {
   describe('createBattle on success', async () => {
-    let data, result;
+    let data, result, auth, user;
     beforeEach(async () => {
+      auth = {
+        id: new ObjectID(),
+        provider: faker.name.firstName(),
+      };
+      user = await UserFactory.createUser({ numberOfVictories: faker.random.number(), auth });
       data = {
         cryptoName: `${faker.name.firstName()}`,
-        playerID: `${faker.name.firstName()}${faker.random.number()}`,
+        playerID: user._id,
         healthPoints: faker.random.number(),
-        alias: `${faker.name.firstName()}`,
-        avatar: `${faker.name.firstName()}${faker.random.number()}`,
       };
       result = await chai.request(app)
         .post('/api/create-battle')
@@ -26,24 +29,26 @@ describe('battleController', async () => {
       expect(result).to.have.status(200);
     });
     it('should return correct cryptoName', async () => {
-      expect(result.body.battle.playersInfo.firstPlayer.cryptoName).to.be.eq(data.cryptoName);
+      expect(result.body.battle.firstPlayer.cryptoName).to.be.eq(data.cryptoName);
     });
     it('should return correct cryptoName in body', async () => {
-      expect(result.body.battle.playersInfo.firstPlayer.cryptoName).to.be.eq(data.cryptoName);
-    });
-    it('should return correct playerID in body', async () => {
-      expect(result.body.battle.playersInfo.firstPlayer.playerID).to.be.eq(data.playerID);
+      expect(result.body.battle.firstPlayer.cryptoName).to.be.eq(data.cryptoName);
     });
     it('should return correct healthPoints in body', async () => {
-      expect(result.body.battle.playersInfo.healthPoints).to.be.eq(data.healthPoints);
+      expect(result.body.battle.healthPoints).to.be.eq(data.healthPoints);
     });
   });
   describe('createBattle on error missing one of arguments (healthPoints)', async () => {
-    let data, result;
+    let data, result, user, auth;
     beforeEach(async () => {
+      auth = {
+        id: new ObjectID(),
+        provider: faker.name.firstName(),
+      };
+      user = await UserFactory.createUser({ numberOfVictories: faker.random.number(), auth });
       data = {
         cryptoName: `${faker.name.firstName()}`,
-        playerID: `${faker.name.firstName()}${faker.random.number()}`,
+        playerID: user._id,
       };
       result = await chai.request(app)
         .post('/api/create-battle')
