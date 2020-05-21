@@ -1,21 +1,26 @@
 const { Battle } = require('database').models;
 
 const createNewBattle = async ({
-  cryptoName, playerID, healthPoints, alias, avatar,
+  cryptoName, playerID, healthPoints,
 }) => {
   const battle = new Battle({
-    'playersInfo.firstPlayer.cryptoName': cryptoName,
-    'playersInfo.firstPlayer.playerID': playerID,
-    'playersInfo.firstPlayer.avatar': avatar,
-    'playersInfo.firstPlayer.alias': alias,
-    'playersInfo.healthPoints': healthPoints,
+    'firstPlayer.cryptoName': cryptoName,
+    'firstPlayer.playerID': playerID,
+    healthPoints,
   });
   try {
     await battle.save();
-  } catch (err) {
-    return { message: err };
+  } catch (createBattleError) {
+    return { createBattleError };
   }
-  return { battle: battle.toObject() };
+  return { newBattle: battle.toObject() };
+};
+const populateBattle = async ({ id, path }) => {
+  try {
+    return { battleWithPlayer: await Battle.findOne({ id }).populate({ path }).lean() };
+  } catch (populateError) {
+    return { populateError };
+  }
 };
 
 const connectBattle = async ({
@@ -63,5 +68,5 @@ const getBattlesByState = async ({ gameStatus, playerID }) => {
 };
 
 module.exports = {
-  createNewBattle, connectBattle, updateStatsBattle, getBattlesByState,
+  createNewBattle, connectBattle, updateStatsBattle, getBattlesByState, populateBattle,
 };

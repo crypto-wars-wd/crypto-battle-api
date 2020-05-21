@@ -3,11 +3,12 @@ const render = require('concerns/render');
 const validators = require('./validators');
 
 const updateUserInfo = async (req, res) => {
-  const { params, validationError } = validators.validate(req.body, validators.user.updateInfoSchema);
+  const { params, validationError } = validators
+    .validate(req.body, validators.user.updateInfoSchema);
   if (validationError) return render.error(res, validationError);
 
-  const { user, message } = await userModel.updateUserInfo(params);
-  if (message) return render.error(res, message);
+  const { user, updateError } = await userModel.updateUserInfo(params);
+  if (updateError) return render.error(res, updateError);
 
   return render.success(res, { user });
 };

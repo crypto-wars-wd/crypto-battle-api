@@ -1,30 +1,34 @@
-const { battleModel, cryptoModel, userModel } = require('models');
+const { battleModel, cryptoModel } = require('models');
 const render = require('concerns/render');
-const { getBattlesByState, checkResultBattle } = require('utilities/operations').battles;
+const {
+  getBattlesByState, checkResultBattle, newBattle, getBattleData,
+} = require('utilities/operations').battle;
 const validators = require('./validators');
 
 const createBattle = async (req, res) => {
-  const { params, validationError } = validators.validate(req.body, validators.battle.createBattleShcema);
+  const { params, validationError } = validators
+    .validate(req.body, validators.battle.createBattleSchema);
   if (validationError) return render.error(res, validationError);
-
-  const { battle, message } = await battleModel.createNewBattle(params);
-  if (message) return render.error(res, message);
+  const battle = await newBattle(req, res, params);
 
   return render.success(res, { battle });
 };
 
 const getCryptoCurrencies = async (req, res) => {
-  const { crypto, message } = await cryptoModel.findAllCrypto();
-  if (message) return render.error(res, message);
+  const { crypto, error } = await cryptoModel.findAllCrypto();
+  if (error) return render.error(res, error);
 
   return render.success(res, { crypto });
 };
 
 const getTopWarriors = async (req, res) => {
-  const { warriors, message } = await userModel.findTopWarriors();
-  if (message) return render.error(res, message);
+  const { params, validationError } = validators
+    .validate(req.query, validators.battle.topWarriorsSchema);
+  if (validationError) return render.error(res, validationError);
 
-  return render.success(res, { warriors });
+  const topData = await getBattleData(req, res, params);
+
+  return render.success(res, topData);
 };
 
 const connectBattle = async (req, res) => {
@@ -41,6 +45,7 @@ const saveStatsBattle = async (req, res) => {
   const { params, validationError } = validators.validate(req.body, validators.battle.statsBattleShcema);
   if (validationError) return render.error(res, validationError);
 
+  // operations
   const battles = [];
   for (let count = 0; count < params.length; count++) {
     const { battle, message } = await battleModel.updateStatsBattle(params[count]);
