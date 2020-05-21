@@ -5,6 +5,7 @@
   "scripts": {
     "start": "NODE_PATH=. node ./bin/www",
     "start-dev": "NODE_PATH=. nodemon ./bin/www",
+    "add-crypto": "NODE_PATH=. node ./utilities/tasks/createCrypto/run.js",
     "test": "NODE_PATH=. NODE_ENV=test nyc --reporter=html mocha"
   },
   "dependencies": {
