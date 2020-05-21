@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { POPULATE_PATH_PLAYER1, POPULATE_PATH_PLAYER2 } = require('utilities/constants');
+
 const { Schema } = mongoose;
 
 const BattleSchema = new Schema({
