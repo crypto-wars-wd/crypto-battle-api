@@ -9,7 +9,7 @@ const validators = require('./validators');
 
 const socialSignIn = async (req, res, next) => {
   const { validationError } = validators.validate(
-    Object.assign(req.body, req.params), validators.authentication.socialAuthShcema,
+    Object.assign(req.body, req.params), validators.authentication.socialAuthSchema,
   );
 
   if (validationError) return render.error(res, validationError);
@@ -28,7 +28,7 @@ const validateAuthToken = async (req, res) => {
 
 const hasSocialAccount = async (req, res) => {
   const { params, validationError } = validators
-    .validate(req.query, validators.authentication.hasSocialShcema);
+    .validate(req.query, validators.authentication.hasSocialSchema);
 
   if (validationError) return render.error(res, validationError);
   const result = await userModel.findUserBySocial(params);
@@ -38,7 +38,7 @@ const hasSocialAccount = async (req, res) => {
 
 const logout = async (req, res) => {
   const { params, validationError } = validators
-    .validate(req.body, validators.authentication.logoutShcema);
+    .validate(req.body, validators.authentication.logoutSchema);
   if (validationError) return render.error(res, validationError);
 
   await logoutUser.killSession(req, res, params);
