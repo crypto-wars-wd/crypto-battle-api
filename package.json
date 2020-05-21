@@ -5,11 +5,11 @@
   "scripts": {
     "start": "NODE_PATH=. node ./bin/www",
     "start-dev": "NODE_PATH=. nodemon ./bin/www",
+    "add-crypto": "NODE_PATH=. node ./utilities/tasks/createCrypto/run.js",
     "test": "NODE_PATH=. NODE_ENV=test nyc --reporter=html mocha"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
-    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "bson": "^4.0.4",
     "cookie-parser": "~1.4.4",
@@ -17,7 +17,6 @@
     "crypto-js": "^4.0.0",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "form-data": "^3.0.0",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
@@ -28,7 +27,6 @@
     "passport": "^0.4.1",
     "passport-facebook-token": "^3.3.0",
     "passport-google-token": "^0.1.2",
-    "pug": "2.0.0-beta11",
     "swagger-ui-express": "^4.1.4",
     "uuidv4": "^6.0.8"
   },

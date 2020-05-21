@@ -21,7 +21,8 @@ describe('userModel', async () => {
       expect(resultUpdate).is.exist;
     });
     it('should compare fields so they are the same ', async () => {
-      expect({ alias: updUser.alias, avatar: updUser.avatar }).to.not.eq({ alias: user.alias, avatar: user.avatar });
+      expect({ alias: updUser.alias, avatar: updUser.avatar })
+        .to.not.eq({ alias: user.alias, avatar: user.avatar });
     });
     it('should compare data properties and upd_post properties after update', async () => {
       expect(data).to.deep.eq({
@@ -31,8 +32,8 @@ describe('userModel', async () => {
       });
     });
     it('should return error', async () => {
-      const { message } = await userModel.updateUserInfo({ id: `${faker.name.firstName()}${faker.random.number()}` });
-      expect(message).to.exist;
+      const { updateError } = await userModel.updateUserInfo({ id: `${faker.name.firstName()}${faker.random.number()}` });
+      expect(updateError).to.exist;
     });
   });
 
@@ -79,11 +80,11 @@ describe('userModel', async () => {
     });
 
     it('warriors should be an array with length 10', async () => {
-      ({ warriors } = await userModel.findTopWarriors());
+      ({ warriors } = await userModel.findTopWarriors({ limit: 10, skip: 0 }));
       expect(warriors).to.be.an('array').to.have.length(10);
     });
     it('sort numberOfVictories must be from biggest number to lowest', async () => {
-      ({ warriors } = await userModel.findTopWarriors());
+      ({ warriors } = await userModel.findTopWarriors({ limit: 10, skip: 0 }));
       expect(warriors[0].numberOfVictories).to.be.above(warriors[9].numberOfVictories);
     });
   });

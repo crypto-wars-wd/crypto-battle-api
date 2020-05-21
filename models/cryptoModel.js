@@ -4,7 +4,7 @@ const findAllCrypto = async () => {
   try {
     return { crypto: await Crypto.find().lean() };
   } catch (error) {
-    return { message: error };
+    return { error };
   }
 };
 

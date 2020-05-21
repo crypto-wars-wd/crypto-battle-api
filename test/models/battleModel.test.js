@@ -1,21 +1,24 @@
 const {
-  expect, dropDatabase, battleModel, assert, models,
+  expect, dropDatabase, battleModel, assert, Battle, ObjectID, faker,
 } = require('test/testHelper');
-const { BattleFactory } = require('test/factories');
+const { BattleFactory, UserFactory } = require('test/factories');
 
 describe('battleModel', async () => {
   describe('createNewBattle', async () => {
-    let battleData, mockData;
+    let battleData, mockData, auth, user;
 
     beforeEach(async () => {
       await dropDatabase();
+      auth = {
+        id: new ObjectID(),
+        provider: faker.name.firstName(),
+      };
+      user = await UserFactory.createUser({ numberOfVictories: faker.random.number(), auth });
       battleData = await BattleFactory.createNewBattle({ cryptoName: 'BTC', onlyData: true });
       mockData = {
-        cryptoName: battleData['playersInfo.firstPlayer.cryptoName'],
-        playerID: battleData['playersInfo.firstPlayer.playerID'],
-        healthPoints: battleData['playersInfo.healthPoints'],
-        alias: battleData['playersInfo.firstPlayer.alias'],
-        avatar: battleData['playersInfo.firstPlayer.avatar'],
+        cryptoName: battleData['firstPlayer.cryptoName'],
+        playerID: user._id,
+        healthPoints: battleData.healthPoints,
       };
     });
     it('should save new battle to db', async () => {
@@ -23,13 +26,13 @@ describe('battleModel', async () => {
       assert(!actual.isNew); // if actual is saved to db it is not new
     });
     it('should find battle', async () => {
-      await battleModel.createNewBattle(mockData);
-      const battle = await models.Battle.findOne({ 'playersInfo.firstPlayer.playerID': mockData.playerID });
-      expect(battle.playersInfo.firstPlayer.cryptoName).to.be.eq('BTC');
+      const { newBattle } = await battleModel.createNewBattle(mockData);
+      const battle = await Battle.findOne({ _id: newBattle._id });
+      expect(battle).to.be.exist;
     });
     it('should be error message', async () => {
-      const { message } = await battleModel.createNewBattle({ lkkdfs: 'dfsdf' });
-      expect(message).to.be.exist;
+      const { createBattleError } = await battleModel.createNewBattle({ lkkdfs: 'dfsdf' });
+      expect(createBattleError).to.be.exist;
     });
   });
 });

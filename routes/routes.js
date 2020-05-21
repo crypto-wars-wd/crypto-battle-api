@@ -15,7 +15,7 @@ apiRoutes.use('/api', authRoutes);
 apiRoutes.use('/api', userRoutes);
 apiRoutes.use('/api', battleRoutes);
 
-//  authRoutes
+//  region auth routes
 authRoutes.route('/has-social-account')
   .get(authController.hasSocialAccount);
 authRoutes.route('/auth/:provider')
@@ -24,7 +24,8 @@ authRoutes.route('/validate-auth-token')
   .post(validateAuthToken.validateAuthToken, authController.validateAuthToken);
 authRoutes.route('/logout')
   .post(authController.logout);
-// battle routes
+// endregion
+// region battle routes
 battleRoutes.route('/create-battle')
   .post(battleController.createBattle);
 battleRoutes.route('/crypto-currencies')
@@ -37,9 +38,10 @@ battleRoutes.route('/save-stats-battle')
   .post(battleController.saveStatsBattle);
 battleRoutes.route('/show-battles-by-state/:state')
   .get(battleController.showBattlesByState);
-// user routes
+// endregion
+// region user routes
 userRoutes.route('/update-user-info')
   .post(validateAuthToken.verifyAuthToken, userController.updateUserInfo);
-
+// endregion
 
 module.exports = apiRoutes;
