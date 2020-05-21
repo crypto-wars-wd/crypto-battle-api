@@ -506,7 +506,22 @@
           "application/json"
         ],
         "description": "This root for getting top 10 warriors",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Count warriors to skip(infinite scroll)",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Count warriors to return default 10",
+            "type": "integer",
+            "required": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "top 10 warriors data",
