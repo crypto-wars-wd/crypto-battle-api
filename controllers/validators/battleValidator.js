@@ -18,7 +18,7 @@ exports.connectBattleShcema = Joi.object().keys({
   battleID: Joi.string().required(),
 }).options(options);
 
-exports.statsBattleShcema = Joi.object().keys({
+exports.statsBattleShcema = Joi.array().items(Joi.object().keys({
   _id: Joi.string().required(),
   playersInfo: Joi.object().keys({
     firstPlayer: Joi.object().keys({
@@ -60,8 +60,9 @@ exports.statsBattleShcema = Joi.object().keys({
       cryptoName: Joi.string().required(),
     }),
   }),
-}).options(options);
+}).options(options));
 
 exports.showBattlesByState = Joi.object().keys({
   state: Joi.string().valid('all', 'waiting', 'start', 'end').required(),
+  playerID: Joi.string(),
 }).options(options);

@@ -41,14 +41,19 @@ const saveStatsBattle = async (req, res) => {
   const { params, validationError } = validators.validate(req.body, validators.battle.statsBattleShcema);
   if (validationError) return render.error(res, validationError);
 
-  const { battle, message } = await battleModel.updateStatsBattle(params);
-  if (message) return render.error(res, message);
-  if (battle.gameStatus === 'END') {
-    const { error } = await checkResultBattle(battle);
-    if (error) return render.error(res, message);
+  const battles = [];
+  for (let count = 0; count < params.length; count++) {
+    const { battle, message } = await battleModel.updateStatsBattle(params[count]);
+    if (message) return render.error(res, message);
+    if (battle) {
+      battles.push(battle);
+      if (battle.gameStatus === 'END') {
+        const { error } = await checkResultBattle(battle);
+        if (error) return render.error(res, message);
+      }
+    }
   }
-
-  return render.success(res, { battle });
+  return render.success(res, { battles });
 };
 
 const showBattlesByState = async (req, res) => {
