@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const { POPULATE_PATH_PLAYER1, POPULATE_PATH_PLAYER2 } = require('utilities/constants');
 const { Schema } = mongoose;
 
 const BattleSchema = new Schema({
@@ -26,14 +26,14 @@ const BattleSchema = new Schema({
   },
 }, { toObject: { virtuals: true }, toJSON: { virtuals: true }, timestamps: true });
 
-BattleSchema.virtual('player1', {
+BattleSchema.virtual(POPULATE_PATH_PLAYER1, {
   ref: 'User',
   localField: 'firstPlayer.playerID',
   foreignField: '_id',
   justOne: true,
 });
 
-BattleSchema.virtual('player2', {
+BattleSchema.virtual(POPULATE_PATH_PLAYER2, {
   ref: 'User',
   localField: 'secondPlayer.playerID',
   foreignField: '_id',
