@@ -79,11 +79,11 @@ describe('userModel', async () => {
     });
 
     it('warriors should be an array with length 10', async () => {
-      ({ warriors } = await userModel.findTopWarriors());
+      ({ warriors } = await userModel.findTopWarriors({ limit: 10, skip: 0 }));
       expect(warriors).to.be.an('array').to.have.length(10);
     });
     it('sort numberOfVictories must be from biggest number to lowest', async () => {
-      ({ warriors } = await userModel.findTopWarriors());
+      ({ warriors } = await userModel.findTopWarriors({ limit: 10, skip: 0 }));
       expect(warriors[0].numberOfVictories).to.be.above(warriors[9].numberOfVictories);
     });
   });

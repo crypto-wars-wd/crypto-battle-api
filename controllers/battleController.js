@@ -1,6 +1,6 @@
-const { cryptoModel, userModel } = require('models');
+const { cryptoModel } = require('models');
 const render = require('concerns/render');
-const { creating } = require('utilities/operations');
+const { creating, getBattleData } = require('utilities/operations');
 const validators = require('./validators');
 
 const createBattle = async (req, res) => {
@@ -24,10 +24,9 @@ const getTopWarriors = async (req, res) => {
     .validate(req.query, validators.battle.topWarriorsSchema);
   if (validationError) return render.error(res, validationError);
 
-  const { warriors, error } = await userModel.findTopWarriors(params);
-  if (error) return render.error(res, error);
+  const topData = await getBattleData.topWarriors(req, res, params);
 
-  return render.success(res, { warriors });
+  return render.success(res, topData);
 };
 module.exports = {
   getCryptoCurrencies,

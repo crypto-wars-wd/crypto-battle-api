@@ -73,8 +73,8 @@ const findTopWarriors = async ({ limit, skip }) => {
       warriors: await User.find().sort({ numberOfVictories: 'desc' }).skip(skip).limit(limit)
         .lean(),
     };
-  } catch (error) {
-    return { error };
+  } catch (findWarriorsError) {
+    return { findWarriorsError };
   }
 };
 
