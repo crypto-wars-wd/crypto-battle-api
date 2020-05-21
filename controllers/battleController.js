@@ -1,13 +1,13 @@
 const { cryptoModel } = require('models');
 const render = require('concerns/render');
-const { creating, getBattleData } = require('utilities/operations');
+const { newBattle, getBattleData } = require('utilities/operations');
 const validators = require('./validators');
 
 const createBattle = async (req, res) => {
   const { params, validationError } = validators
     .validate(req.body, validators.battle.createBattleSchema);
   if (validationError) return render.error(res, validationError);
-  const battle = await creating.battleWithPlayer1(req, res, params);
+  const battle = await newBattle(req, res, params);
 
   return render.success(res, { battle });
 };
@@ -24,7 +24,7 @@ const getTopWarriors = async (req, res) => {
     .validate(req.query, validators.battle.topWarriorsSchema);
   if (validationError) return render.error(res, validationError);
 
-  const topData = await getBattleData.topWarriors(req, res, params);
+  const topData = await getBattleData(req, res, params);
 
   return render.success(res, topData);
 };

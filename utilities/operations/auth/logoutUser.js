@@ -2,7 +2,7 @@ const { userModel } = require('models');
 const render = require('concerns/render');
 const { sessions } = require('utilities/authentication');
 
-exports.killSession = async (req, res, params) => {
+module.exports = async (req, res, params) => {
   const { payload, error } = await sessions.getAuthData({ req });
   if (error) return render.unauthorized(res, error);
 

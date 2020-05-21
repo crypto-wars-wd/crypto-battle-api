@@ -41,7 +41,7 @@ const logout = async (req, res) => {
     .validate(req.body, validators.authentication.logoutSchema);
   if (validationError) return render.error(res, validationError);
 
-  await logoutUser.killSession(req, res, params);
+  await logoutUser(req, res, params);
 
   return render.success(res);
 };

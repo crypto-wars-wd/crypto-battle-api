@@ -1,7 +1,7 @@
 const { userModel } = require('models');
 const render = require('concerns/render');
 
-exports.topWarriors = async (req, res, params) => {
+module.exports = async (req, res, params) => {
   const { warriors, findWarriorsError } = await userModel
     .findTopWarriors({ limit: params.limit + 1, skip: params.skip });
   if (findWarriorsError) return render.error(res, findWarriorsError);

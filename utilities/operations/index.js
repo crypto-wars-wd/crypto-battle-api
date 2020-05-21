@@ -1,6 +1,6 @@
 module.exports = {
   strategies: require('./auth/authStrategies'),
-  creating: require('./battle/creating'),
-  logoutUser: require('./auth/logout'),
+  newBattle: require('./battle/newBattle'),
+  logoutUser: require('./auth/logoutUser'),
   getBattleData: require('./battle/getBattleData'),
 };
