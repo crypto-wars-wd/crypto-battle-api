@@ -9,9 +9,12 @@ const createBattle = async (req, res) => {
   const { params, validationError } = validators
     .validate(req.body, validators.battle.createBattleSchema);
   if (validationError) return render.error(res, validationError);
-  const battle = await newBattle(req, res, params);
 
-  return render.success(res, { battle });
+  const { battleWithPlayer, createBattleError, populateError } = await newBattle(req, res, params);
+  if (createBattleError) return render.error(res, createBattleError);
+  if (populateError) return render.error(res, populateError);
+
+  return render.success(res, { battleWithPlayer });
 };
 
 const getCryptoCurrencies = async (req, res) => {
@@ -26,9 +29,10 @@ const getTopWarriors = async (req, res) => {
     .validate(req.query, validators.battle.topWarriorsSchema);
   if (validationError) return render.error(res, validationError);
 
-  const topData = await getBattleData(req, res, params);
+  const { warriors, hasMore, findWarriorsError } = await getBattleData(req, res, params);
+  if (findWarriorsError) return render.error(res, findWarriorsError);
 
-  return render.success(res, topData);
+  return render.success(res, { warriors, hasMore });
 };
 
 const connectBattle = async (req, res) => {

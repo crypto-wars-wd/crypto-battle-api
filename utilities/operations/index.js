@@ -1,5 +1,4 @@
 module.exports = {
-  strategies: require('./auth/authStrategies'),
+  auth: require('./auth'),
   battle: require('./battle'),
-  logoutUser: require('./auth/logoutUser'),
 };

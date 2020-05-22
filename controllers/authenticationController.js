@@ -3,7 +3,7 @@ const {
 } = require('views/authenticationController');
 const { userModel } = require('models');
 const render = require('concerns/render');
-const { strategies, logoutUser } = require('utilities/operations');
+const { strategies, logoutUser } = require('utilities/operations').auth;
 const { sessions } = require('utilities/authentication');
 const validators = require('./validators');
 
@@ -41,9 +41,14 @@ const logout = async (req, res) => {
     .validate(req.body, validators.authentication.logoutSchema);
   if (validationError) return render.error(res, validationError);
 
-  await logoutUser(req, res, params);
+  const {
+    successDestroy, error, findUserError, destroySessionError,
+  } = await logoutUser(req, res, params);
+  if (error) return render.unauthorized(res, error);
+  if (findUserError) return render.error(res, findUserError);
+  if (destroySessionError) return render.error(res, destroySessionError);
 
-  return render.success(res);
+  return render.success(res, successDestroy);
 };
 
 module.exports = {

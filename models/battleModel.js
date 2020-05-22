@@ -1,4 +1,5 @@
 const { Battle } = require('database').models;
+const { POPULATE_PATH_PLAYER1, POPULATE_PATH_PLAYER2 } = require('utilities/constants');
 
 const createNewBattle = async ({
   cryptoName, playerID, healthPoints,
@@ -32,10 +33,10 @@ const connectBattle = async ({
         'secondPlayer.cryptoName': cryptoName,
         'secondPlayer.playerID': playerID,
         gameStatus: 'START',
-      }, { new: true }).populate([{ path: 'player1' }, { path: 'player2' }]).lean(),
+      }, { new: true }).populate([{ path: POPULATE_PATH_PLAYER1 }, { path: POPULATE_PATH_PLAYER2 }]).lean(),
     };
-  } catch (err) {
-    return { message: err };
+  } catch (error) {
+    return { error };
   }
 };
 
@@ -44,24 +45,33 @@ const updateStatsBattle = async ({
 }) => {
   try {
     return {
-      battle: await Battle.findOneAndUpdate({ _id }, rest, { new: true }).lean(),
+      battle: await Battle.findOneAndUpdate({ _id }, rest, { new: true })
+        .populate([{ path: POPULATE_PATH_PLAYER1 }, { path: POPULATE_PATH_PLAYER2 }]).lean(),
     };
-  } catch (err) {
-    return { message: err };
+  } catch (error) {
+    return { error };
   }
 };
 
 const getBattlesByState = async ({ gameStatus, playerID }) => {
   try {
-    if (playerID === 'all') playerID = /^/;
+    let options;
+    switch (playerID) {
+      case 'all':
+        options = { gameStatus };
+        break;
+      default:
+        options = {
+          $or: [{ gameStatus, 'firstPlayer.playerID': playerID },
+            { gameStatus, 'secondPlayer.playerID': playerID }],
+        };
+        break;
+    }
     return {
-      battles: await Battle.find({
-        $or: [{ gameStatus, 'playersInfo.firstPlayer.playerID': playerID },
-          { gameStatus, 'playersInfo.secondPlayer.playerID': playerID }],
-      }).lean(),
+      battles: await Battle.find(options).populate([{ path: POPULATE_PATH_PLAYER1 }, { path: POPULATE_PATH_PLAYER2 }]).lean(),
     };
-  } catch (err) {
-    return { message: err };
+  } catch (error) {
+    return { error };
   }
 };
 

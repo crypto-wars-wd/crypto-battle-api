@@ -1,19 +1,18 @@
 const { userModel } = require('models');
-const render = require('concerns/render');
 const { sessions } = require('utilities/authentication');
 
 module.exports = async (req, res, params) => {
   const { payload, error } = await sessions.getAuthData({ req });
-  if (error) return render.unauthorized(res, error);
+  if (error) return { error };
 
-  const { user, message } = await userModel.findUserById(params.id);
-  if (message) return render.error(res, message);
+  const { user, findUserError } = await userModel.findUserById(params.id);
+  if (findUserError) return { findUserError };
 
   const session = sessions
     .findSession({ sessions: user && user.auth && user.auth.sessions, sid: payload.sid });
   const { successDestroy, destroySessionError } = await userModel
     .destroySession({ userId: user._id, session });
-  if (destroySessionError) return render.error(res, destroySessionError);
+  if (destroySessionError) return { destroySessionError };
 
-  return successDestroy;
+  return { successDestroy };
 };

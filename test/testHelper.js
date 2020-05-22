@@ -1,6 +1,5 @@
 const chai = require('chai');
 const faker = require('faker');
-const rewire = require('rewire');
 const crypto = require('crypto-js');
 const { ObjectID } = require('bson');
 const chaiHttp = require('chai-http');
@@ -30,7 +29,6 @@ module.exports = {
   models,
   expect,
   assert,
-  rewire,
   crypto,
   faker,
   chai,

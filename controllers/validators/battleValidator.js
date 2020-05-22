@@ -24,14 +24,10 @@ exports.statsBattleShcema = Joi.array().items(Joi.object().keys({
   firstPlayer: Joi.object().keys({
     cryptoName: Joi.string().required(),
     playerID: Joi.string().required(),
-    alias: Joi.string().required(),
-    avatar: Joi.string().required(),
   }),
   secondPlayer: Joi.object().keys({
     cryptoName: Joi.string().required(),
     playerID: Joi.string().required(),
-    alias: Joi.string().required(),
-    avatar: Joi.string().required(),
   }),
   healthPoints: Joi.number().required(),
   gameStatus: Joi.string().valid('START', 'END').required(),

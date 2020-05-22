@@ -23,19 +23,19 @@ describe('battleController', async () => {
     });
     it('should exist', async () => {
       const battle = Battle.findOne({ 'playersInfo.firstPlayer.playerID': data.playerID });
-      expect(battle).to.exist;
+      expect(battle).to.be.exist;
     });
     it('should return status 200', async () => {
       expect(result).to.have.status(200);
     });
     it('should return correct cryptoName', async () => {
-      expect(result.body.battle.firstPlayer.cryptoName).to.be.eq(data.cryptoName);
+      expect(result.body.battleWithPlayer.firstPlayer.cryptoName).to.be.eq(data.cryptoName);
     });
     it('should return correct cryptoName in body', async () => {
-      expect(result.body.battle.firstPlayer.cryptoName).to.be.eq(data.cryptoName);
+      expect(result.body.battleWithPlayer.firstPlayer.cryptoName).to.be.eq(data.cryptoName);
     });
     it('should return correct healthPoints in body', async () => {
-      expect(result.body.battle.healthPoints).to.be.eq(data.healthPoints);
+      expect(result.body.battleWithPlayer.healthPoints).to.be.eq(data.healthPoints);
     });
   });
   describe('createBattle on error missing one of arguments (healthPoints)', async () => {
