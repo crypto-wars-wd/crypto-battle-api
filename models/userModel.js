@@ -37,8 +37,8 @@ const findUserBySocial = async ({ id, provider }) => User.findOne({ 'auth.provid
 const findUserById = async (id) => {
   try {
     return { user: await User.findOne({ _id: id }).lean() };
-  } catch (error) {
-    return { message: error };
+  } catch (findUserError) {
+    return { findUserError };
   }
 };
 

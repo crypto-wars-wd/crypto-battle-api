@@ -1,12 +1,12 @@
 const crypto = require('crypto-js');
 const config = require('config');
-const { ObjectID, rewire } = require('test/testHelper');
+const { ObjectID } = require('test/testHelper');
+const { tokenSign } = require('utilities/authentication/sessions');
 
-const AuthRewire = rewire('utilities/authentication/sessions');
-const tokenSign = AuthRewire.__get__('tokenSign');
-
-const encodeToken = ({ accessToken }) => crypto.AES.encrypt(accessToken, config.cryptoKey).toString();
-const decodeToken = async ({ accessToken }) => crypto.AES.decrypt(accessToken, config.cryptoKey).toString(crypto.enc.Utf8);
+const encodeToken = ({ accessToken }) => crypto.AES.encrypt(accessToken, config.cryptoKey)
+  .toString();
+const decodeToken = async ({ accessToken }) => crypto.AES.decrypt(accessToken, config.cryptoKey)
+  .toString(crypto.enc.Utf8);
 
 const create = async (data = {}) => {
   const session = {

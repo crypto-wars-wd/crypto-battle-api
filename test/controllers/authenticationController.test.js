@@ -40,7 +40,7 @@ describe('authenticationController', async () => {
         .send(payload);
       expect(result).to.have.status(401);
     });
-    it('should return error empty body', async () => {
+    it('should return error when request with empty body', async () => {
       const result = await chai.request(app)
         .post('/api/logout')
         .set({ 'access-token': authToken });
