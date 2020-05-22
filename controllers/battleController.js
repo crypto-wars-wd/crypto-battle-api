@@ -8,9 +8,8 @@ const createBattle = async (req, res) => {
     .validate(req.body, validators.battle.createBattleSchema);
   if (validationError) return render.error(res, validationError);
 
-  const { battleWithPlayer, createBattleError, populateError } = await newBattle(req, res, params);
-  if (createBattleError) return render.error(res, createBattleError);
-  if (populateError) return render.error(res, populateError);
+  const { battleWithPlayer, error } = await newBattle(req, res, params);
+  if (error) return render.custom(res, error.status, error.message);
 
   return render.success(res, { battleWithPlayer });
 };
@@ -27,8 +26,8 @@ const getTopWarriors = async (req, res) => {
     .validate(req.query, validators.battle.topWarriorsSchema);
   if (validationError) return render.error(res, validationError);
 
-  const { warriors, hasMore, findWarriorsError } = await getBattleData(req, res, params);
-  if (findWarriorsError) return render.error(res, findWarriorsError);
+  const { warriors, hasMore, error } = await getBattleData(req, res, params);
+  if (error) return render.custom(res, error.status, error.message);
 
   return render.success(res, { warriors, hasMore });
 };

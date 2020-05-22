@@ -41,12 +41,8 @@ const logout = async (req, res) => {
     .validate(req.body, validators.authentication.logoutSchema);
   if (validationError) return render.error(res, validationError);
 
-  const {
-    successDestroy, getAuthError, findUserError, destroySessionError,
-  } = await logoutUser(req, res, params);
-  if (getAuthError) return render.unauthorized(res, getAuthError);
-  if (findUserError) return render.error(res, findUserError);
-  if (destroySessionError) return render.error(res, destroySessionError);
+  const { successDestroy, error } = await logoutUser(req, res, params);
+  if (error) return render.custom(res, error.status, error.message);
 
   return render.success(res, successDestroy);
 };
