@@ -3,7 +3,7 @@ const { userModel } = require('models');
 module.exports = async (req, res, params) => {
   const { warriors, error: findWarriorsError } = await userModel
     .findTopWarriors({ limit: params.limit + 1, skip: params.skip });
-  if (findWarriorsError) return { error: { status: 404, message: 'Warriors not found' } };
+  if (findWarriorsError) return { error: { status: 503, message: findWarriorsError.message } };
 
   return {
     warriors: warriors.slice(0, params.limit),
