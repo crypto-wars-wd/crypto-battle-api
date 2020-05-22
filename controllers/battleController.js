@@ -39,8 +39,8 @@ const connectBattle = async (req, res) => {
   const { params, validationError } = validators.validate(req.body, validators.battle.connectBattleShcema);
   if (validationError) return render.error(res, validationError);
 
-  const { battle, message } = await battleModel.connectBattle(params);
-  if (message) return render.error(res, message);
+  const { battle, error } = await battleModel.connectBattle(params);
+  if (error) return render.error(res, error);
 
   return render.success(res, { battle });
 };
