@@ -16,8 +16,6 @@ exports.topWarriorsSchema = Joi.object().keys({
 exports.connectBattleShcema = Joi.object().keys({
   cryptoName: Joi.string().required(),
   playerID: Joi.string().required(),
-  alias: Joi.string().required(),
-  avatar: Joi.string().required(),
   battleID: Joi.string().required(),
 }).options(options);
 

@@ -24,17 +24,15 @@ const populateBattle = async ({ id, path }) => {
 };
 
 const connectBattle = async ({
-  cryptoName, playerID, battleID, alias, avatar,
+  cryptoName, playerID, battleID,
 }) => {
   try {
     return {
       battle: await Battle.findOneAndUpdate({ _id: battleID }, {
-        'playersInfo.secondPlayer.cryptoName': cryptoName,
-        'playersInfo.secondPlayer.playerID': playerID,
-        'playersInfo.secondPlayer.avatar': avatar,
-        'playersInfo.secondPlayer.alias': alias,
+        'secondPlayer.cryptoName': cryptoName,
+        'secondPlayer.playerID': playerID,
         gameStatus: 'START',
-      }, { new: true }).lean(),
+      }, { new: true }).populate([{ path: 'player1' }, { path: 'player2' }]).lean(),
     };
   } catch (err) {
     return { message: err };

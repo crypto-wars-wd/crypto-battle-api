@@ -17,7 +17,7 @@ const updateCryptoResultBattle = async ({ cryptoName, resultBattle }) => {
           numberOfVictories: (resultBattle) === 'win' ? 1 : 0,
           numberOfFights: 1,
         },
-      }, { upsert: true }),
+      }),
     };
   } catch (error) {
     return { message: error };
