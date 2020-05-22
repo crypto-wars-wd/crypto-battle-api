@@ -10,11 +10,11 @@ const createBattle = async (req, res) => {
     .validate(req.body, validators.battle.createBattleSchema);
   if (validationError) return render.error(res, validationError);
 
-  const { battleWithPlayer, createBattleError, populateError } = await newBattle(req, res, params);
+  const { battle, createBattleError, populateError } = await newBattle(req, res, params);
   if (createBattleError) return render.error(res, createBattleError);
   if (populateError) return render.error(res, populateError);
 
-  return render.success(res, { battleWithPlayer });
+  return render.success(res, { battle });
 };
 
 const getCryptoCurrencies = async (req, res) => {
