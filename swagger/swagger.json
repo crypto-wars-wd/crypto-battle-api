@@ -203,7 +203,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Session deleted  "
+            "description": "Session deleted ",
+            "schema": {
+              "example": {
+                "n": 1,
+                "nModified": 1,
+                "ok": 1
+              }
+            }
           },
           "401": {
             "description": "Unauthorized",
