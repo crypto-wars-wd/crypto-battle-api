@@ -90,7 +90,7 @@ const updateUserResultBattle = async ({ playerID, resultBattle }) => {
       }),
     };
   } catch (error) {
-    return { message: error };
+    return { error };
   }
 };
 

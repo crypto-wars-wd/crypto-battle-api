@@ -59,8 +59,8 @@ const showBattlesByState = async (req, res) => {
   const { params, validationError } = validators.validate(req.query, validators.battle.showBattlesByState);
   if (validationError) return render.error(res, validationError);
 
-  const { battles, message } = await getBattlesByState(params);
-  if (message) return render.error(res, message);
+  const { battles, error } = await getBattlesByState(params);
+  if (error) return render.error(res, error);
 
   return render.success(res, { battles });
 };

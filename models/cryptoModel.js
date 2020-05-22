@@ -20,7 +20,7 @@ const updateCryptoResultBattle = async ({ cryptoName, resultBattle }) => {
       }),
     };
   } catch (error) {
-    return { message: error };
+    return { error };
   }
 };
 

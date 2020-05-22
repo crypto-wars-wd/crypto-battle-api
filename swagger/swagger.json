@@ -281,38 +281,38 @@
                   "_id": "5ec56597c202e78e90cac359",
                   "firstPlayer": {
                     "cryptoName": "BTC",
-                    "playerID": "5ec56424c202e78e90cac356"
+                    "playerID": "5ec56424c202e78e90cac356",
+                    "userInfo": {
+                      "_id": "5ec56424c202e78e90cac356",
+                      "level": 1,
+                      "health": 100,
+                      "numberOfVictories": 0,
+                      "numberOfLosses": 0,
+                      "numberOfFights": 0,
+                      "alias": "Борис Андржиевский",
+                      "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo.jpg",
+                      "auth": {
+                        "sessions": [
+                          {
+                            "_id": "5ec56424c202e78e90cac357",
+                            "sid": "5ec56424babd36e3b02d2d49",
+                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
+                          }
+                        ],
+                        "provider": "google",
+                        "id": "100171304431977375879"
+                      },
+                      "createdAt": "2020-05-20T17:08:52.990Z",
+                      "updatedAt": "2020-05-20T17:08:52.990Z",
+                      "__v": 0
+                    }
                   },
                   "steps": [],
                   "gameStatus": "WAITING",
                   "healthPoints": 240,
                   "createdAt": "2020-05-20T17:15:03.381Z",
                   "updatedAt": "2020-05-20T17:15:03.381Z",
-                  "__v": 0,
-                  "player1": {
-                    "_id": "5ec56424c202e78e90cac356",
-                    "level": 1,
-                    "health": 100,
-                    "numberOfVictories": 0,
-                    "numberOfLosses": 0,
-                    "numberOfFights": 0,
-                    "alias": "Борис Андржиевский",
-                    "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo.jpg",
-                    "auth": {
-                      "sessions": [
-                        {
-                          "_id": "5ec56424c202e78e90cac357",
-                          "sid": "5ec56424babd36e3b02d2d49",
-                          "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
-                        }
-                      ],
-                      "provider": "google",
-                      "id": "100171304431977375879"
-                    },
-                    "createdAt": "2020-05-20T17:08:52.990Z",
-                    "updatedAt": "2020-05-20T17:08:52.990Z",
-                    "__v": 0
-                  }
+                  "__v": 0
                 }
               }
             }
@@ -339,6 +339,495 @@
                         "label": "healthPoints",
                         "value": "",
                         "key": "healthPoints"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/connect-battle": {
+      "post": {
+        "tags": [
+          "Battle"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for connect to the battle from socket server. All properties are required",
+        "parameters": [
+          {
+            "name": "connect battle body",
+            "in": "body",
+            "description": "all props are required",
+            "schema": {
+              "example": {
+                "cryptoName": "BTC",
+                "playerID": "5ec56424c202e78e90cac356",
+                "battleID": "5ec6d2ca36dc5c63d6840f8d"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Battle data ",
+            "schema": {
+              "example": {
+                "battle": {
+                  "_id": "5ec6d2ca36dc5c63d6840f8d",
+                  "firstPlayer": {
+                    "cryptoName": "ETH",
+                    "playerID": "5ec6d1e7a7271f6334f187ef",
+                    "userInfo": {
+                      "_id": "5ec6d2716b93896391848302",
+                      "level": 1,
+                      "health": 100,
+                      "numberOfVictories": 0,
+                      "numberOfLosses": 0,
+                      "numberOfFights": 0,
+                      "alias": "Пронюк Сергей",
+                      "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo.jpg",
+                      "auth": {
+                        "sessions": [
+                          {
+                            "_id": "5ec56424c202e78e90cac357",
+                            "sid": "5ec56424babd36e3b02d2d49",
+                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
+                          }
+                        ],
+                        "provider": "google",
+                        "id": "100171304431977375879"
+                      },
+                      "createdAt": "2020-05-21T19:11:45.199Z",
+                      "updatedAt": "2020-05-21T19:11:45.199Z",
+                      "__v": 0
+                    }
+                  },
+                  "steps": [],
+                  "gameStatus": "START",
+                  "healthPoints": 3,
+                  "createdAt": "2020-05-21T19:13:14.742Z",
+                  "updatedAt": "2020-05-21T19:27:56.921Z",
+                  "__v": 0,
+                  "secondPlayer": {
+                    "cryptoName": "BTC",
+                    "playerID": "5ec6d2716b93896391848302",
+                    "userInfo": {
+                      "_id": "5ec6d1e7a7271f6334f187ef",
+                      "level": 1,
+                      "health": 100,
+                      "numberOfVictories": 0,
+                      "numberOfLosses": 0,
+                      "numberOfFights": 0,
+                      "alias": "Борис Андржиевский",
+                      "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo2.jpg",
+                      "auth": {
+                        "sessions": [
+                          {
+                            "_id": "5ec56424c202e78e90cac357",
+                            "sid": "5ec56424babd36e3b02d2d49",
+                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
+                          }
+                        ],
+                        "provider": "google",
+                        "id": "100171304431977375879"
+                      },
+                      "createdAt": "2020-05-21T19:09:27.093Z",
+                      "updatedAt": "2020-05-21T19:09:27.093Z",
+                      "__v": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Wrong data",
+            "schema": {
+              "example": {
+                "success": false,
+                "error": {
+                  "_original": {
+                    "cryptoName": "BTC",
+                    "playerID": "5ebd48d7d674a036484060ba",
+                    "playerID": ""
+                  },
+                  "details": [
+                    {
+                      "message": "\"playerID\" must be a string",
+                      "path": [
+                        "playerID"
+                      ],
+                      "type": "number.base",
+                      "context": {
+                        "label": "playerID",
+                        "value": "",
+                        "key": "playerID"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/save-stats-battle": {
+      "post": {
+        "tags": [
+          "Battle"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for save battles in API database from socket server. All properties are required",
+        "parameters": [
+          {
+            "name": "connect battle body",
+            "in": "body",
+            "description": "all props are required",
+            "schema": {
+              "example": {
+                "battle": {
+                  "_id": "5ec6d2ca36dc5c63d6840f8d",
+                  "firstPlayer": {
+                    "cryptoName": "ETH",
+                    "playerID": "5ec6d1e7a7271f6334f187ef",
+                    "userInfo": {
+                      "_id": "5ec6d2716b93896391848302",
+                      "level": 1,
+                      "health": 100,
+                      "numberOfVictories": 0,
+                      "numberOfLosses": 0,
+                      "numberOfFights": 0,
+                      "alias": "Пронюк Сергей",
+                      "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo.jpg",
+                      "auth": {
+                        "sessions": [
+                          {
+                            "_id": "5ec56424c202e78e90cac357",
+                            "sid": "5ec56424babd36e3b02d2d49",
+                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
+                          }
+                        ],
+                        "provider": "google",
+                        "id": "100171304431977375879"
+                      },
+                      "createdAt": "2020-05-21T19:11:45.199Z",
+                      "updatedAt": "2020-05-21T19:11:45.199Z",
+                      "__v": 0
+                    }
+                  },
+                  "steps": [{
+                    "playersStats": [
+                      {
+                        "cryptoName": "ETH",
+                        "status": "DOWN",
+                        "price": 201.54,
+                        "playerID": "5ec6d1e7a7271f6334f187ef",
+                        "healthPoints": 2
+                      },
+                      {
+                        "cryptoName": "BTC",
+                        "status": "UNCHANGED",
+                        "price": 9079.50634405,
+                        "playerID": "5ec6d2716b93896391848302",
+                        "healthPoints": 3
+                      }
+                    ],
+                    "messages": "Игрок ETH офигел от всего происходящего "
+                  }],
+                  "gameStatus": "START",
+                  "healthPoints": 3,
+                  "createdAt": "2020-05-21T19:13:14.742Z",
+                  "updatedAt": "2020-05-21T19:27:56.921Z",
+                  "__v": 0,
+                  "secondPlayer": {
+                    "cryptoName": "BTC",
+                    "playerID": "5ec6d2716b93896391848302",
+                    "userInfo": {
+                      "_id": "5ec6d1e7a7271f6334f187ef",
+                      "level": 1,
+                      "health": 100,
+                      "numberOfVictories": 0,
+                      "numberOfLosses": 0,
+                      "numberOfFights": 0,
+                      "alias": "Борис Андржиевский",
+                      "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo2.jpg",
+                      "auth": {
+                        "sessions": [
+                          {
+                            "_id": "5ec56424c202e78e90cac357",
+                            "sid": "5ec56424babd36e3b02d2d49",
+                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
+                          }
+                        ],
+                        "provider": "google",
+                        "id": "100171304431977375879"
+                      },
+                      "createdAt": "2020-05-21T19:09:27.093Z",
+                      "updatedAt": "2020-05-21T19:09:27.093Z",
+                      "__v": 0
+                    }
+                  }
+                }
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Battle data ",
+            "schema": {
+              "example": {
+                "battle": {
+                  "_id": "5ec6d2ca36dc5c63d6840f8d",
+                  "firstPlayer": {
+                    "cryptoName": "ETH",
+                    "playerID": "5ec6d1e7a7271f6334f187ef",
+                    "userInfo": {
+                      "_id": "5ec6d2716b93896391848302",
+                      "level": 1,
+                      "health": 100,
+                      "numberOfVictories": 0,
+                      "numberOfLosses": 0,
+                      "numberOfFights": 0,
+                      "alias": "Пронюк Сергей",
+                      "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo.jpg",
+                      "auth": {
+                        "sessions": [
+                          {
+                            "_id": "5ec56424c202e78e90cac357",
+                            "sid": "5ec56424babd36e3b02d2d49",
+                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
+                          }
+                        ],
+                        "provider": "google",
+                        "id": "100171304431977375879"
+                      },
+                      "createdAt": "2020-05-21T19:11:45.199Z",
+                      "updatedAt": "2020-05-21T19:11:45.199Z",
+                      "__v": 0
+                    }
+                  },
+                  "steps": [],
+                  "gameStatus": "START",
+                  "healthPoints": 3,
+                  "createdAt": "2020-05-21T19:13:14.742Z",
+                  "updatedAt": "2020-05-21T19:27:56.921Z",
+                  "__v": 0,
+                  "secondPlayer": {
+                    "cryptoName": "BTC",
+                    "playerID": "5ec6d2716b93896391848302",
+                    "userInfo": {
+                      "_id": "5ec6d1e7a7271f6334f187ef",
+                      "level": 1,
+                      "health": 100,
+                      "numberOfVictories": 0,
+                      "numberOfLosses": 0,
+                      "numberOfFights": 0,
+                      "alias": "Борис Андржиевский",
+                      "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo2.jpg",
+                      "auth": {
+                        "sessions": [
+                          {
+                            "_id": "5ec56424c202e78e90cac357",
+                            "sid": "5ec56424babd36e3b02d2d49",
+                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
+                          }
+                        ],
+                        "provider": "google",
+                        "id": "100171304431977375879"
+                      },
+                      "createdAt": "2020-05-21T19:09:27.093Z",
+                      "updatedAt": "2020-05-21T19:09:27.093Z",
+                      "__v": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Wrong data",
+            "schema": {
+              "example": {
+                "success": false,
+                "error": {
+                  "_original": {
+                    "cryptoName": "BTC",
+                    "playerID": "5ebd48d7d674a036484060ba",
+                    "playerID": ""
+                  },
+                  "details": [
+                    {
+                      "message": "\"playerID\" must be a string",
+                      "path": [
+                        "playerID"
+                      ],
+                      "type": "number.base",
+                      "context": {
+                        "label": "playerID",
+                        "value": "",
+                        "key": "playerID"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/show-battles-by-state/:state": {
+      "get": {
+        "tags": [
+          "Battle"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for get battles by state --all --start --end --waiting with param --id. All properties are required",
+        "parameters": [
+          {
+            "name": "show battles state",
+            "in": "state",
+            "description": "State battles",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "start",
+              "waiting",
+              "end"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Battle data ",
+            "schema": {
+              "example": {
+                "battle": {
+                  "_id": "5ec6d2ca36dc5c63d6840f8d",
+                  "firstPlayer": {
+                    "cryptoName": "ETH",
+                    "playerID": "5ec6d1e7a7271f6334f187ef",
+                    "userInfo": {
+                      "_id": "5ec6d2716b93896391848302",
+                      "level": 1,
+                      "health": 100,
+                      "numberOfVictories": 0,
+                      "numberOfLosses": 0,
+                      "numberOfFights": 0,
+                      "alias": "Пронюк Сергей",
+                      "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo.jpg",
+                      "auth": {
+                        "sessions": [
+                          {
+                            "_id": "5ec56424c202e78e90cac357",
+                            "sid": "5ec56424babd36e3b02d2d49",
+                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
+                          }
+                        ],
+                        "provider": "google",
+                        "id": "100171304431977375879"
+                      },
+                      "createdAt": "2020-05-21T19:11:45.199Z",
+                      "updatedAt": "2020-05-21T19:11:45.199Z",
+                      "__v": 0
+                    }
+                  },
+                  "steps": [{
+                    "playersStats": [
+                      {
+                        "cryptoName": "ETH",
+                        "status": "DOWN",
+                        "price": 201.54,
+                        "playerID": "5ec6d1e7a7271f6334f187ef",
+                        "healthPoints": 2
+                      },
+                      {
+                        "cryptoName": "BTC",
+                        "status": "UNCHANGED",
+                        "price": 9079.50634405,
+                        "playerID": "5ec6d2716b93896391848302",
+                        "healthPoints": 3
+                      }
+                    ],
+                    "messages": "Игрок ETH офигел от всего происходящего "
+                  }],
+                  "gameStatus": "START",
+                  "healthPoints": 3,
+                  "createdAt": "2020-05-21T19:13:14.742Z",
+                  "updatedAt": "2020-05-21T19:27:56.921Z",
+                  "__v": 0,
+                  "secondPlayer": {
+                    "cryptoName": "BTC",
+                    "playerID": "5ec6d2716b93896391848302",
+                    "userInfo": {
+                      "_id": "5ec6d1e7a7271f6334f187ef",
+                      "level": 1,
+                      "health": 100,
+                      "numberOfVictories": 0,
+                      "numberOfLosses": 0,
+                      "numberOfFights": 0,
+                      "alias": "Борис Андржиевский",
+                      "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo2.jpg",
+                      "auth": {
+                        "sessions": [
+                          {
+                            "_id": "5ec56424c202e78e90cac357",
+                            "sid": "5ec56424babd36e3b02d2d49",
+                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
+                          }
+                        ],
+                        "provider": "google",
+                        "id": "100171304431977375879"
+                      },
+                      "createdAt": "2020-05-21T19:09:27.093Z",
+                      "updatedAt": "2020-05-21T19:09:27.093Z",
+                      "__v": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Wrong data",
+            "schema": {
+              "example": {
+                "success": false,
+                "error": {
+                  "_original": {
+                    "state": "starts"
+                  },
+                  "details": [
+                    {
+                      "message": "\"state\" must be one of [all, waiting, start, end]",
+                      "path": [
+                        "state"
+                      ],
+                      "type": "any.only",
+                      "context": {
+                        "valids": [
+                          "all",
+                          "waiting",
+                          "start",
+                          "end"
+                        ],
+                        "label": "state",
+                        "value": "starts",
+                        "key": "state"
                       }
                     }
                   ]
