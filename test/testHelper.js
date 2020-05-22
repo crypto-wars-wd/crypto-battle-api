@@ -1,18 +1,16 @@
 const chai = require('chai');
 const faker = require('faker');
+const crypto = require('crypto-js');
+const { ObjectID } = require('bson');
 const chaiHttp = require('chai-http');
 const sinonChai = require('sinon-chai');
 const chaiAsPromised = require('chai-as-promised');
 
-chai.use(chaiAsPromised);
 chai.use(chaiHttp);
 chai.use(sinonChai);
+chai.use(chaiAsPromised);
 const { expect, assert } = chai;
 const { Mongoose, models } = require('database');
-const {
-  userModel,
-  battleModel,
-} = require('models');
 
 const dropDatabase = async () => {
   for (const model in models) {
@@ -21,16 +19,17 @@ const dropDatabase = async () => {
 };
 
 module.exports = {
-  app: require('app'),
   ...require('database').models,
   sinon: require('sinon'),
-  userModel,
-  battleModel,
+  ...require('models'),
+  app: require('app'),
+  dropDatabase,
+  ObjectID,
   Mongoose,
   models,
-  faker,
-  chai,
   expect,
   assert,
-  dropDatabase,
+  crypto,
+  faker,
+  chai,
 };

@@ -4,18 +4,26 @@ const createNewBattle = async ({
   cryptoName, playerID, healthPoints,
 }) => {
   const battle = new Battle({
-    'playersInfo.firstPlayer.cryptoName': cryptoName,
-    'playersInfo.firstPlayer.playerID': playerID,
-    'playersInfo.healthPoints': healthPoints,
+    'firstPlayer.cryptoName': cryptoName,
+    'firstPlayer.playerID': playerID,
+    healthPoints,
   });
   try {
     await battle.save();
-  } catch (err) {
-    return { message: err };
+  } catch (error) {
+    return { error };
   }
-  return { battle: battle.toObject() };
+  return { newBattle: battle.toObject() };
+};
+const populateBattle = async ({ id, path }) => {
+  try {
+    return { battleWithPlayer: await Battle.findOne({ id }).populate({ path }).lean() };
+  } catch (error) {
+    return { error };
+  }
 };
 
 module.exports = {
   createNewBattle,
+  populateBattle,
 };

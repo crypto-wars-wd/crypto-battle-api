@@ -12,10 +12,10 @@ exports.socialAuth = async ({
   const session = generateSession();
 
   if (!userBySocial) {
-    const { user, session: existSession, message } = await signUpSocial({
+    const { user, session: existSession, error } = await signUpSocial({
       alias, avatar, provider, id, session, postLocales,
     });
-    return { message, user, session: existSession };
+    return { error, user, session: existSession };
   }
   if (!userBySocial) return { message: 'Invalid data fields' };
   return signInSocial({ id, userId: userBySocial._id, session });

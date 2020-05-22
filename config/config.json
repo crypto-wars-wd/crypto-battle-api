@@ -17,7 +17,7 @@
       "database": "crypto-battle"
     },
     "limitSessions": 5,
-    "sessionExpiration": "1000",
+    "sessionExpiration": "10m",
     "swaggerHost": "localhost:3001"
   },
 
@@ -28,7 +28,8 @@
       "database": "crypto-battletest"
     },
     "limitSessions": 5,
-    "sessionExpiration": "2000",
+    "cryptoKey": "db5c57b3fc1c105e772a3784df6b798c",
+    "sessionExpiration": "10m",
     "swaggerHost": "localhost:3001"
   }
 }

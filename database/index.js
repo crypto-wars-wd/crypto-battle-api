@@ -18,5 +18,6 @@ module.exports = {
   models: {
     User: require('./schemas/UserSchema'),
     Battle: require('./schemas/BattleSchema'),
+    Crypto: require('./schemas/CryptoSchema'),
   },
 };
