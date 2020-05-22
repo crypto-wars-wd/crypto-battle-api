@@ -18,7 +18,7 @@ describe('userModel', async () => {
       updUser = await User.findOne({ _id: user._id });
     });
     it('should result update successfully', async () => {
-      expect(resultUpdate).is.exist;
+      expect(resultUpdate).to.be.exist;
     });
     it('should compare fields so they are the same ', async () => {
       expect({ alias: updUser.alias, avatar: updUser.avatar })

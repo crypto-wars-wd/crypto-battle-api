@@ -14,7 +14,7 @@ describe('cryptoModel', async () => {
         await CryptoFactory.createNewCrypto();
       }
     });
-    it('should return array of 3 object', async () => {
+    it('should return array of random objects', async () => {
       const { crypto } = await cryptoModel.findAllCrypto();
       expect(crypto.length).to.be.eq(random);
     });
