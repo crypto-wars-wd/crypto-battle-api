@@ -1,2 +1,2 @@
-exports.POPULATE_PATH_PLAYER1 = 'player1';
-exports.POPULATE_PATH_PLAYER2 = 'player2';
+exports.POPULATE_PATH_PLAYER1 = 'firstPlayer.userInfo';
+exports.POPULATE_PATH_PLAYER2 = 'secondPlayer.userInfo';
