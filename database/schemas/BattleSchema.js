@@ -22,7 +22,7 @@ const BattleSchema = new Schema({
     cryptoName: { type: String },
   },
   looser: {
-    playerID: { ttype: Schema.Types.ObjectId },
+    playerID: { type: Schema.Types.ObjectId },
     cryptoName: { type: String },
   },
 }, { toObject: { virtuals: true }, toJSON: { virtuals: true }, timestamps: true });
