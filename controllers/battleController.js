@@ -1,6 +1,6 @@
 const { cryptoModel } = require('models');
 const render = require('concerns/render');
-const { newBattle, getBattleData } = require('utilities/operations');
+const { newBattle, getBattleData } = require('utilities/operations').battle;
 const validators = require('./validators');
 
 const createBattle = async (req, res) => {

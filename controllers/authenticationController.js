@@ -3,7 +3,7 @@ const {
 } = require('views/authenticationController');
 const { userModel } = require('models');
 const render = require('concerns/render');
-const { strategies, logoutUser } = require('utilities/operations');
+const { strategies, logoutUser } = require('utilities/operations').auth;
 const { sessions } = require('utilities/authentication');
 const validators = require('./validators');
 
