@@ -55,20 +55,23 @@ const updateStatsBattle = async ({
 
 const getBattlesByState = async ({ gameStatus, playerID }) => {
   try {
-    let options;
+    let pipeline;
     switch (playerID) {
       case 'all':
-        options = { gameStatus };
+        pipeline = { gameStatus };
+        break;
+      case undefined:
+        pipeline = { gameStatus };
         break;
       default:
-        options = {
+        pipeline = {
           $or: [{ gameStatus, 'firstPlayer.playerID': playerID },
             { gameStatus, 'secondPlayer.playerID': playerID }],
         };
         break;
     }
     return {
-      battles: await Battle.find(options).populate([{ path: POPULATE_PATH_PLAYER1 }, { path: POPULATE_PATH_PLAYER2 }]).lean(),
+      battles: await Battle.find(pipeline).populate([{ path: POPULATE_PATH_PLAYER1 }, { path: POPULATE_PATH_PLAYER2 }]).lean(),
     };
   } catch (error) {
     return { error };
