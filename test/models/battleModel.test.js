@@ -31,8 +31,8 @@ describe('battleModel', async () => {
       expect(battle).to.be.exist;
     });
     it('should be error message', async () => {
-      const { createBattleError } = await battleModel.createNewBattle({ lkkdfs: 'dfsdf' });
-      expect(createBattleError).to.be.exist;
+      const { error } = await battleModel.createNewBattle({ lkkdfs: 'dfsdf' });
+      expect(error).to.be.exist;
     });
   });
 });

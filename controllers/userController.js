@@ -7,8 +7,8 @@ const updateUserInfo = async (req, res) => {
     .validate(req.body, validators.user.updateInfoSchema);
   if (validationError) return render.error(res, validationError);
 
-  const { user, updateError } = await userModel.updateUserInfo(params);
-  if (updateError) return render.error(res, updateError);
+  const { user, error } = await userModel.updateUserInfo(params);
+  if (error) return render.error(res, error);
 
   return render.success(res, { user });
 };

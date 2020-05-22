@@ -1,7 +1,7 @@
 const { battleModel, cryptoModel } = require('models');
 const render = require('concerns/render');
 const {
-  getBattlesByState, checkResultBattle, newBattle, getBattleData,
+  getBattlesByState, checkStatsBattle, newBattle, getBattleData,
 } = require('utilities/operations').battle;
 const validators = require('./validators');
 
@@ -49,19 +49,9 @@ const saveStatsBattle = async (req, res) => {
   const { params, validationError } = validators.validate(req.body, validators.battle.statsBattleShcema);
   if (validationError) return render.error(res, validationError);
 
-  // operations
-  const battles = [];
-  for (let count = 0; count < params.length; count++) {
-    const { battle, message } = await battleModel.updateStatsBattle(params[count]);
-    if (message) return render.error(res, message);
-    if (battle) {
-      battles.push(battle);
-      if (battle.gameStatus === 'END') {
-        const { error } = await checkResultBattle(battle);
-        if (error) return render.error(res, message);
-      }
-    }
-  }
+  const { battles, error } = await checkStatsBattle(params);
+  if (error) return render.error(res, error);
+
   return render.success(res, { battles });
 };
 

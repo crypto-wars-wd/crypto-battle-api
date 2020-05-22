@@ -14,8 +14,8 @@ const destroySession = async ({ userId, session }) => {
     return {
       successDestroy: await User.updateOne({ _id: userId }, { $pull: { 'auth.sessions': { _id: session._id } } }),
     };
-  } catch (destroySessionError) {
-    return { destroySessionError };
+  } catch (error) {
+    return { error };
   }
 };
 
@@ -27,8 +27,8 @@ const updateUserInfo = async ({ id, alias, avatar }) => {
       user: await User.findOneAndUpdate({ _id: id }, { alias, avatar }, { new: true })
         .lean(),
     };
-  } catch (updateError) {
-    return { updateError };
+  } catch (error) {
+    return { error };
   }
 };
 
@@ -37,8 +37,8 @@ const findUserBySocial = async ({ id, provider }) => User.findOne({ 'auth.provid
 const findUserById = async (id) => {
   try {
     return { user: await User.findOne({ _id: id }).lean() };
-  } catch (findUserError) {
-    return { findUserError };
+  } catch (error) {
+    return { error };
   }
 };
 
@@ -54,8 +54,8 @@ const signUpSocial = async ({
   });
   try {
     await user.save();
-  } catch (errorSignUp) {
-    return { errorSignUp };
+  } catch (error) {
+    return { error };
   }
   return { user: user.toObject(), session };
 };
@@ -73,8 +73,8 @@ const findTopWarriors = async ({ limit, skip }) => {
       warriors: await User.find().sort({ numberOfVictories: 'desc' }).skip(skip).limit(limit)
         .lean(),
     };
-  } catch (findWarriorsError) {
-    return { findWarriorsError };
+  } catch (error) {
+    return { error };
   }
 };
 

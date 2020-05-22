@@ -22,7 +22,7 @@ describe('battleController', async () => {
         .send(data);
     });
     it('should exist', async () => {
-      const battle = Battle.findOne({ 'playersInfo.firstPlayer.playerID': data.playerID });
+      const battle = Battle.findOne({ 'firstPlayer.playerID': data.playerID });
       expect(battle).to.be.exist;
     });
     it('should return status 200', async () => {

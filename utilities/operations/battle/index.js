@@ -3,4 +3,5 @@ module.exports = {
   newBattle: require('./newBattle'),
   getBattlesByState: require('./getBattlesByState'),
   checkResultBattle: require('./checkResultBattle'),
+  checkStatsBattle: require('./checkStatsBattle'),
 };
