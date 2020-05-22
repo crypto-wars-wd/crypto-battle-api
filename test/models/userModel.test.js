@@ -22,7 +22,7 @@ describe('userModel', async () => {
     });
     it('should compare fields so they are the same ', async () => {
       expect({ alias: updUser.alias, avatar: updUser.avatar })
-        .to.not.eq({ alias: user.alias, avatar: user.avatar });
+        .to.be.deep.eq({ alias: user.alias, avatar: user.avatar });
     });
     it('should compare data properties and upd_post properties after update', async () => {
       expect(data).to.deep.eq({
@@ -33,7 +33,7 @@ describe('userModel', async () => {
     });
     it('should return error', async () => {
       const { updateError } = await userModel.updateUserInfo({ id: `${faker.name.firstName()}${faker.random.number()}` });
-      expect(updateError).to.exist;
+      expect(updateError).to.be.exist;
     });
   });
 

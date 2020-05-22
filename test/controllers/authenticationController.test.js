@@ -8,7 +8,7 @@ describe('authenticationController', async () => {
     let user, payload, session, authToken;
     beforeEach(async () => {
       await dropDatabase();
-      user = await UserFactory.createUser({ auth: { id: new ObjectID(), sessions: [session] } });
+      user = await UserFactory.createUser({ auth: { sessions: [session] } });
       payload = {
         id: user._id,
       };
@@ -25,7 +25,7 @@ describe('authenticationController', async () => {
         .send(payload);
       expect(result).to.have.status(200);
     });
-    it('should return result to be deep equal to payload', async () => {
+    it('should return result to be equal to payload', async () => {
       await chai.request(app)
         .post('/api/logout')
         .set({ 'access-token': authToken })

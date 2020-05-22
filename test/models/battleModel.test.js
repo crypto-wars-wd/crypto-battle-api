@@ -1,5 +1,5 @@
 const {
-  expect, dropDatabase, battleModel, assert, Battle, ObjectID, faker,
+  expect, dropDatabase, battleModel, Battle, ObjectID, faker,
 } = require('test/testHelper');
 const { BattleFactory, UserFactory } = require('test/factories');
 
@@ -23,7 +23,7 @@ describe('battleModel', async () => {
     });
     it('should save new battle to db', async () => {
       const actual = await battleModel.createNewBattle(mockData);
-      assert(!actual.isNew); // if actual is saved to db it is not new
+      expect(!actual.isNew).to.be.true; // if actual is saved to db it is not new
     });
     it('should find battle', async () => {
       const { newBattle } = await battleModel.createNewBattle(mockData);
