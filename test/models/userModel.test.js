@@ -32,8 +32,8 @@ describe('userModel', async () => {
       });
     });
     it('should return error', async () => {
-      const { updateError } = await userModel.updateUserInfo({ id: `${faker.name.firstName()}${faker.random.number()}` });
-      expect(updateError).to.be.exist;
+      const { error } = await userModel.updateUserInfo({ id: `${faker.name.firstName()}${faker.random.number()}` });
+      expect(error).to.be.exist;
     });
   });
 

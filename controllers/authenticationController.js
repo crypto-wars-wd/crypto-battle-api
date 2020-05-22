@@ -13,9 +13,9 @@ const socialSignIn = async (req, res, next) => {
   );
 
   if (validationError) return render.error(res, validationError);
-  const { user, session, errorSignUp } = await strategies.socialStrategy(req, res, next);
+  const { user, session, error } = await strategies.socialStrategy(req, res, next);
 
-  if (errorSignUp) return render.unauthorized(res, errorSignUp);
+  if (error) return render.unauthorized(res, error);
 
   sessions.setAuthHeaders(res, user, session);
   return render.success(res, signInView({ user }));
@@ -42,9 +42,9 @@ const logout = async (req, res) => {
   if (validationError) return render.error(res, validationError);
 
   const {
-    successDestroy, error, findUserError, destroySessionError,
+    successDestroy, getAuthError, findUserError, destroySessionError,
   } = await logoutUser(req, res, params);
-  if (error) return render.unauthorized(res, error);
+  if (getAuthError) return render.unauthorized(res, getAuthError);
   if (findUserError) return render.error(res, findUserError);
   if (destroySessionError) return render.error(res, destroySessionError);
 

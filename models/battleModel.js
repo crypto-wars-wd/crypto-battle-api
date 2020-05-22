@@ -10,16 +10,16 @@ const createNewBattle = async ({
   });
   try {
     await battle.save();
-  } catch (createBattleError) {
-    return { createBattleError };
+  } catch (error) {
+    return { error };
   }
   return { newBattle: battle.toObject() };
 };
 const populateBattle = async ({ id, path }) => {
   try {
     return { battleWithPlayer: await Battle.findOne({ id }).populate({ path }).lean() };
-  } catch (populateError) {
-    return { populateError };
+  } catch (error) {
+    return { error };
   }
 };
 
