@@ -16,9 +16,9 @@ const createNewBattle = async ({
   }
   return { newBattle: battle.toObject() };
 };
-const populateBattle = async ({ id, path }) => {
+const populateBattle = async ({ _id, path }) => {
   try {
-    return { battle: await Battle.findOne({ id }).populate({ path }).lean() };
+    return { battle: await Battle.findOne({ _id }).populate({ path }).lean() };
   } catch (error) {
     return { error };
   }
