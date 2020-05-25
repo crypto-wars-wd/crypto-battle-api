@@ -6,6 +6,8 @@ const {
 const validators = require('./validators');
 
 const createBattle = async (req, res) => {
+  if (!validators.keyValidator(req.headers['api-key'])) return render.unauthorized(res);
+
   const { params, validationError } = validators
     .validate(req.body, validators.battle.createBattleSchema);
   if (validationError) return render.error(res, validationError);
@@ -35,7 +37,10 @@ const getTopWarriors = async (req, res) => {
 };
 
 const connectBattle = async (req, res) => {
-  const { params, validationError } = validators.validate(req.body, validators.battle.connectBattleShcema);
+  if (!validators.keyValidator(req.headers['api-key'])) return render.unauthorized(res);
+
+  const { params, validationError } = validators
+    .validate(req.body, validators.battle.connectBattleShcema);
   if (validationError) return render.error(res, validationError);
 
   const { battle, error } = await battleModel.connectBattle(params);
@@ -45,7 +50,10 @@ const connectBattle = async (req, res) => {
 };
 
 const saveStatsBattle = async (req, res) => {
-  const { params, validationError } = validators.validate(req.body, validators.battle.statsBattleShcema);
+  if (!validators.keyValidator(req.headers['api-key'])) return render.unauthorized(res);
+
+  const { params, validationError } = validators
+    .validate(req.body, validators.battle.statsBattleShcema);
   if (validationError) return render.error(res, validationError);
 
   const { battles, error } = await checkStatsBattle(params);
@@ -55,7 +63,10 @@ const saveStatsBattle = async (req, res) => {
 };
 
 const showBattlesByState = async (req, res) => {
-  const { params, validationError } = validators.validate(req.query, validators.battle.showBattlesByState);
+  if (!validators.keyValidator(req.headers['api-key'])) return render.unauthorized(res);
+
+  const { params, validationError } = validators
+    .validate(req.query, validators.battle.showBattlesByState);
   if (validationError) return render.error(res, validationError);
 
   const { battles, error } = await getBattlesByState(params);
