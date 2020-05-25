@@ -78,6 +78,16 @@ const getBattlesByState = async ({ gameStatus, playerID }) => {
   }
 };
 
+const updateOne = async ({ battleID, updData }) => {
+  try {
+    const battle = await Battle.findOneAndUpdate({ _id: battleID }, updData)
+      .populate([{ path: POPULATE_PATH_PLAYER1 }, { path: POPULATE_PATH_PLAYER2 }]).lean();
+    return { battle: !!battle.nModified };
+  } catch (error) {
+    return { error };
+  }
+};
+
 module.exports = {
-  createNewBattle, connectBattle, updateStatsBattle, getBattlesByState, populateBattle,
+  createNewBattle, connectBattle, updateStatsBattle, getBattlesByState, populateBattle, updateOne,
 };
