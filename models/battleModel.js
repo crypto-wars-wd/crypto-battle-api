@@ -33,7 +33,8 @@ const connectBattle = async ({
         'secondPlayer.cryptoName': cryptoName,
         'secondPlayer.playerID': playerID,
         gameStatus: 'START',
-      }, { new: true }).populate([{ path: POPULATE_PATH_PLAYER1 }, { path: POPULATE_PATH_PLAYER2 }]).lean(),
+      }, { new: true })
+        .populate([{ path: POPULATE_PATH_PLAYER1 }, { path: POPULATE_PATH_PLAYER2 }]).lean(),
     };
   } catch (error) {
     return { error };

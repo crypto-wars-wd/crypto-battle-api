@@ -2,7 +2,7 @@ const { Crypto } = require('database').models;
 
 const findAllCrypto = async () => {
   try {
-    return { crypto: await Crypto.find().lean() };
+    return { crypto: await Crypto.find().sort({ numberOfVictories: 'desc' }).lean() };
   } catch (error) {
     return { error };
   }
