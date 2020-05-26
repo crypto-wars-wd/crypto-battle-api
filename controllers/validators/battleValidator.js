@@ -13,6 +13,11 @@ exports.topWarriorsSchema = Joi.object().keys({
   skip: Joi.number().default(0),
 }).options(options);
 
+exports.topCryptoSchema = Joi.object().keys({
+  limit: Joi.number().default(10),
+  skip: Joi.number().default(0),
+}).options(options);
+
 exports.connectBattleShcema = Joi.object().keys({
   cryptoName: Joi.string().required(),
   playerID: Joi.string().required(),

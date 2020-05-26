@@ -1,8 +1,11 @@
 const { Crypto } = require('database').models;
 
-const findAllCrypto = async () => {
+const findAllCrypto = async ({ limit, skip }) => {
   try {
-    return { crypto: await Crypto.find().sort({ numberOfVictories: 'desc' }).lean() };
+    return {
+      crypto: await Crypto.find().sort({ numberOfVictories: 'desc' }).skip(skip).limit(limit)
+        .lean(),
+    };
   } catch (error) {
     return { error };
   }
