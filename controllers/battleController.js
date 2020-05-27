@@ -1,7 +1,7 @@
-const { battleModel, cryptoModel, userModel } = require('models');
+const { battleModel } = require('models');
 const render = require('concerns/render');
 const {
-  getBattlesByState, newBattle, getBattleData, getCryptoData, handleUpdateBattles,
+  getBattlesByState, newBattle, getWarriorsData, getCryptoData, handleUpdateBattles, getBattlesData,
 } = require('utilities/operations').battle;
 const validators = require('./validators');
 
@@ -32,7 +32,7 @@ const getTopWarriors = async (req, res) => {
     .validate(req.query, validators.battle.topWarriorsSchema);
   if (validationError) return render.error(res, validationError);
 
-  const { warriors, hasMore, error } = await getBattleData(req, res, params);
+  const { warriors, hasMore, error } = await getWarriorsData(req, res, params);
   if (error) return render.custom(res, error.status, error.message);
 
   return render.success(res, { warriors, hasMore });
@@ -67,6 +67,17 @@ const showBattlesByState = async (req, res) => {
   return render.success(res, battles);
 };
 
+const getBattles = async (req, res) => {
+  const { params, validationError } = validators
+    .validate(req.query, validators.battle.getBattlesSchema);
+  if (validationError) return render.error(res, validationError);
+
+  const { battles, hasMore, error } = await getBattlesData(params);
+  if (error) return render.custom(res, error.status, error.message);
+
+  return render.success(res, { battles, hasMore });
+};
+
 module.exports = {
   createBattle,
   connectBattle,
@@ -74,4 +85,5 @@ module.exports = {
   getCryptoCurrencies,
   getTopWarriors,
   updateBattles,
+  getBattles,
 };

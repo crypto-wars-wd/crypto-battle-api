@@ -41,32 +41,6 @@ const connectBattle = async ({
   }
 };
 
-const getBattlesByState = async ({ gameStatus, playerID }) => {
-  try {
-    let pipeline;
-    switch (playerID) {
-      case 'all':
-        pipeline = { gameStatus };
-        break;
-      case undefined:
-        pipeline = { gameStatus };
-        break;
-      default:
-        pipeline = {
-          $or: [{ gameStatus, 'firstPlayer.playerID': playerID },
-            { gameStatus, 'secondPlayer.playerID': playerID }],
-        };
-        break;
-    }
-    return {
-      battles: await Battle.find(pipeline).populate([{ path: POPULATE_PATH_PLAYER1 }, { path: POPULATE_PATH_PLAYER2 }]).lean(),
-    };
-  } catch (error) {
-    return { error };
-  }
-};
-
-// my
 const updateMany = async ({ battles, steps }) => {
   try {
     return {
@@ -85,6 +59,7 @@ const findMany = async ({ battles }) => {
     return { error };
   }
 };
+
 const endBattles = async ({ endedBattles }) => {
   try {
     await Promise.all(endedBattles.map(async (battle) => {
@@ -102,12 +77,40 @@ const endBattles = async ({ endedBattles }) => {
   }
 };
 
+const getBattlesData = async ({
+  gameStatus, limit, skip, updatedAt, playerID,
+}) => {
+  try {
+    let pipeline;
+    switch (playerID) {
+      case 'all':
+        pipeline = { gameStatus };
+        break;
+      case undefined:
+        pipeline = { gameStatus };
+        break;
+      default:
+        pipeline = {
+          $or: [{ gameStatus, 'firstPlayer.playerID': playerID },
+            { gameStatus, 'secondPlayer.playerID': playerID }],
+        };
+        break;
+    }
+    return {
+      battles: await Battle.find(pipeline).sort({ updatedAt }).skip(skip).limit(limit)
+        .lean(),
+    };
+  } catch (error) {
+    return { error };
+  }
+};
+
 module.exports = {
   createNewBattle,
   connectBattle,
-  getBattlesByState,
   populateBattle,
   updateMany,
   findMany,
   endBattles,
+  getBattlesData,
 };

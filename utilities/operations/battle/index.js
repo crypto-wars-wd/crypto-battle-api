@@ -1,7 +1,7 @@
 module.exports = {
-  getBattleData: require('./getBattleData'),
+  getWarriorsData: require('./getWarriorsData'),
   getCryptoData: require('./getCryptoData'),
+  getBattlesData: require('./getBattlesData'),
   newBattle: require('./newBattle'),
-  getBattlesByState: require('./getBattlesByState'),
   handleUpdateBattles: require('./handleUpdateBattles'),
 };

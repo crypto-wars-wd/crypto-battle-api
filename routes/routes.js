@@ -34,12 +34,10 @@ battleRoutes.route('/top-warriors')
   .get(battleController.getTopWarriors);
 battleRoutes.route('/connect-battle')
   .post(battleController.connectBattle);
-// battleRoutes.route('/save-stats-battle')
-//   .post(battleController.saveStatsBattle);
 battleRoutes.route('/update-battles')
   .post(battleController.updateBattles);
-battleRoutes.route('/show-battles-by-state/:state')
-  .get(battleController.showBattlesByState);
+battleRoutes.route('/get-battles')
+  .get(battleController.getBattles);
 // endregion
 // region user routes
 userRoutes.route('/update-user-info')
