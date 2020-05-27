@@ -63,10 +63,20 @@ const saveStatsBattle = async (req, res) => {
 const updateBattles = async (req, res) => {
   // console.log(req.body);
   const { battles: update, error } = await battleModel.updateMany(req.body);
+  console.log(req.body);
+  if (req.body.endedBattles && req.body.endedBattles.battleID && req.body.endedBattles.battleID.length) {
+    const {
+      battleID, playerWin, cryptoWin, playerLose, cryptoLose,
+    } = req.body.endedBattles;
+
+    await battleModel.endBattles({
+      battleID, playerWin, cryptoWin, playerLose, cryptoLose,
+    });
+  }
   const { battles, error: newError } = await battleModel.findMany(req.body);
   // if (error) return render.error(res, error);
   //
-  console.log(battles)
+
   return render.success(res, { battles });
 };
 

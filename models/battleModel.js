@@ -88,10 +88,13 @@ const updateOne = async ({ battleID, updData }) => {
     return { error };
   }
 };
-
+// my
 const updateMany = async ({ battles, steps }) => {
   try {
-    return { battles: await Battle.updateMany({ _id: { $in: battles } }, { $push: { steps } }).lean() };
+    return {
+      battles: await Battle.updateMany({ _id: { $in: battles } }, { $push: { steps } })
+        .lean(),
+    };
   } catch (error) {
     return { error };
   }
@@ -104,7 +107,38 @@ const findMany = async ({ battles }) => {
     return { error };
   }
 };
+const endBattles = async ({
+  battleID, playerWin, cryptoWin, playerLose, cryptoLose,
+}) => {
+  console.log(battleID);
+  const bla = await Battle.findOne({ _id: '5ece54f17d1b27df6e077405' });
+  try {
+    return {
+      battles: await Battle.updateMany({ _id: { $in: battleID } },
+        {
+          $set: {
+            gameStatus: 'END',
+            // 'winner.playerID': playerWin,
+            // 'winner.cryptoName': cryptoWin,
+            // 'looser.playerID': playerLose,
+            // 'looser.cryptoName': cryptoLose,
+          },
+        })
+        .lean(),
+    };
+  } catch (error) {
+    return { error };
+  }
+};
 
 module.exports = {
-  createNewBattle, connectBattle, updateStatsBattle, getBattlesByState, populateBattle, updateOne, updateMany, findMany,
+  createNewBattle,
+  connectBattle,
+  updateStatsBattle,
+  getBattlesByState,
+  populateBattle,
+  updateOne,
+  updateMany,
+  findMany,
+  endBattles,
 };
