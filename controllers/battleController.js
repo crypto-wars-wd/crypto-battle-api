@@ -1,4 +1,4 @@
-const { battleModel, cryptoModel } = require('models');
+const { battleModel, cryptoModel, userModel } = require('models');
 const render = require('concerns/render');
 const {
   getBattlesByState, checkStatsBattle, newBattle, getBattleData, getCryptoData,
@@ -66,6 +66,14 @@ const updateBattles = async (req, res) => {
   console.log(req.body);
   if (req.body.endedBattles && req.body.endedBattles.length) {
     await battleModel.endBattles(req.body);
+    const cryptoWin = req.body.endedBattles.map((item) => item.cryptoWin);
+    const cryptoLose = req.body.endedBattles.map((item) => item.cryptoLose);
+    const warriorsWin = req.body.endedBattles.map((item) => item.playerWin);
+    const warriorsLose = req.body.endedBattles.map((item) => item.playerLose);
+    await cryptoModel.updateCryptoResultBattle({ cryptoName: cryptoWin, resultBattle: 'win' });
+    await cryptoModel.updateCryptoResultBattle({ cryptoName: cryptoLose, resultBattle: 'lose' });
+    await userModel.updateUserResultBattle({ playerID: warriorsWin, resultBattle: 'win' });
+    await userModel.updateUserResultBattle({ playerID: warriorsLose, resultBattle: 'lose' });
   }
   const { battles, error: newError } = await battleModel.findMany(req.body);
   // if (error) return render.error(res, error);

@@ -80,15 +80,15 @@ const findTopWarriors = async ({ limit, skip }) => {
 
 const updateUserResultBattle = async ({ playerID, resultBattle }) => {
   try {
-    return {
-      result: await User.updateOne({ _id: playerID }, {
+    await Promise.all(playerID.map(async (id) => {
+      await User.updateOne({ _id: id }, {
         $inc: {
           numberOfLosses: (resultBattle) === 'lose' ? 1 : 0,
           numberOfVictories: (resultBattle) === 'win' ? 1 : 0,
           numberOfFights: 1,
         },
-      }),
-    };
+      });
+    }));
   } catch (error) {
     return { error };
   }
