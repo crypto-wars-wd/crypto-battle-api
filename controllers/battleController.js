@@ -1,7 +1,7 @@
 const { battleModel, cryptoModel } = require('models');
 const render = require('concerns/render');
 const {
-  getBattlesByState, checkStatsBattle, newBattle, getBattleData, getCryptoData
+  getBattlesByState, checkStatsBattle, newBattle, getBattleData, getCryptoData,
 } = require('utilities/operations').battle;
 const validators = require('./validators');
 
@@ -62,11 +62,12 @@ const saveStatsBattle = async (req, res) => {
 
 const updateBattles = async (req, res) => {
   // console.log(req.body);
-  const { battles, error } = await battleModel.updateMany(req.body);
-  // const { battles, error } = await battleModel(req.body);
+  const { battles: update, error } = await battleModel.updateMany(req.body);
+  const { battles, error: newError } = await battleModel.findMany(req.body);
   // if (error) return render.error(res, error);
   //
-  return render.success(res);
+  console.log(battles)
+  return render.success(res, { battles });
 };
 
 const showBattlesByState = async (req, res) => {
@@ -77,7 +78,7 @@ const showBattlesByState = async (req, res) => {
   const { battles, error } = await getBattlesByState(params);
   if (error) return render.error(res, error);
 
-  return render.success(res, { battles });
+  return render.success(res, battles);
 };
 
 module.exports = {
