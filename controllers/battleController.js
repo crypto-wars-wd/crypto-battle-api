@@ -50,7 +50,8 @@ const connectBattle = async (req, res) => {
 };
 
 const updateBattles = async (req, res) => {
-  const { battles } = await handleUpdateBattles(req, res);
+  const { battles, error } = await handleUpdateBattles(req);
+  if (error) return render.custom(res, error.status, error.message);
 
   return render.success(res, { battles });
 };

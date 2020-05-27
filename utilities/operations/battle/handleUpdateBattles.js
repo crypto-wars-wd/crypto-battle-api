@@ -1,12 +1,14 @@
 const { battleModel, cryptoModel, userModel } = require('models');
 
-module.exports = async (req, res, params) => {
-  const { battles: update, error } = await battleModel.updateMany(req.body);
+module.exports = async (req) => {
+  const { battles: update, error: updateManyError } = await battleModel.updateMany(req.body);
+  if (updateManyError) return { error: { status: 503, message: updateManyError.message } };
 
   if (req.body.endedBattles && req.body.endedBattles.length) {
     await endBattle(req);
   }
-  const { battles, error: newError } = await battleModel.findMany(req.body);
+  const { battles, error: findManyError } = await battleModel.findMany(req.body);
+  if (findManyError) return { error: { status: 503, message: findManyError.message } };
 
   return { battles };
 };
