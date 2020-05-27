@@ -60,6 +60,15 @@ const saveStatsBattle = async (req, res) => {
   return render.success(res, { battles });
 };
 
+const updateBattles = async (req, res) => {
+  // console.log(req.body);
+  const { battles, error } = await battleModel.updateMany(req.body);
+  // const { battles, error } = await battleModel(req.body);
+  // if (error) return render.error(res, error);
+  //
+  return render.success(res);
+};
+
 const showBattlesByState = async (req, res) => {
   const { params, validationError } = validators
     .validate(req.query, validators.battle.showBattlesByState);
@@ -78,4 +87,5 @@ module.exports = {
   showBattlesByState,
   getCryptoCurrencies,
   getTopWarriors,
+  updateBattles,
 };

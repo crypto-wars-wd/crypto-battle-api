@@ -89,6 +89,14 @@ const updateOne = async ({ battleID, updData }) => {
   }
 };
 
+const updateMany = async ({ battles, steps }) => {
+  try {
+    return { battles: await Battle.updateMany({ _id: { $in: battles } }, { $push: { steps } }).lean() };
+  } catch (error) {
+    return { error };
+  }
+};
+
 module.exports = {
-  createNewBattle, connectBattle, updateStatsBattle, getBattlesByState, populateBattle, updateOne,
+  createNewBattle, connectBattle, updateStatsBattle, getBattlesByState, populateBattle, updateOne, updateMany,
 };
