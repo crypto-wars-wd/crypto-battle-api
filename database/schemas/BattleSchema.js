@@ -21,7 +21,7 @@ const BattleSchema = new Schema({
     playerID: { type: Schema.Types.ObjectId },
     cryptoName: { type: String },
   },
-  looser: {
+  loser: {
     playerID: { type: Schema.Types.ObjectId },
     cryptoName: { type: String },
   },

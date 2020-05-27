@@ -107,25 +107,18 @@ const findMany = async ({ battles }) => {
     return { error };
   }
 };
-const endBattles = async ({
-  battleID, playerWin, cryptoWin, playerLose, cryptoLose,
-}) => {
-  console.log(battleID);
-  const bla = await Battle.findOne({ _id: '5ece54f17d1b27df6e077405' });
+const endBattles = async ({ endedBattles }) => {
   try {
-    return {
-      battles: await Battle.updateMany({ _id: { $in: battleID } },
+    await Promise.all(endedBattles.map(async (battle) => {
+      await Battle.updateOne({ _id: battle.battleID },
         {
-          $set: {
-            gameStatus: 'END',
-            // 'winner.playerID': playerWin,
-            // 'winner.cryptoName': cryptoWin,
-            // 'looser.playerID': playerLose,
-            // 'looser.cryptoName': cryptoLose,
-          },
-        })
-        .lean(),
-    };
+          gameStatus: 'END',
+          'winner.playerID': battle.playerWin,
+          'winner.cryptoName': battle.cryptoWin,
+          'loser.playerID': battle.playerLose,
+          'loser.cryptoName': battle.cryptoLose,
+        });
+    }));
   } catch (error) {
     return { error };
   }
