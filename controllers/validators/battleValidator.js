@@ -24,11 +24,6 @@ exports.connectBattleShcema = Joi.object().keys({
   battleID: Joi.string().required(),
 }).options(options);
 
-exports.showBattlesByState = Joi.object().keys({
-  state: Joi.string().valid('all', 'waiting', 'start', 'end').required(),
-  playerID: Joi.string(),
-}).options(options);
-
 exports.getBattlesSchema = Joi.object().keys({
   state: Joi.string().valid('waiting', 'start', 'end'),
   limit: Joi.number().default(10),
