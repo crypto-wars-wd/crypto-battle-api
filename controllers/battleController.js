@@ -1,7 +1,7 @@
 const { battleModel, cryptoModel, userModel } = require('models');
 const render = require('concerns/render');
 const {
-  getBattlesByState, checkStatsBattle, newBattle, getBattleData, getCryptoData,
+  getBattlesByState, newBattle, getBattleData, getCryptoData, handleUpdateBattles,
 } = require('utilities/operations').battle;
 const validators = require('./validators');
 
@@ -49,35 +49,8 @@ const connectBattle = async (req, res) => {
   return render.success(res, { battle });
 };
 
-const saveStatsBattle = async (req, res) => {
-  const { params, validationError } = validators
-    .validate(req.body, validators.battle.statsBattleShcema);
-  if (validationError) return render.error(res, validationError);
-
-  const { battles, error } = await checkStatsBattle(params);
-  if (error) return render.error(res, error);
-
-  return render.success(res, { battles });
-};
-
 const updateBattles = async (req, res) => {
-  // console.log(req.body);
-  const { battles: update, error } = await battleModel.updateMany(req.body);
-  console.log(req.body);
-  if (req.body.endedBattles && req.body.endedBattles.length) {
-    await battleModel.endBattles(req.body);
-    const cryptoWin = req.body.endedBattles.map((item) => item.cryptoWin);
-    const cryptoLose = req.body.endedBattles.map((item) => item.cryptoLose);
-    const warriorsWin = req.body.endedBattles.map((item) => item.playerWin);
-    const warriorsLose = req.body.endedBattles.map((item) => item.playerLose);
-    await cryptoModel.updateCryptoResultBattle({ cryptoName: cryptoWin, resultBattle: 'win' });
-    await cryptoModel.updateCryptoResultBattle({ cryptoName: cryptoLose, resultBattle: 'lose' });
-    await userModel.updateUserResultBattle({ playerID: warriorsWin, resultBattle: 'win' });
-    await userModel.updateUserResultBattle({ playerID: warriorsLose, resultBattle: 'lose' });
-  }
-  const { battles, error: newError } = await battleModel.findMany(req.body);
-  // if (error) return render.error(res, error);
-  //
+  const { battles } = await handleUpdateBattles(req, res);
 
   return render.success(res, { battles });
 };
@@ -96,7 +69,6 @@ const showBattlesByState = async (req, res) => {
 module.exports = {
   createBattle,
   connectBattle,
-  saveStatsBattle,
   showBattlesByState,
   getCryptoCurrencies,
   getTopWarriors,
