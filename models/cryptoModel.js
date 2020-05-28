@@ -13,11 +13,9 @@ const findAllCrypto = async ({ limit, skip }) => {
 
 const updateCryptoResultBattle = async ({ cryptoName, resultBattle }) => {
   try {
-    await Promise.all(cryptoName.map(async (name) => {
-      await Crypto.updateOne({ cryptoName: name }, {
-        $inc: resultBattle,
-      });
-    }));
+    await Crypto.updateOne({ cryptoName }, {
+      $inc: resultBattle,
+    });
   } catch (error) {
     return { error };
   }

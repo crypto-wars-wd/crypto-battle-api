@@ -78,13 +78,11 @@ const findTopWarriors = async ({ limit, skip }) => {
   }
 };
 
-const updateUserResultBattle = async ({ playerID, resultBattle }) => {
+const updateUserResultBattle = async ({ _id, resultBattle }) => {
   try {
-    await Promise.all(playerID.map(async (id) => {
-      await User.updateOne({ _id: id }, {
-        $inc: resultBattle,
-      });
-    }));
+    await User.updateOne({ _id }, {
+      $inc: resultBattle,
+    });
   } catch (error) {
     return { error };
   }
