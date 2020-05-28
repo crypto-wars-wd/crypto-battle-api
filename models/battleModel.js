@@ -41,16 +41,6 @@ const connectBattle = async ({
   }
 };
 
-const updateBattles = async ({ stepsCollection }) => {
-  try {
-    await Promise.all(stepsCollection.map(async (collection) => {
-      await Battle.updateOne({ _id: collection.id }, { $push: { steps: collection.step } });
-    }));
-  } catch (error) {
-    return { error };
-  }
-};
-
 const findMany = async ({ battles }) => {
   try {
     return { battles: await Battle.find({ _id: { $in: battles } }).lean() };
@@ -59,7 +49,7 @@ const findMany = async ({ battles }) => {
   }
 };
 
-const endBattles = async ({ _id, dataToUpdate }) => {
+const updateOneByID = async ({ _id, dataToUpdate }) => {
   try {
     await Battle.updateOne({ _id }, dataToUpdate);
   } catch (error) {
@@ -84,8 +74,7 @@ module.exports = {
   createNewBattle,
   connectBattle,
   populateBattle,
-  updateBattles,
   findMany,
-  endBattles,
+  updateOneByID,
   getBattlesData,
 };

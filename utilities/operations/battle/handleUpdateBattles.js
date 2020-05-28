@@ -2,8 +2,10 @@ const { battleModel, cryptoModel, userModel } = require('models');
 const _ = require('lodash');
 
 module.exports = async (req) => {
-  const updateManyError = await battleModel.updateBattles(req.body);
-  if (updateManyError) return { error: { status: 503, message: updateManyError.message } };
+  await Promise.all(req.body.stepsCollection.map(async (collection) => {
+    const dataToUpdate = { $push: { steps: collection.step } };
+    await battleModel.updateOneByID({ _id: collection.id, dataToUpdate });
+  }));
 
   if (req.body.endedBattles && req.body.endedBattles.length) {
     await endBattle(req);
@@ -31,7 +33,7 @@ const endBattle = async (req) => {
       'loser.playerID': battle.playerLose,
       'loser.cryptoName': battle.cryptoLose,
     };
-    await battleModel.endBattles({ _id, dataToUpdate });
+    await battleModel.updateOneByID({ _id, dataToUpdate });
   }));
   await Promise.all(cryptoWin.map(async (cryptoName) => {
     await cryptoModel.updateCryptoResultBattle({ cryptoName, resultBattle: win });
