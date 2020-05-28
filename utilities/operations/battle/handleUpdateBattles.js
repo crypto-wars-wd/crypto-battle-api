@@ -22,7 +22,17 @@ const endBattle = async (req) => {
   const win = { numberOfLosses: 0, numberOfVictories: 1, numberOfFights: 1 };
   const lose = { numberOfLosses: 1, numberOfVictories: 0, numberOfFights: 1 };
 
-  await battleModel.endBattles(req.body);
+  await Promise.all(req.body.endedBattles.map(async (battle) => {
+    const _id = battle.battleID;
+    const dataToUpdate = {
+      gameStatus: 'END',
+      'winner.playerID': battle.playerWin,
+      'winner.cryptoName': battle.cryptoWin,
+      'loser.playerID': battle.playerLose,
+      'loser.cryptoName': battle.cryptoLose,
+    };
+    await battleModel.endBattles({ _id, dataToUpdate });
+  }));
   await Promise.all(cryptoWin.map(async (cryptoName) => {
     await cryptoModel.updateCryptoResultBattle({ cryptoName, resultBattle: win });
   }));

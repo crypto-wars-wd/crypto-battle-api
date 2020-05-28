@@ -59,18 +59,9 @@ const findMany = async ({ battles }) => {
   }
 };
 
-const endBattles = async ({ endedBattles }) => {
+const endBattles = async ({ _id, dataToUpdate }) => {
   try {
-    await Promise.all(endedBattles.map(async (battle) => {
-      await Battle.updateOne({ _id: battle.battleID },
-        {
-          gameStatus: 'END',
-          'winner.playerID': battle.playerWin,
-          'winner.cryptoName': battle.cryptoWin,
-          'loser.playerID': battle.playerLose,
-          'loser.cryptoName': battle.cryptoLose,
-        });
-    }));
+    await Battle.updateOne({ _id }, dataToUpdate);
   } catch (error) {
     return { error };
   }
