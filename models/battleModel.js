@@ -41,12 +41,11 @@ const connectBattle = async ({
   }
 };
 
-const updateMany = async ({ battles, steps }) => {
+const updateMany = async ({ stepsCollection }) => {
   try {
-    return {
-      battles: await Battle.updateMany({ _id: { $in: battles } }, { $push: { steps } })
-        .lean(),
-    };
+    await Promise.all(stepsCollection.map(async (collection) => {
+      await Battle.updateOne({ _id: collection.id }, { $push: { steps: collection.step } });
+    }));
   } catch (error) {
     return { error };
   }

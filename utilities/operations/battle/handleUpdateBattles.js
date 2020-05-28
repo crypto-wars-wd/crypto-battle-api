@@ -1,7 +1,7 @@
 const { battleModel, cryptoModel, userModel } = require('models');
 
 module.exports = async (req) => {
-  const { battles: update, error: updateManyError } = await battleModel.updateMany(req.body);
+  const updateManyError = await battleModel.updateMany(req.body);
   if (updateManyError) return { error: { status: 503, message: updateManyError.message } };
 
   if (req.body.endedBattles && req.body.endedBattles.length) {
