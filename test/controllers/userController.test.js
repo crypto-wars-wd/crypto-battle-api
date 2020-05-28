@@ -47,28 +47,28 @@ describe('userController', async () => {
       const result = await chai.request(app)
         .post('/api/update-user-info')
         .set({ 'access-token': authToken });
-      expect(result).to.have.status(422);
+      expect(result).to.have.status(401);
     });
     it('should return error missing id', async () => {
       const result = await chai.request(app)
         .post('/api/update-user-info')
         .set({ 'access-token': authToken })
         .send({ alias: payload.alias, avatar: payload.avatar });
-      expect(result).to.have.status(422);
+      expect(result).to.have.status(401);
     });
     it('should return error missing alias', async () => {
       const result = await chai.request(app)
         .post('/api/update-user-info')
         .set({ 'access-token': authToken })
         .send({ avatar: payload.avatar, id: payload.id });
-      expect(result).to.have.status(422);
+      expect(result).to.have.status(401);
     });
     it('should return error missing avatar', async () => {
       const result = await chai.request(app)
         .post('/api/update-user-info')
         .set({ 'access-token': authToken })
         .send({ alias: payload.alias, id: payload.id });
-      expect(result).to.have.status(422);
+      expect(result).to.have.status(401);
     });
   });
 });
