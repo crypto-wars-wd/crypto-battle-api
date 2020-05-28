@@ -41,7 +41,7 @@ const connectBattle = async ({
   }
 };
 
-const updateMany = async ({ stepsCollection }) => {
+const updateBattles = async ({ stepsCollection }) => {
   try {
     await Promise.all(stepsCollection.map(async (collection) => {
       await Battle.updateOne({ _id: collection.id }, { $push: { steps: collection.step } });
@@ -93,7 +93,7 @@ module.exports = {
   createNewBattle,
   connectBattle,
   populateBattle,
-  updateMany,
+  updateBattles,
   findMany,
   endBattles,
   getBattlesData,
