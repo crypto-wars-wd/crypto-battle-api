@@ -1,4 +1,5 @@
 const { battleModel, cryptoModel, userModel } = require('models');
+const _ = require('lodash');
 
 module.exports = async (req) => {
   const updateManyError = await battleModel.updateBattles(req.body);
@@ -14,10 +15,10 @@ module.exports = async (req) => {
 };
 
 const endBattle = async (req) => {
-  const cryptoWin = req.body.endedBattles.map((item) => item.cryptoWin);
-  const cryptoLose = req.body.endedBattles.map((item) => item.cryptoLose);
-  const warriorsWin = req.body.endedBattles.map((item) => item.playerWin);
-  const warriorsLose = req.body.endedBattles.map((item) => item.playerLose);
+  const cryptoWin = _.map(req.body.endedBattles, 'cryptoWin');
+  const cryptoLose = _.map(req.body.endedBattles, 'cryptoLose');
+  const warriorsWin = _.map(req.body.endedBattles, 'playerWin');
+  const warriorsLose = _.map(req.body.endedBattles, 'playerLose');
 
   await battleModel.endBattles(req.body);
   await cryptoModel.updateCryptoResultBattle({ cryptoName: cryptoWin, resultBattle: 'win' });
