@@ -77,24 +77,9 @@ const endBattles = async ({ endedBattles }) => {
 };
 
 const getBattlesData = async ({
-  gameStatus, limit, skip, updatedAt, playerID,
+  pipeline, limit, skip, updatedAt,
 }) => {
   try {
-    let pipeline;
-    switch (playerID) {
-      case 'all':
-        pipeline = { gameStatus };
-        break;
-      case undefined:
-        pipeline = { gameStatus };
-        break;
-      default:
-        pipeline = {
-          $or: [{ gameStatus, 'firstPlayer.playerID': playerID },
-            { gameStatus, 'secondPlayer.playerID': playerID }],
-        };
-        break;
-    }
     return {
       battles: await Battle.find(pipeline).sort({ updatedAt }).skip(skip).limit(limit)
         .lean(),
