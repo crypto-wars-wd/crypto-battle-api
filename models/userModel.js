@@ -78,16 +78,16 @@ const findTopWarriors = async ({ limit, skip }) => {
   }
 };
 
-const updateOneByID = async ({ _id, dataToUpdate }) => {
+const updateOne = async ({ condition, updateData }) => {
   try {
-    await User.updateOne({ _id }, dataToUpdate);
+    await User.updateOne(condition, updateData);
   } catch (error) {
     return { error };
   }
 };
 
 module.exports = {
-  updateOneByID,
+  updateOne,
   destroyLastSession,
   findUserBySocial,
   findTopWarriors,

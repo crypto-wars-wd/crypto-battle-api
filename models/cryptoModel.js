@@ -11,14 +11,14 @@ const findAllCrypto = async ({ limit, skip }) => {
   }
 };
 
-const updateOneByName = async ({ cryptoName, dataToUpdate }) => {
+const updateOne = async ({ condition, updateData }) => {
   try {
-    await Crypto.updateOne({ cryptoName }, dataToUpdate);
+    await Crypto.updateOne(condition, updateData);
   } catch (error) {
     return { error };
   }
 };
 
 module.exports = {
-  findAllCrypto, updateOneByName,
+  findAllCrypto, updateOne,
 };

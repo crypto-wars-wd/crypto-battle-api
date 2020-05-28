@@ -3,8 +3,8 @@ const _ = require('lodash');
 
 module.exports = async (req) => {
   await Promise.all(req.body.stepsCollection.map(async (collection) => {
-    const dataToUpdate = { $push: { steps: collection.step } };
-    await battleModel.updateOneByID({ _id: collection.id, dataToUpdate });
+    const updateData = { $push: { steps: collection.step } };
+    await battleModel.updateOne({ condition: { _id: collection.id }, updateData });
   }));
 
   if (req.body.endedBattles && req.body.endedBattles.length) {
@@ -25,26 +25,25 @@ const endBattle = async (req) => {
   const lose = { $inc: { numberOfLosses: 1, numberOfVictories: 0, numberOfFights: 1 } };
 
   await Promise.all(req.body.endedBattles.map(async (battle) => {
-    const _id = battle.battleID;
-    const dataToUpdate = {
+    const updateData = {
       gameStatus: 'END',
       'winner.playerID': battle.playerWin,
       'winner.cryptoName': battle.cryptoWin,
       'loser.playerID': battle.playerLose,
       'loser.cryptoName': battle.cryptoLose,
     };
-    await battleModel.updateOneByID({ _id, dataToUpdate });
+    await battleModel.updateOne({ condition: { _id: battle.battleID }, updateData });
   }));
   await Promise.all(cryptoWin.map(async (cryptoName) => {
-    await cryptoModel.updateOneByName({ cryptoName, dataToUpdate: win });
+    await cryptoModel.updateOne({ condition: { cryptoName }, updateData: win });
   }));
   await Promise.all(cryptoLose.map(async (cryptoName) => {
-    await cryptoModel.updateOneByName({ cryptoName, dataToUpdate: lose });
+    await cryptoModel.updateOne({ condition: { cryptoName }, updateData: lose });
   }));
   await Promise.all(warriorsWin.map(async (_id) => {
-    await userModel.updateOneByID({ _id, dataToUpdate: win });
+    await userModel.updateOne({ condition: { _id }, updateData: win });
   }));
   await Promise.all(warriorsLose.map(async (_id) => {
-    await userModel.updateOneByID({ _id, dataToUpdate: lose });
+    await userModel.updateOne({ condition: { _id }, updateData: lose });
   }));
 };

@@ -49,9 +49,9 @@ const findMany = async ({ battles }) => {
   }
 };
 
-const updateOneByID = async ({ _id, dataToUpdate }) => {
+const updateOne = async ({ condition, updateData }) => {
   try {
-    await Battle.updateOne({ _id }, dataToUpdate);
+    await Battle.updateOne(condition, updateData);
   } catch (error) {
     return { error };
   }
@@ -75,6 +75,6 @@ module.exports = {
   connectBattle,
   populateBattle,
   findMany,
-  updateOneByID,
+  updateOne,
   getBattlesData,
 };
