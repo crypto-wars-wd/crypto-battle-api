@@ -32,6 +32,12 @@ battleRoutes.route('/crypto-currencies')
   .get(battleController.getCryptoCurrencies);
 battleRoutes.route('/top-warriors')
   .get(battleController.getTopWarriors);
+battleRoutes.route('/connect-battle')
+  .post(battleController.connectBattle);
+battleRoutes.route('/update-battles')
+  .post(battleController.updateBattles);
+battleRoutes.route('/get-battles')
+  .get(battleController.getBattles);
 // endregion
 // region user routes
 userRoutes.route('/update-user-info')

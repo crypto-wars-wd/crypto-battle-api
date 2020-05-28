@@ -78,7 +78,16 @@ const findTopWarriors = async ({ limit, skip }) => {
   }
 };
 
+const updateOne = async ({ condition, updateData }) => {
+  try {
+    await User.updateOne(condition, updateData);
+  } catch (error) {
+    return { error };
+  }
+};
+
 module.exports = {
+  updateOne,
   destroyLastSession,
   findUserBySocial,
   findTopWarriors,

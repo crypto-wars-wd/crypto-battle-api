@@ -12,3 +12,22 @@ exports.topWarriorsSchema = Joi.object().keys({
   limit: Joi.number().default(10),
   skip: Joi.number().default(0),
 }).options(options);
+
+exports.topCryptoSchema = Joi.object().keys({
+  limit: Joi.number().default(10),
+  skip: Joi.number().default(0),
+}).options(options);
+
+exports.connectBattleShcema = Joi.object().keys({
+  cryptoName: Joi.string().required(),
+  playerID: Joi.string().required(),
+  battleID: Joi.string().required(),
+}).options(options);
+
+exports.getBattlesSchema = Joi.object().keys({
+  state: Joi.string().valid('waiting', 'start', 'end'),
+  limit: Joi.number().default(10),
+  skip: Joi.number().default(0),
+  sort: Joi.string().valid('asc', 'desc').default('desc'),
+  id: Joi.string(),
+}).options(options);
