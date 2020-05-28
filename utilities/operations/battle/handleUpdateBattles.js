@@ -19,10 +19,12 @@ const endBattle = async (req) => {
   const cryptoLose = _.map(req.body.endedBattles, 'cryptoLose');
   const warriorsWin = _.map(req.body.endedBattles, 'playerWin');
   const warriorsLose = _.map(req.body.endedBattles, 'playerLose');
+  const win = { numberOfLosses: 0, numberOfVictories: 1, numberOfFights: 1 };
+  const lose = { numberOfLosses: 1, numberOfVictories: 0, numberOfFights: 1 };
 
   await battleModel.endBattles(req.body);
-  await cryptoModel.updateCryptoResultBattle({ cryptoName: cryptoWin, resultBattle: 'win' });
-  await cryptoModel.updateCryptoResultBattle({ cryptoName: cryptoLose, resultBattle: 'lose' });
-  await userModel.updateUserResultBattle({ playerID: warriorsWin, resultBattle: 'win' });
-  await userModel.updateUserResultBattle({ playerID: warriorsLose, resultBattle: 'lose' });
+  await cryptoModel.updateCryptoResultBattle({ cryptoName: cryptoWin, resultBattle: win });
+  await cryptoModel.updateCryptoResultBattle({ cryptoName: cryptoLose, resultBattle: lose });
+  await userModel.updateUserResultBattle({ playerID: warriorsWin, resultBattle: win });
+  await userModel.updateUserResultBattle({ playerID: warriorsLose, resultBattle: lose });
 };
