@@ -588,7 +588,22 @@
           "application/json"
         ],
         "description": "This root for getting all crypto data",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Count crypto to skip(infinite scroll)",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Count crypto to return default 10",
+            "type": "integer",
+            "required": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "Crypto data",
@@ -844,6 +859,127 @@
                     "__v": 0
                   }
                 ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/get-battles": {
+      "get": {
+        "tags": [
+          "Battle"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for getting all battles data",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Count battles to skip(infinite scroll)",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Count battles to return default 10",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "sort by date (desc - last date asc- latest date desc - default)",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "sort by battle state (waiting, start, end) default returns all",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Crypto data",
+            "schema": {
+              "example": {
+                "battles": [
+                  {
+                    "_id": "5ecf496f9422bd636ea1c1e2",
+                    "firstPlayer": {
+                      "cryptoName": "ETH",
+                      "playerID": "5ec56424c202e78e90cac356"
+                    },
+                    "steps": [
+                      {
+                        "message": "ETH получил по голове",
+                        "ETH": "9",
+                        "BTC": "10"
+                      },
+                      {
+                        "message": "BTC бросил ядовитый дротик",
+                        "ETH": "8",
+                        "BTC": "10"
+                      },
+                      {
+                        "message": "BTC получил по голове",
+                        "ETH": "8",
+                        "BTC": "9"
+                      },
+                      {
+                        "message": "BTC вообще присел",
+                        "ETH": "8",
+                        "BTC": "8"
+                      },
+                      {
+                        "message": "BTC морально задавил соперника",
+                        "ETH": "7",
+                        "BTC": "8"
+                      },
+                      {
+                        "message": "BTC вообще присел",
+                        "ETH": "7",
+                        "BTC": "7"
+                      },
+                      {
+                        "message": "BTC дал пяткой в глаз",
+                        "ETH": "6",
+                        "BTC": "7"
+                      },
+                      {
+                        "message": "BTC вообще присел",
+                        "ETH": "6",
+                        "BTC": "6"
+                      },
+                      {
+                        "message": "ETH вообще присел",
+                        "ETH": "5",
+                        "BTC": "6"
+                      },
+                      {
+                        "message": "BTC дал пяткой в глаз",
+                        "ETH": "4",
+                        "BTC": "6"
+                      }
+                    ],
+                    "gameStatus": "START",
+                    "healthPoints": 10,
+                    "createdAt": "2020-05-28T05:17:35.135Z",
+                    "updatedAt": "2020-05-28T05:20:16.289Z",
+                    "__v": 0,
+                    "secondPlayer": {
+                      "cryptoName": "BTC",
+                      "playerID": "5ec7858b3b795e2746448c6d"
+                    }
+                  }
+                ],
+                "hasMore": false
               }
             }
           }
