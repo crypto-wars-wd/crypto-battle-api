@@ -21,8 +21,8 @@ const endBattle = async (req) => {
   const cryptoLose = _.map(req.body.endedBattles, 'cryptoLose');
   const warriorsWin = _.map(req.body.endedBattles, 'playerWin');
   const warriorsLose = _.map(req.body.endedBattles, 'playerLose');
-  const win = { numberOfLosses: 0, numberOfVictories: 1, numberOfFights: 1 };
-  const lose = { numberOfLosses: 1, numberOfVictories: 0, numberOfFights: 1 };
+  const win = { $inc: { numberOfLosses: 0, numberOfVictories: 1, numberOfFights: 1 } };
+  const lose = { $inc: { numberOfLosses: 1, numberOfVictories: 0, numberOfFights: 1 } };
 
   await Promise.all(req.body.endedBattles.map(async (battle) => {
     const _id = battle.battleID;
@@ -36,15 +36,15 @@ const endBattle = async (req) => {
     await battleModel.updateOneByID({ _id, dataToUpdate });
   }));
   await Promise.all(cryptoWin.map(async (cryptoName) => {
-    await cryptoModel.updateCryptoResultBattle({ cryptoName, resultBattle: win });
+    await cryptoModel.updateOneByName({ cryptoName, dataToUpdate: win });
   }));
   await Promise.all(cryptoLose.map(async (cryptoName) => {
-    await cryptoModel.updateCryptoResultBattle({ cryptoName, resultBattle: lose });
+    await cryptoModel.updateOneByName({ cryptoName, dataToUpdate: lose });
   }));
   await Promise.all(warriorsWin.map(async (_id) => {
-    await userModel.updateUserResultBattle({ _id, resultBattle: win });
+    await userModel.updateOneByID({ _id, dataToUpdate: win });
   }));
   await Promise.all(warriorsLose.map(async (_id) => {
-    await userModel.updateUserResultBattle({ _id, resultBattle: lose });
+    await userModel.updateOneByID({ _id, dataToUpdate: lose });
   }));
 };

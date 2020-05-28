@@ -78,18 +78,16 @@ const findTopWarriors = async ({ limit, skip }) => {
   }
 };
 
-const updateUserResultBattle = async ({ _id, resultBattle }) => {
+const updateOneByID = async ({ _id, dataToUpdate }) => {
   try {
-    await User.updateOne({ _id }, {
-      $inc: resultBattle,
-    });
+    await User.updateOne({ _id }, dataToUpdate);
   } catch (error) {
     return { error };
   }
 };
 
 module.exports = {
-  updateUserResultBattle,
+  updateOneByID,
   destroyLastSession,
   findUserBySocial,
   findTopWarriors,

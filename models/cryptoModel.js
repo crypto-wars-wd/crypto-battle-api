@@ -11,16 +11,14 @@ const findAllCrypto = async ({ limit, skip }) => {
   }
 };
 
-const updateCryptoResultBattle = async ({ cryptoName, resultBattle }) => {
+const updateOneByName = async ({ cryptoName, dataToUpdate }) => {
   try {
-    await Crypto.updateOne({ cryptoName }, {
-      $inc: resultBattle,
-    });
+    await Crypto.updateOne({ cryptoName }, dataToUpdate);
   } catch (error) {
     return { error };
   }
 };
 
 module.exports = {
-  findAllCrypto, updateCryptoResultBattle,
+  findAllCrypto, updateOneByName,
 };
