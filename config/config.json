@@ -30,7 +30,7 @@
       "database": "crypto-battletest"
     },
     "limitSessions": 5,
-    "cryptoKey": "db5c57b3fc1c105e772a3784df6b798c",
+    "cryptoKey": "dk5k57b3fc1c105e772a3784df6b798k",
     "sessionExpiration": "10m",
     "swaggerHost": "localhost:3001",
     "redirectPathImage": "https://www.waivio.com/api/image"
