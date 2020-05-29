@@ -14,7 +14,7 @@ const updateUserInfo = async (req, res) => {
   return render.success(res, { user });
 };
 
-const uploadImage = async (req, res) => res.redirect(307, config.redirectPathImage);
+const uploadImage = async (req, res) => res.redirect(307, `https://${config.waivio}/api/image`);
 
 module.exports = {
   updateUserInfo,

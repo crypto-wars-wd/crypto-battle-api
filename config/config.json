@@ -8,7 +8,7 @@
     "limitSessions": 5,
     "sessionExpiration": "10m",
     "swaggerHost": "crypto-battle.pp.ua",
-    "redirectPathImage": "https://www.waivio.com/api/image"
+    "waivio": "www.waivio.com"
   },
 
   "development": {
@@ -20,7 +20,7 @@
     "limitSessions": 5,
     "sessionExpiration": "10m",
     "swaggerHost": "localhost:3001",
-    "redirectPathImage": "https://www.waivio.com/api/image"
+    "waivio": "www.waivio.com"
   },
 
   "test": {
@@ -33,6 +33,6 @@
     "cryptoKey": "dk5k57b3fc1c105e772a3784df6b798k",
     "sessionExpiration": "10m",
     "swaggerHost": "localhost:3001",
-    "redirectPathImage": "https://www.waivio.com/api/image"
+    "waivio": "www.waivio.com"
   }
 }
