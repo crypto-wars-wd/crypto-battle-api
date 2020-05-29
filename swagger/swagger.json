@@ -985,6 +985,56 @@
           }
         }
       }
+    },
+    "/api/image": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": ["multipart/form-data"],
+        "description": "This root for upload picture and get link",
+        "parameters": [
+          {
+            "name": "access-token",
+            "in": "header",
+            "description": "user access token from response headers /auth/google or facebook ",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "description": "image",
+            "type": "file",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Link to saved image",
+            "schema": {
+              "example": {
+                "image": "https://waivio.nyc3.digitaloceanspaces.com/1590742654_908a667c-3aec-4d8d-ab85-9f6db63ddcd6"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "Token not found"
+              }
+            }
+          },
+          "422": {
+            "description": "Wrong data"
+          }
+        }
+      }
     }
   }
 }
