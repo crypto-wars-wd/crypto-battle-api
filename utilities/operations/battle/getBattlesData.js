@@ -18,14 +18,12 @@ module.exports = async (params) => {
   }
 
   const { battles, error: findBattlesError } = await battleModel
-    .getBattlesData(
-      {
-        limit: params.limit + 1,
-        skip: params.skip,
-        updatedAt: params.sort,
-        pipeline,
-      },
-    );
+    .getBattlesData({
+      limit: params.limit + 1,
+      skip: params.skip,
+      updatedAt: params.sort,
+      pipeline,
+    });
   if (findBattlesError) return { error: { status: 503, message: findBattlesError.message } };
 
   return {

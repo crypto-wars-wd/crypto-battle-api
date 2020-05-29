@@ -15,7 +15,7 @@ describe('cryptoModel', async () => {
       }
     });
     it('should return array of random objects', async () => {
-      const { crypto } = await cryptoModel.findAllCrypto();
+      const { crypto } = await cryptoModel.findAllCrypto({ limit: random });
       expect(crypto.length).to.be.eq(random);
     });
   });

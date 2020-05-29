@@ -42,6 +42,8 @@ battleRoutes.route('/get-battles')
 // region user routes
 userRoutes.route('/update-user-info')
   .post(validateAuthToken.verifyAuthToken, userController.updateUserInfo);
+userRoutes.route('/image')
+  .post(validateAuthToken.verifyAuthToken, userController.uploadImage);
 // endregion
 
 module.exports = apiRoutes;

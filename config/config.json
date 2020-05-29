@@ -7,7 +7,8 @@
     },
     "limitSessions": 5,
     "sessionExpiration": "10m",
-    "swaggerHost": "ec2-18-216-206-164.us-east-2.compute.amazonaws.com"
+    "swaggerHost": "crypto-battle.pp.ua",
+    "waivio": "https://www.waivio.com"
   },
 
   "development": {
@@ -18,7 +19,8 @@
     },
     "limitSessions": 5,
     "sessionExpiration": "10m",
-    "swaggerHost": "localhost:3001"
+    "swaggerHost": "localhost:3001",
+    "waivio": "https://www.waivio.com"
   },
 
   "test": {
@@ -28,8 +30,9 @@
       "database": "crypto-battletest"
     },
     "limitSessions": 5,
-    "cryptoKey": "db5c57b3fc1c105e772a3784df6b798c",
+    "cryptoKey": "dk5k57b3fc1c105e772a3784df6b798k",
     "sessionExpiration": "10m",
-    "swaggerHost": "localhost:3001"
+    "swaggerHost": "localhost:3001",
+    "waivio": "https://www.waivio.com"
   }
 }

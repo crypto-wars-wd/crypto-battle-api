@@ -1,5 +1,6 @@
 const { userModel } = require('models');
 const render = require('concerns/render');
+const config = require('config');
 const validators = require('./validators');
 
 const updateUserInfo = async (req, res) => {
@@ -13,6 +14,9 @@ const updateUserInfo = async (req, res) => {
   return render.success(res, { user });
 };
 
+const uploadImage = async (req, res) => res.redirect(307, `${config.waivio}/api/image`);
+
 module.exports = {
   updateUserInfo,
+  uploadImage,
 };
