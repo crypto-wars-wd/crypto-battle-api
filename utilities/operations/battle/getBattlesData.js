@@ -1,7 +1,7 @@
 const { battleModel } = require('models');
 
 module.exports = async (params) => {
-  const gameStatus = params.state ? params.state.toUpperCase() : /^/;
+  const gameStatus = params.state === 'all' ? /^/ : params.state.toUpperCase();
   const playerID = params.id;
   let pipeline;
 
