@@ -4,22 +4,21 @@ const { User } = require('database').models;
 
 const destroyLastSession = async ({ user }) => {
   if (_.get(user, 'auth.sessions', false) && user.auth.sessions.length > config.limitSessions) {
-    await User.updateOne({ _id: user._id }, { $pull: { 'auth.sessions': { _id: user.auth.sessions[0]._id } } });
+    await User.updateOne({ _id: user._id }, { $pull: { 'auth.sessions': { _id: user.auth.sessions[0]._id } } }).select('+auth');
   }
 };
 
 const destroySession = async ({ userId, session }) => {
-  await User.updateOne({ _id: userId }, { $pull: { 'auth.sessions': { _id: session._id } } });
   try {
     return {
-      successDestroy: await User.updateOne({ _id: userId }, { $pull: { 'auth.sessions': { _id: session._id } } }),
+      successDestroy: await User.updateOne({ _id: userId }, { $pull: { 'auth.sessions': { _id: session._id } } }).select('+auth'),
     };
   } catch (error) {
     return { error };
   }
 };
 
-const updateSession = (doc, newSession) => User.updateOne({ _id: doc._id }, { $push: { 'auth.sessions': newSession } });
+const updateSession = (doc, newSession) => User.updateOne({ _id: doc._id }, { $push: { 'auth.sessions': newSession } }).select('+auth');
 
 const updateUserInfo = async ({ id, alias, avatar }) => {
   try {
@@ -32,11 +31,11 @@ const updateUserInfo = async ({ id, alias, avatar }) => {
   }
 };
 
-const findUserBySocial = async ({ id, provider }) => User.findOne({ 'auth.provider': provider, 'auth.id': id }).lean();
+const findUserBySocial = async ({ id, provider }) => User.findOne({ 'auth.provider': provider, 'auth.id': id }).select('+auth').lean();
 
 const findUserById = async (id) => {
   try {
-    return { user: await User.findOne({ _id: id }).lean() };
+    return { user: await User.findOne({ _id: id }).select('+auth').lean() };
   } catch (error) {
     return { error };
   }
@@ -61,7 +60,7 @@ const signUpSocial = async ({
 };
 
 const signInSocial = async ({ userId, session }) => {
-  const user = await User.findOneAndUpdate({ _id: userId }, { $push: { 'auth.sessions': session } }, { new: true }).lean();
+  const user = await User.findOneAndUpdate({ _id: userId }, { $push: { 'auth.sessions': session } }, { new: true }).select('+auth').lean();
 
   await destroyLastSession({ user });
   return { user, session };
@@ -70,7 +69,8 @@ const signInSocial = async ({ userId, session }) => {
 const findTopWarriors = async ({ limit, skip }) => {
   try {
     return {
-      warriors: await User.find().sort({ numberOfVictories: 'desc' }).skip(skip).limit(limit)
+      warriors: await User.find().sort({ numberOfVictories: 'desc' }).skip(skip)
+        .limit(limit)
         .lean(),
     };
   } catch (error) {
