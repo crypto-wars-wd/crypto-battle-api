@@ -63,6 +63,7 @@ const getBattlesData = async ({
   try {
     return {
       battles: await Battle.find(pipeline).sort({ updatedAt }).skip(skip).limit(limit)
+        .populate([{ path: POPULATE_PATH_PLAYER1 }, { path: POPULATE_PATH_PLAYER2 }])
         .lean(),
     };
   } catch (error) {

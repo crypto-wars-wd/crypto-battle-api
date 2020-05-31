@@ -25,7 +25,7 @@ exports.connectBattleShcema = Joi.object().keys({
 }).options(options);
 
 exports.getBattlesSchema = Joi.object().keys({
-  state: Joi.string().valid('waiting', 'start', 'end'),
+  state: Joi.string().valid('waiting', 'start', 'end', 'all').default('all'),
   limit: Joi.number().default(10),
   skip: Joi.number().default(0),
   sort: Joi.string().valid('asc', 'desc').default('desc'),
