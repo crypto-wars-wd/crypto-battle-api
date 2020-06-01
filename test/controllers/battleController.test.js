@@ -142,6 +142,7 @@ describe('battleController', async () => {
           cryptoName: faker.name.firstName(),
           playerID: users[1]._id,
           battleID: battle._id,
+          message: faker.name.firstName(),
         };
         result = await chai.request(app)
           .post('/api/connect-battle')
@@ -222,6 +223,7 @@ describe('battleController', async () => {
             cryptoName: faker.name.firstName(),
             playerID: users[1]._id,
             battleID: new ObjectID(),
+            message: faker.name.firstName(),
           });
         const { battle: battleResult } = result.body;
         expect(battleResult).to.be.null;

@@ -30,7 +30,7 @@ describe('authenticationController', async () => {
         .post('/api/logout')
         .set({ 'access-token': authToken })
         .send(payload);
-      const findUser = await User.findOne({ _id: user._id });
+      const findUser = await User.findOne({ _id: user._id }).select('+auth');
       expect(findUser.auth.sessions.length).to.be.eq(0);
     });
     it('should return unauthorized without access token', async () => {
