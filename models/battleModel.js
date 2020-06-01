@@ -25,7 +25,7 @@ const populateBattle = async ({ _id, path }) => {
 };
 
 const connectBattle = async ({
-  cryptoName, playerID, battleID,
+  cryptoName, playerID, battleID, message,
 }) => {
   try {
     return {
@@ -33,6 +33,7 @@ const connectBattle = async ({
         'secondPlayer.cryptoName': cryptoName,
         'secondPlayer.playerID': playerID,
         gameStatus: 'START',
+        $push: { steps: { message } },
       }, { new: true })
         .populate([{ path: POPULATE_PATH_PLAYER1 }, { path: POPULATE_PATH_PLAYER2 }]).lean(),
     };

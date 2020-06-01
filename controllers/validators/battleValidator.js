@@ -22,6 +22,7 @@ exports.connectBattleShcema = Joi.object().keys({
   cryptoName: Joi.string().required(),
   playerID: Joi.string().required(),
   battleID: Joi.string().required(),
+  message: Joi.string().required(),
 }).options(options);
 
 exports.getBattlesSchema = Joi.object().keys({
