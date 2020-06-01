@@ -9,7 +9,6 @@ const destroyLastSession = async ({ user }) => {
 };
 
 const destroySession = async ({ userId, session }) => {
-  await User.updateOne({ _id: userId }, { $pull: { 'auth.sessions': { _id: session._id } } });
   try {
     return {
       successDestroy: await User.updateOne({ _id: userId }, { $pull: { 'auth.sessions': { _id: session._id } } }),
@@ -32,11 +31,11 @@ const updateUserInfo = async ({ id, alias, avatar }) => {
   }
 };
 
-const findUserBySocial = async ({ id, provider }) => User.findOne({ 'auth.provider': provider, 'auth.id': id }).lean();
+const findUserBySocial = async ({ id, provider }) => User.findOne({ 'auth.provider': provider, 'auth.id': id }).select('+auth').lean();
 
 const findUserById = async (id) => {
   try {
-    return { user: await User.findOne({ _id: id }).lean() };
+    return { user: await User.findOne({ _id: id }).select('+auth').lean() };
   } catch (error) {
     return { error };
   }
@@ -70,7 +69,8 @@ const signInSocial = async ({ userId, session }) => {
 const findTopWarriors = async ({ limit, skip }) => {
   try {
     return {
-      warriors: await User.find().sort({ numberOfVictories: 'desc' }).skip(skip).limit(limit)
+      warriors: await User.find().sort({ numberOfVictories: 'desc' }).skip(skip)
+        .limit(limit)
         .lean(),
     };
   } catch (error) {

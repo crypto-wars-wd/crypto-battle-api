@@ -19,7 +19,7 @@ const UserSchema = new Schema({
   numberOfFights: { type: Number, default: 0 },
   alias: { type: String },
   avatar: { type: String },
-  auth: { type: UserAuthSchema },
+  auth: { type: UserAuthSchema, select: false },
 }, { timestamps: true });
 
 UserAuthSchema.index({ provider: 1, id: 1 }, { unique: true });

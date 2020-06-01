@@ -56,13 +56,13 @@ describe('userModel', async () => {
     it('remove user session', async () => {
       user = await UserFactory.createUser({ auth: { sessions: [session] } });
       await userModel.destroySession({ userId: user._id, session });
-      const findUser = await User.findOne({ _id: user._id });
+      const findUser = await User.findOne({ _id: user._id }).select('+auth');
       expect(findUser.auth.sessions.length).to.be.eq(0);
     });
     it('remove user session with many sessions', async () => {
       user = await UserFactory.createUser({ auth: { sessions: [session, session2] } });
       await userModel.destroySession({ userId: user._id, session });
-      const findUser = await User.findOne({ _id: user._id });
+      const findUser = await User.findOne({ _id: user._id }).select('+auth');
       expect(findUser.auth.sessions.length).to.be.eq(1);
     });
   });
