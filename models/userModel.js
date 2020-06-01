@@ -4,21 +4,21 @@ const { User } = require('database').models;
 
 const destroyLastSession = async ({ user }) => {
   if (_.get(user, 'auth.sessions', false) && user.auth.sessions.length > config.limitSessions) {
-    await User.updateOne({ _id: user._id }, { $pull: { 'auth.sessions': { _id: user.auth.sessions[0]._id } } }).select('+auth');
+    await User.updateOne({ _id: user._id }, { $pull: { 'auth.sessions': { _id: user.auth.sessions[0]._id } } });
   }
 };
 
 const destroySession = async ({ userId, session }) => {
   try {
     return {
-      successDestroy: await User.updateOne({ _id: userId }, { $pull: { 'auth.sessions': { _id: session._id } } }).select('+auth'),
+      successDestroy: await User.updateOne({ _id: userId }, { $pull: { 'auth.sessions': { _id: session._id } } }),
     };
   } catch (error) {
     return { error };
   }
 };
 
-const updateSession = (doc, newSession) => User.updateOne({ _id: doc._id }, { $push: { 'auth.sessions': newSession } }).select('+auth');
+const updateSession = (doc, newSession) => User.updateOne({ _id: doc._id }, { $push: { 'auth.sessions': newSession } });
 
 const updateUserInfo = async ({ id, alias, avatar }) => {
   try {
@@ -60,7 +60,7 @@ const signUpSocial = async ({
 };
 
 const signInSocial = async ({ userId, session }) => {
-  const user = await User.findOneAndUpdate({ _id: userId }, { $push: { 'auth.sessions': session } }, { new: true }).select('+auth').lean();
+  const user = await User.findOneAndUpdate({ _id: userId }, { $push: { 'auth.sessions': session } }, { new: true }).lean();
 
   await destroyLastSession({ user });
   return { user, session };
