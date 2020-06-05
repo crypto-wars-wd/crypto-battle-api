@@ -25,6 +25,8 @@ exports.connectBattleShcema = Joi.object().keys({
   playerID: Joi.string().required(),
   battleID: Joi.string().required(),
   message: Joi.string().required(),
+  betType: Joi.string().valid('HIVE', 'HBD', 'STEEM', 'SBD'),
+  amount: Joi.number(),
 }).options(options);
 
 exports.getBattlesSchema = Joi.object().keys({

@@ -1,7 +1,6 @@
-const { battleModel } = require('models');
 const render = require('concerns/render');
 const {
-  newBattle, getWarriorsData, getCryptoData, handleUpdateBattles, getBattlesData,
+  newBattle, getWarriorsData, getCryptoData, handleUpdateBattles, getBattlesData, connectToBattle,
 } = require('utilities/operations').battle;
 const validators = require('./validators');
 
@@ -43,8 +42,8 @@ const connectBattle = async (req, res) => {
     .validate(req.body, validators.battle.connectBattleShcema);
   if (validationError) return render.error(res, validationError);
 
-  const { battle, error } = await battleModel.connectBattle(params);
-  if (error) return render.error(res, error);
+  const { battle, error } = await connectToBattle(params);
+  if (error) return render.custom(res, error.status, error.message);
 
   return render.success(res, { battle });
 };

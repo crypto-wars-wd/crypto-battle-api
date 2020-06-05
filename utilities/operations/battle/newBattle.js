@@ -1,12 +1,10 @@
 const { POPULATE_PATH_PLAYER1 } = require('utilities/constants');
-const { battleModel, userModel } = require('models');
+const { battleModel } = require('models');
+const { withdrawForBet } = require('utilities/helpers');
 
 module.exports = async (req, res, params) => {
   if (params.betType) {
-    const { user, error } = await userModel.updateOne({
-      condition: { _id: params.playerID },
-      updateData: { $inc: { [`personalAccount.${params.betType}`]: -params.amount } },
-    });
+    const { user, error } = await withdrawForBet(params);
     if (user.n === 0 || user.nModified === 0) return { error: { status: 404, message: 'User not found' } };
     if (error) return { error: { status: 503, message: error.message } };
   }
