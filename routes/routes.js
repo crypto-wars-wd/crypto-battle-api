@@ -3,6 +3,7 @@ const {
   authController,
   battleController,
   userController,
+  transferController,
 } = require('controllers');
 const { validateAuthToken } = require('utilities/authentication');
 
@@ -10,10 +11,12 @@ const apiRoutes = new Router();
 const authRoutes = new Router();
 const userRoutes = new Router();
 const battleRoutes = new Router();
+const parserRoutes = new Router();
 
 apiRoutes.use('/api', authRoutes);
 apiRoutes.use('/api', userRoutes);
 apiRoutes.use('/api', battleRoutes);
+apiRoutes.use('/api', parserRoutes);
 
 //  region auth routes
 authRoutes.route('/has-social-account')
@@ -45,5 +48,7 @@ userRoutes.route('/update-user-info')
 userRoutes.route('/image')
   .post(validateAuthToken.verifyAuthToken, userController.uploadImage);
 // endregion
-
+// region parser routes
+parserRoutes.route('/replenish-account').post(transferController.updateUserBalance);
+// endregion
 module.exports = apiRoutes;

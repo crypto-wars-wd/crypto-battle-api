@@ -3,6 +3,7 @@ module.exports = {
   battle: require('./battleValidator'),
   user: require('./userValidator'),
   keyValidator: require('./keyValidator'),
+  parserValidator: require('./parserValidator'),
   validate: (data, schema) => {
     const result = schema.validate(data, { abortEarly: false });
 
