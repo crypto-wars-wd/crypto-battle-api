@@ -256,7 +256,7 @@
         "produces": [
           "application/json"
         ],
-        "description": "This root for creating new battle from socket server. All properties are required",
+        "description": "This root for creating new battle from socket server. betType, amount are not required",
         "parameters": [
           {
             "name": "create battle body",
@@ -266,7 +266,9 @@
               "example": {
                 "cryptoName": "BTC",
                 "playerID": "5ec56424c202e78e90cac356",
-                "healthPoints": "220"
+                "healthPoints": "220",
+                "betType": "HIVE",
+                "amount": 1
               }
             },
             "required": true
@@ -291,17 +293,6 @@
                       "numberOfFights": 0,
                       "alias": "Борис Андржиевский",
                       "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo.jpg",
-                      "auth": {
-                        "sessions": [
-                          {
-                            "_id": "5ec56424c202e78e90cac357",
-                            "sid": "5ec56424babd36e3b02d2d49",
-                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
-                          }
-                        ],
-                        "provider": "google",
-                        "id": "100171304431977375879"
-                      },
                       "createdAt": "2020-05-20T17:08:52.990Z",
                       "updatedAt": "2020-05-20T17:08:52.990Z",
                       "__v": 0
@@ -357,7 +348,7 @@
         "produces": [
           "application/json"
         ],
-        "description": "This root for connect to the battle from socket server. All properties are required",
+        "description": "This root for connect to the battle from socket server. betType, amount are not required",
         "parameters": [
           {
             "name": "connect battle body",
@@ -367,7 +358,9 @@
               "example": {
                 "cryptoName": "BTC",
                 "playerID": "5ec56424c202e78e90cac356",
-                "battleID": "5ec6d2ca36dc5c63d6840f8d"
+                "battleID": "5ec6d2ca36dc5c63d6840f8d",
+                "betType": "HIVE",
+                "amount": 1
               }
             },
             "required": true
@@ -392,17 +385,6 @@
                       "numberOfFights": 0,
                       "alias": "Пронюк Сергей",
                       "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo.jpg",
-                      "auth": {
-                        "sessions": [
-                          {
-                            "_id": "5ec56424c202e78e90cac357",
-                            "sid": "5ec56424babd36e3b02d2d49",
-                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
-                          }
-                        ],
-                        "provider": "google",
-                        "id": "100171304431977375879"
-                      },
                       "createdAt": "2020-05-21T19:11:45.199Z",
                       "updatedAt": "2020-05-21T19:11:45.199Z",
                       "__v": 0
@@ -426,17 +408,6 @@
                       "numberOfFights": 0,
                       "alias": "Борис Андржиевский",
                       "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo2.jpg",
-                      "auth": {
-                        "sessions": [
-                          {
-                            "_id": "5ec56424c202e78e90cac357",
-                            "sid": "5ec56424babd36e3b02d2d49",
-                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
-                          }
-                        ],
-                        "provider": "google",
-                        "id": "100171304431977375879"
-                      },
                       "createdAt": "2020-05-21T19:09:27.093Z",
                       "updatedAt": "2020-05-21T19:09:27.093Z",
                       "__v": 0

@@ -2,12 +2,13 @@ const { Battle } = require('database').models;
 const { POPULATE_PATH_PLAYER1, POPULATE_PATH_PLAYER2 } = require('utilities/constants');
 
 const createNewBattle = async ({
-  cryptoName, playerID, healthPoints,
+  cryptoName, playerID, healthPoints, betType, amount,
 }) => {
   const battle = new Battle({
     'firstPlayer.cryptoName': cryptoName,
     'firstPlayer.playerID': playerID,
     healthPoints,
+    bet: { [betType]: amount },
   });
   try {
     await battle.save();

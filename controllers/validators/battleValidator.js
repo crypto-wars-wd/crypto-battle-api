@@ -6,6 +6,8 @@ exports.createBattleSchema = Joi.object().keys({
   cryptoName: Joi.string().required(),
   playerID: Joi.string().required(),
   healthPoints: Joi.number().required(),
+  betType: Joi.string().valid('HIVE', 'HBD', 'STEEM', 'SBD'),
+  amount: Joi.number(),
 }).options(options);
 
 exports.topWarriorsSchema = Joi.object().keys({
