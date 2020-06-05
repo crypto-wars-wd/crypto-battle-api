@@ -1035,6 +1035,51 @@
           }
         }
       }
+    },
+    "/api/replenish-account": {
+      "post": {
+        "tags": [
+          "Parser"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for replenish account",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "all props are required except memo, allowed cryptoType: HIVE, HBD, STEEM, SBD",
+            "schema": {
+              "example": {
+                "senderName": "borik",
+                "cryptoType": "HIVE",
+                "amount": "2.342",
+                "memo": "some string"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "update successfully",
+            "schema": {
+              "example": {
+                "n": 1,
+                "nModified": 1,
+                "ok": 1
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "503": {
+            "description": "database error"
+          }
+        }
+      }
     }
   }
 }
