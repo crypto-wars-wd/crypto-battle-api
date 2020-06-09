@@ -2,13 +2,13 @@ const { Battle } = require('database').models;
 const { POPULATE_PATH_PLAYER1, POPULATE_PATH_PLAYER2 } = require('utilities/constants');
 
 const createNewBattle = async ({
-  cryptoName, playerID, healthPoints, betType, amount,
+  cryptoName, playerID, healthPoints, betType, amount, possibleWin,
 }) => {
   const battle = new Battle({
     'firstPlayer.cryptoName': cryptoName,
     'firstPlayer.playerID': playerID,
     healthPoints,
-    bet: { [betType]: amount },
+    bet: { betType, amount, possibleWin },
   });
   try {
     await battle.save();
@@ -26,7 +26,7 @@ const populateBattle = async ({ _id, path }) => {
 };
 
 const connectBattle = async ({
-  cryptoName, playerID, battleID, message, betType, amount,
+  cryptoName, playerID, battleID, message,
 }) => {
   try {
     return {
@@ -34,7 +34,6 @@ const connectBattle = async ({
         'secondPlayer.cryptoName': cryptoName,
         'secondPlayer.playerID': playerID,
         gameStatus: 'START',
-        $inc: { [`bet.${betType}`]: amount },
         $push: { steps: { message } },
       }, { new: true })
         .populate([{ path: POPULATE_PATH_PLAYER1 }, { path: POPULATE_PATH_PLAYER2 }]).lean(),

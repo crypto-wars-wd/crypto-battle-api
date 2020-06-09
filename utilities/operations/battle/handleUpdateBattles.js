@@ -15,7 +15,8 @@ module.exports = async (req) => {
       to: element.winner.cryptoName === element.firstPlayer.cryptoName
         ? element.firstPlayer.userInfo.personalAccount.hiveName
         : element.secondPlayer.userInfo.personalAccount.hiveName,
-      bet: element.bet,
+      type: element.bet.possibleWin.split(' ')[1],
+      amount: element.bet.possibleWin.split(' ')[0],
     }));
 
     console.log(winners);

@@ -8,7 +8,15 @@ module.exports = async (req, res, params) => {
     if (user.n === 0 || user.nModified === 0) return { error: { status: 404, message: 'User not found' } };
     if (error) return { error: { status: 503, message: error.message } };
   }
-  const { newBattle, error: createBattleError } = await battleModel.createNewBattle(params);
+  const possibleWin = `${((params.amount * 2) * 90) / 100} ${params.betType}`;
+  const { newBattle, error: createBattleError } = await battleModel.createNewBattle({
+    cryptoName: params.cryptoName,
+    playerID: params.playerID,
+    healthPoints: params.healthPoints,
+    betType: params.betType,
+    amount: params.amount,
+    possibleWin,
+  });
   if (createBattleError) return { error: { status: 503, message: createBattleError.message } };
 
   const { battle, error: populateError } = await battleModel
