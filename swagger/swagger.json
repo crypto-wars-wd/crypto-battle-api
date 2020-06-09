@@ -1020,7 +1020,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "all props are required except memo, allowed cryptoType: HIVE, HBD, STEEM, SBD",
+            "description": "all props are required except memo, allowed cryptoType: HIVE, HBD",
             "schema": {
               "example": {
                 "senderName": "borik",
@@ -1045,6 +1045,56 @@
           },
           "404": {
             "description": "User not found"
+          },
+          "503": {
+            "description": "database error"
+          }
+        }
+      }
+    },
+    "/api/set-hive-account": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for set link to hive account",
+        "parameters": [
+          {
+            "name": "access-token",
+            "in": "header",
+            "description": "user access token from response headers /auth/google or facebook ",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "all props are required",
+            "schema": {
+              "example": {
+                "userID": "5ec56424c202e78e90cac356",
+                "hiveName": "borik"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "update successfully",
+            "schema": {
+              "example": {
+                "n": 1,
+                "nModified": 1,
+                "ok": 1
+              }
+            }
+          },
+          "404": {
+            "description": "User not found, or hive name does not exist"
           },
           "503": {
             "description": "database error"
