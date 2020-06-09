@@ -31,4 +31,5 @@ exports.getBattlesSchema = Joi.object().keys({
   skip: Joi.number().default(0),
   sort: Joi.string().valid('asc', 'desc').default('desc'),
   id: Joi.string(),
+  battleID: Joi.string(),
 }).options(options);

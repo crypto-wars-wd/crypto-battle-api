@@ -7,7 +7,9 @@ module.exports = async (params) => {
 
   switch (playerID) {
     case undefined:
-      pipeline = { gameStatus };
+      params.battleID
+        ? pipeline = { _id: params.battleID }
+        : pipeline = { gameStatus };
       break;
     default:
       pipeline = {
