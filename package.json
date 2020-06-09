@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "@hivechain/dsteem": "^0.12.14",
     "body-parser": "^1.19.0",
     "bson": "^4.0.4",
     "cookie-parser": "~1.4.4",
