@@ -25,7 +25,7 @@ const getAccountInfo = async ({ name }) => {
 };
 
 const checkBankBalance = async ({ amount, cryptoType }) => {
-  const accounts = await hiveClient.database.call('get_accounts', [[process.env.HIVE_ACCOUNT_NAME || 'crypto-battle']]);
+  const accounts = await hiveClient.database.call('get_accounts', [[process.env.HIVE_ACCOUNT_NAME || '']]);
   const hiveBalance = accounts[0].balance.split(' ')[0];
   const hbdBalance = accounts[0].sbd_balance.split(' ')[0];
 

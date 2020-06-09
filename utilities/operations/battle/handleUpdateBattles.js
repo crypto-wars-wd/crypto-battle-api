@@ -60,7 +60,7 @@ const sendFundsToWinners = async (req) => {
     if (!await hiveHelper.checkBankBalance({ amount, cryptoType })) {
       return console.error('Not enough funds to pay');
     }
-    await hiveHelper.transfer({
+    const { result, error } = await hiveHelper.transfer({
       from: process.env.HIVE_ACCOUNT_NAME || '',
       to: element.winner.cryptoName === element.firstPlayer.cryptoName
         ? element.firstPlayer.userInfo.personalAccount.hiveName
@@ -69,5 +69,7 @@ const sendFundsToWinners = async (req) => {
       activeKey: process.env.HIVE_ACTIVE_KEY || '',
       cryptoType,
     });
+    if (error) console.error(error);
+    return result;
   }));
 };
