@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const dsteem = require('@hivechain/dsteem');
 
 const { Asset } = dsteem;
@@ -17,11 +16,10 @@ const transfer = async ({
   );
 };
 
-const getAccountInfo = async ({ name }) => {
+const isAccountExist = async ({ name }) => {
   const accounts = await hiveClient.database.call('get_accounts', [[name]]);
 
-  if (!_.isEmpty(accounts)) return accounts[0];
-  return null;
+  return !!accounts.length;
 };
 
 const checkBankBalance = async ({ amount, cryptoType }) => {
@@ -40,6 +38,6 @@ const checkBankBalance = async ({ amount, cryptoType }) => {
 
 module.exports = {
   transfer,
-  getAccountInfo,
+  isAccountExist,
   checkBankBalance,
 };
