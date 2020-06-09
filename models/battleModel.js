@@ -74,6 +74,20 @@ const getBattlesData = async ({
   }
 };
 
+const endedBattlesWithBet = async ({
+  battles,
+}) => {
+  try {
+    return {
+      battles: await Battle.find({ _id: { $in: battles }, bet: { $exists: true } })
+        .populate([{ path: POPULATE_PATH_PLAYER1, select: '+personalAccount' }, { path: POPULATE_PATH_PLAYER2, select: '+personalAccount' }])
+        .lean(),
+    };
+  } catch (error) {
+    return { error };
+  }
+};
+
 module.exports = {
   createNewBattle,
   connectBattle,
@@ -81,4 +95,5 @@ module.exports = {
   findMany,
   updateOne,
   getBattlesData,
+  endedBattlesWithBet,
 };
