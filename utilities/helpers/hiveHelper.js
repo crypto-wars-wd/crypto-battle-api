@@ -16,12 +16,6 @@ const transfer = async ({
   );
 };
 
-const isAccountExist = async ({ name }) => {
-  const accounts = await hiveClient.database.call('get_accounts', [[name]]);
-
-  return !!accounts.length;
-};
-
 const checkBankBalance = async ({ amount, cryptoType }) => {
   const accounts = await hiveClient.database.call('get_accounts', [[process.env.HIVE_ACCOUNT_NAME || '']]);
   const hiveBalance = accounts[0].balance.split(' ')[0];
@@ -34,6 +28,12 @@ const checkBankBalance = async ({ amount, cryptoType }) => {
       return hbdBalance >= amount;
     default: return false;
   }
+};
+
+const isAccountExist = async ({ name }) => {
+  const accounts = await hiveClient.database.call('get_accounts', [[name]]);
+
+  return !!accounts.length;
 };
 
 module.exports = {

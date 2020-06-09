@@ -10,6 +10,7 @@ module.exports = async (params) => {
     condition: { _id: params.userID },
     updateData: { 'personalAccount.hiveName': params.hiveName },
   });
+  if (user.n === 0 || user.nModified === 0) return { error: { status: 404, message: 'User not found' } };
   if (error) return { error: { status: 503, message: error.message } };
 
   return { user };
