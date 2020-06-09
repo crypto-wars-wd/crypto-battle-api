@@ -12,8 +12,8 @@ const UserAuthSchema = new Schema({
 }, { _id: false });
 
 const AccountSchema = new Schema({
-  hiveName: { type: String },
-  steemName: { type: String },
+  hiveName: { type: String, unique: true },
+  steemName: { type: String, unique: true },
   HIVE: { type: Number, default: 0 },
   HBD: { type: Number, default: 0 },
   STEEM: { type: Number, default: 0 },
