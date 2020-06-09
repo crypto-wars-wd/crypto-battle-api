@@ -8,7 +8,7 @@ module.exports = async (req, res, params) => {
     if (user.n === 0 || user.nModified === 0) return { error: { status: 404, message: 'User not found' } };
     if (error) return { error: { status: 503, message: error.message } };
   }
-  const possibleWin = `${((params.amount * 2) * 90) / 100} ${params.betType}`;
+  const possibleWin = params.betType ? `${((params.amount * 2) * 90) / 100} ${params.betType}` : undefined;
   const { newBattle, error: createBattleError } = await battleModel.createNewBattle({
     cryptoName: params.cryptoName,
     playerID: params.playerID,

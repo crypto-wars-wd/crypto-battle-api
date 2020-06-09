@@ -55,14 +55,19 @@ const sendFundsToWinners = async (req) => {
   const { battles } = await battleModel.endedBattlesWithBet({ battles: battleID });
   if (!battles) return;
   await Promise.all(battles.map(async (element) => {
+    const amount = element.bet.possibleWin.split(' ')[0];
+    const cryptoType = element.bet.possibleWin.split(' ')[1];
+    if (!await hiveHelper.checkBankBalance({ amount, cryptoType })) {
+      return console.error('Not enough funds to pay');
+    }
     await hiveHelper.transfer({
-      from: process.env.MY_HIVE_ACCOUNT || '',
+      from: process.env.HIVE_ACCOUNT_NAME || '',
       to: element.winner.cryptoName === element.firstPlayer.cryptoName
         ? element.firstPlayer.userInfo.personalAccount.hiveName
         : element.secondPlayer.userInfo.personalAccount.hiveName,
-      amount: element.bet.possibleWin.split(' ')[0],
+      amount,
       activeKey: process.env.HIVE_ACTIVE_KEY || '',
-      cryptoType: element.bet.possibleWin.split(' ')[1],
+      cryptoType,
     });
   }));
 };
