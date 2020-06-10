@@ -902,6 +902,20 @@
             "description": "sort by battle state (waiting, start, end) default returns all",
             "type": "string",
             "required": false
+          },
+          {
+            "name": "battleID",
+            "in": "query",
+            "description": "search by battle ID",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "search by player ID",
+            "type": "string",
+            "required": false
           }
         ],
         "responses": {
