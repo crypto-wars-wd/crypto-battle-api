@@ -4,7 +4,7 @@ module.exports = async (params) => {
   let condition;
   if (params.cryptoType === 'HIVE' || params.cryptoType === 'HBD') {
     condition = { 'personalAccount.hiveName': params.senderName };
-  } else {
+  } else if (params.cryptoType === 'STEEM' || params.cryptoType === 'SBD') {
     condition = { 'personalAccount.steemName': params.senderName };
   }
   const updateData = {
