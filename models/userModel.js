@@ -33,14 +33,6 @@ const updateUserInfo = async ({ id, alias, avatar }) => {
 
 const findUserBySocial = async ({ id, provider }) => User.findOne({ 'auth.provider': provider, 'auth.id': id }).select('+auth').lean();
 
-const findUserById = async (id) => {
-  try {
-    return { user: await User.findOne({ _id: id }).select('+auth').lean() };
-  } catch (error) {
-    return { error };
-  }
-};
-
 const signUpSocial = async ({
   alias, provider, avatar, id, session,
 }) => {
@@ -104,6 +96,5 @@ module.exports = {
   updateSession,
   signUpSocial,
   signInSocial,
-  findUserById,
   findOneSelect,
 };
