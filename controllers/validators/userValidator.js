@@ -12,3 +12,7 @@ exports.linkToHiveSchema = Joi.object().keys({
   userID: Joi.string().required(),
   hiveName: Joi.string().required(),
 }).options(options);
+
+exports.getAccountSchema = Joi.object().keys({
+  userID: Joi.string().required(),
+}).options(options);

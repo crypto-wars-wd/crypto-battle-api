@@ -49,6 +49,8 @@ userRoutes.route('/image')
   .post(validateAuthToken.verifyAuthToken, userController.uploadImage);
 userRoutes.route('/set-hive-account')
   .post(validateAuthToken.verifyAuthToken, userController.linkToHive);
+userRoutes.route('/get-personal-account')
+  .get(validateAuthToken.verifyAuthToken, userController.getPersonalAccount);
 // endregion
 // region parser routes
 parserRoutes.route('/replenish-account').post(transferController.updateUserBalance);

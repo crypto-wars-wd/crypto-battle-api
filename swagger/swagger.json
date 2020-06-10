@@ -1101,6 +1101,80 @@
           }
         }
       }
+    },
+    "/api/get-personal-account": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for set link to hive account",
+        "parameters": [
+          {
+            "name": "access-token",
+            "in": "header",
+            "description": "user access token from response headers /auth/google or facebook ",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "userID",
+            "in": "query",
+            "type": "string",
+            "description": "userID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "update successfully",
+            "schema": {
+              "example": {
+                "user": {
+                  "_id": "5ec56424c202e78e90cac356",
+                  "level": 1,
+                  "health": 100,
+                  "numberOfVictories": 20,
+                  "numberOfLosses": 26,
+                  "numberOfFights": 46,
+                  "alias": "yoyoyoyd",
+                  "avatar": "dfgfgddfsd",
+                  "personalAccount": {
+                    "hiveName": "bdfgorfgik",
+                    "steemName": "borik",
+                    "SBD": 0.1234,
+                    "HIVE": 43,
+                    "HBD": 218.5
+                  },
+                  "createdAt": "2020-05-20T17:08:52.990Z",
+                  "updatedAt": "2020-06-09T14:51:20.825Z",
+                  "__v": 0
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "Token not found"
+              }
+            }
+          },
+          "422": {
+            "description": "wrong data",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "error message"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

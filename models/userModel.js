@@ -86,6 +86,14 @@ const updateOne = async ({ condition, updateData }) => {
   }
 };
 
+const findOneSelect = async ({ condition, select }) => {
+  try {
+    return { user: await User.findOne(condition).select(select).lean() };
+  } catch (error) {
+    return { error };
+  }
+};
+
 module.exports = {
   updateOne,
   destroyLastSession,
@@ -97,4 +105,5 @@ module.exports = {
   signUpSocial,
   signInSocial,
   findUserById,
+  findOneSelect,
 };
