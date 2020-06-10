@@ -5,4 +5,5 @@ module.exports = {
   connectToBattle: require('./connectToBattle'),
   newBattle: require('./newBattle'),
   handleUpdateBattles: require('./handleUpdateBattles'),
+  handleCancelBattle: require('./handleCancelBattle'),
 };

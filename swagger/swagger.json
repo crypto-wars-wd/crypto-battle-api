@@ -1175,6 +1175,64 @@
           }
         }
       }
+    },
+    "/api/cancel-battle": {
+      "post": {
+        "tags": [
+          "Battle"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for canceling battle if it in WAITING status",
+        "parameters": [
+          {
+            "name": "access-token",
+            "in": "header",
+            "description": "user access token from response headers /auth/google or facebook ",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "all props are required",
+            "schema": {
+              "example": {
+                "battleID": "5ec56424c202e78e90cac356"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "delete successfully",
+            "schema": {
+              "example": {
+                "n": 1,
+                "ok": 1,
+                "deletedCount": 1
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "Token not found"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden: battle already start or ended"
+          },
+          "503": {
+            "description": "database error or transfer error"
+          }
+        }
+      }
     }
   }
 }

@@ -1,6 +1,12 @@
 const render = require('concerns/render');
 const {
-  newBattle, getWarriorsData, getCryptoData, handleUpdateBattles, getBattlesData, connectToBattle,
+  newBattle,
+  getCryptoData,
+  getBattlesData,
+  connectToBattle,
+  getWarriorsData,
+  handleCancelBattle,
+  handleUpdateBattles,
 } = require('utilities/operations').battle;
 const validators = require('./validators');
 
@@ -66,6 +72,17 @@ const getBattles = async (req, res) => {
   return render.success(res, { battles, hasMore });
 };
 
+const cancelBattle = async (req, res) => {
+  const { params, validationError } = validators
+    .validate(req.body, validators.battle.cancelBattleSchema);
+  if (validationError) return render.error(res, validationError);
+
+  const { battle, error } = await handleCancelBattle(params);
+  if (error) return render.custom(res, error.status, error.message);
+
+  return render.success(res, battle);
+};
+
 module.exports = {
   createBattle,
   connectBattle,
@@ -73,4 +90,5 @@ module.exports = {
   getTopWarriors,
   updateBattles,
   getBattles,
+  cancelBattle,
 };

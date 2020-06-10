@@ -17,9 +17,9 @@ const createNewBattle = async ({
   }
   return { newBattle: battle.toObject() };
 };
-const populateBattle = async ({ _id, path }) => {
+const populateBattle = async ({ _id, path, select }) => {
   try {
-    return { battle: await Battle.findOne({ _id }).populate({ path }).lean() };
+    return { battle: await Battle.findOne({ _id }).populate({ path, select }).lean() };
   } catch (error) {
     return { error };
   }
@@ -87,6 +87,14 @@ const endedBattlesWithBet = async ({
   }
 };
 
+const deleteOne = async ({ condition }) => {
+  try {
+    return { battle: await Battle.deleteOne(condition) };
+  } catch (error) {
+    return { error };
+  }
+};
+
 module.exports = {
   createNewBattle,
   connectBattle,
@@ -95,4 +103,5 @@ module.exports = {
   updateOne,
   getBattlesData,
   endedBattlesWithBet,
+  deleteOne,
 };

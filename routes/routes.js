@@ -41,6 +41,8 @@ battleRoutes.route('/update-battles')
   .post(battleController.updateBattles);
 battleRoutes.route('/get-battles')
   .get(battleController.getBattles);
+battleRoutes.route('/cancel-battle')
+  .post(validateAuthToken.verifyAuthToken, battleController.cancelBattle);
 // endregion
 // region user routes
 userRoutes.route('/update-user-info')
