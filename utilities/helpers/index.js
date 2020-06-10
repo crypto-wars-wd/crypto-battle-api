@@ -1,4 +1,4 @@
 module.exports = {
-  withdrawForBet: require('./withdrawForBet'),
+  withdrawHelper: require('./withdrawHelper'),
   hiveHelper: require('./hiveHelper'),
 };

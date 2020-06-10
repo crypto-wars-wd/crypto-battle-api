@@ -54,11 +54,11 @@ const sendFundsToWinners = async (req) => {
   const battleID = _.map(req.body.endedBattles, 'battleID');
   const { battles } = await battleModel.endedBattlesWithBet({ battles: battleID });
   if (!battles) return;
-  await Promise.all(battles.map(async (element) => {
+  for (const element of battles) {
     const amount = element.bet.possibleWin.split(' ')[0];
     const cryptoType = element.bet.possibleWin.split(' ')[1];
     if (!await hiveHelper.checkBankBalance({ amount, cryptoType })) {
-      return console.error('Not enough funds to pay');
+      console.error('Not enough funds to pay');
     }
     const { result, error } = await hiveHelper.transfer({
       from: process.env.HIVE_ACCOUNT_NAME || '',
@@ -70,6 +70,6 @@ const sendFundsToWinners = async (req) => {
       cryptoType,
     });
     if (error) console.error(error);
-    return result;
-  }));
+    console.log(result);
+  }
 };

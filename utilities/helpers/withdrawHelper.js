@@ -1,6 +1,6 @@
 const { userModel } = require('models');
 
-module.exports = async (params) => {
+exports.withdrawBet = async (params) => {
   const { user, error } = await userModel.updateOne({
     condition: { _id: params.playerID },
     updateData: { $inc: { [`personalAccount.${params.betType}`]: -params.amount } },
