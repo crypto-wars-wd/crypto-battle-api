@@ -31,9 +31,12 @@ const hasSocialAccount = async (req, res) => {
     .validate(req.query, validators.authentication.hasSocialSchema);
 
   if (validationError) return render.error(res, validationError);
-  const result = await userModel.findUserBySocial(params);
+  const { user } = await userModel.findOneSelect({
+    condition: { 'auth.provider': params.provider, 'auth.id': params.id },
+    select: '+auth',
+  });
 
-  return render.success(res, !!result);
+  return render.success(res, !!user);
 };
 
 const logout = async (req, res) => {
