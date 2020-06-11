@@ -17,6 +17,11 @@ const BattleSchema = new Schema({
   healthPoints: { type: Number, required: true },
   steps: { type: Array, default: [] },
   gameStatus: { type: String, enum: ['WAITING', 'START', 'END'], default: 'WAITING' },
+  bet: {
+    betType: { type: String },
+    amount: { type: Number },
+    possibleWin: { type: String },
+  },
   winner: {
     playerID: { type: Schema.Types.ObjectId },
     cryptoName: { type: String },

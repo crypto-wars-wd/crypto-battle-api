@@ -5,7 +5,11 @@ module.exports = async (req, res, params) => {
   const { payload, error: getAuthError } = await sessions.getAuthData({ req });
   if (getAuthError) return { error: { status: 401, message: 'No token provided' } };
 
-  const { user, error: findUserError } = await userModel.findUserById(params.id);
+
+  const { user, error: findUserError } = await userModel.findOneSelect({
+    condition: { _id: params.id },
+    select: '+auth',
+  });
   if (!user) return { error: { status: 404, message: 'User not found' } };
   if (findUserError) return { error: { status: 503, message: findUserError.message } };
 

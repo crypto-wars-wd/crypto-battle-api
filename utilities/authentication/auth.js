@@ -1,14 +1,17 @@
 const {
   signUpSocial,
   signInSocial,
-  findUserBySocial,
+  findOneSelect,
 } = require('models/userModel');
 const { generateSession } = require('./sessions');
 
 exports.socialAuth = async ({
   alias, provider, avatar, id, postLocales,
 }) => {
-  const userBySocial = await findUserBySocial({ id, provider });
+  const { user: userBySocial } = await findOneSelect({
+    condition: { 'auth.provider': provider, 'auth.id': id },
+    select: '+auth',
+  });
   const session = generateSession();
 
   if (!userBySocial) {

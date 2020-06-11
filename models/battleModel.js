@@ -2,12 +2,13 @@ const { Battle } = require('database').models;
 const { POPULATE_PATH_PLAYER1, POPULATE_PATH_PLAYER2 } = require('utilities/constants');
 
 const createNewBattle = async ({
-  cryptoName, playerID, healthPoints,
+  cryptoName, playerID, healthPoints, betType, amount, possibleWin,
 }) => {
   const battle = new Battle({
     'firstPlayer.cryptoName': cryptoName,
     'firstPlayer.playerID': playerID,
     healthPoints,
+    bet: { betType, amount, possibleWin },
   });
   try {
     await battle.save();
@@ -16,9 +17,9 @@ const createNewBattle = async ({
   }
   return { newBattle: battle.toObject() };
 };
-const populateBattle = async ({ _id, path }) => {
+const populateBattle = async ({ _id, path, select }) => {
   try {
-    return { battle: await Battle.findOne({ _id }).populate({ path }).lean() };
+    return { battle: await Battle.findOne({ _id }).populate({ path, select }).lean() };
   } catch (error) {
     return { error };
   }
@@ -72,6 +73,28 @@ const getBattlesData = async ({
   }
 };
 
+const endedBattlesWithBet = async ({
+  battles,
+}) => {
+  try {
+    return {
+      battles: await Battle.find({ _id: { $in: battles }, bet: { $exists: true } })
+        .populate([{ path: POPULATE_PATH_PLAYER1, select: '+personalAccount' }, { path: POPULATE_PATH_PLAYER2, select: '+personalAccount' }])
+        .lean(),
+    };
+  } catch (error) {
+    return { error };
+  }
+};
+
+const deleteOne = async ({ condition }) => {
+  try {
+    return { battle: await Battle.deleteOne(condition) };
+  } catch (error) {
+    return { error };
+  }
+};
+
 module.exports = {
   createNewBattle,
   connectBattle,
@@ -79,4 +102,6 @@ module.exports = {
   findMany,
   updateOne,
   getBattlesData,
+  endedBattlesWithBet,
+  deleteOne,
 };
