@@ -256,7 +256,7 @@
         "produces": [
           "application/json"
         ],
-        "description": "This root for creating new battle from socket server. All properties are required",
+        "description": "This root for creating new battle from socket server. betType, amount are not required",
         "parameters": [
           {
             "name": "create battle body",
@@ -266,7 +266,9 @@
               "example": {
                 "cryptoName": "BTC",
                 "playerID": "5ec56424c202e78e90cac356",
-                "healthPoints": "220"
+                "healthPoints": "220",
+                "betType": "HIVE",
+                "amount": 1
               }
             },
             "required": true
@@ -291,17 +293,6 @@
                       "numberOfFights": 0,
                       "alias": "Борис Андржиевский",
                       "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo.jpg",
-                      "auth": {
-                        "sessions": [
-                          {
-                            "_id": "5ec56424c202e78e90cac357",
-                            "sid": "5ec56424babd36e3b02d2d49",
-                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
-                          }
-                        ],
-                        "provider": "google",
-                        "id": "100171304431977375879"
-                      },
                       "createdAt": "2020-05-20T17:08:52.990Z",
                       "updatedAt": "2020-05-20T17:08:52.990Z",
                       "__v": 0
@@ -357,7 +348,7 @@
         "produces": [
           "application/json"
         ],
-        "description": "This root for connect to the battle from socket server. All properties are required",
+        "description": "This root for connect to the battle from socket server. betType, amount are not required",
         "parameters": [
           {
             "name": "connect battle body",
@@ -367,7 +358,9 @@
               "example": {
                 "cryptoName": "BTC",
                 "playerID": "5ec56424c202e78e90cac356",
-                "battleID": "5ec6d2ca36dc5c63d6840f8d"
+                "battleID": "5ec6d2ca36dc5c63d6840f8d",
+                "betType": "HIVE",
+                "amount": 1
               }
             },
             "required": true
@@ -392,17 +385,6 @@
                       "numberOfFights": 0,
                       "alias": "Пронюк Сергей",
                       "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo.jpg",
-                      "auth": {
-                        "sessions": [
-                          {
-                            "_id": "5ec56424c202e78e90cac357",
-                            "sid": "5ec56424babd36e3b02d2d49",
-                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
-                          }
-                        ],
-                        "provider": "google",
-                        "id": "100171304431977375879"
-                      },
                       "createdAt": "2020-05-21T19:11:45.199Z",
                       "updatedAt": "2020-05-21T19:11:45.199Z",
                       "__v": 0
@@ -426,17 +408,6 @@
                       "numberOfFights": 0,
                       "alias": "Борис Андржиевский",
                       "avatar": "https://lh4.googleusercontent.com/-Z7PioxRYnxU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckZj4qhKP_58dTUlUwR-_SRDE87XQ/photo2.jpg",
-                      "auth": {
-                        "sessions": [
-                          {
-                            "_id": "5ec56424c202e78e90cac357",
-                            "sid": "5ec56424babd36e3b02d2d49",
-                            "secretToken": "94c64eeecbbeb40de932409fe6aaf860e7c74896b44e4e2829b9d1dea2eecb7ae65ba452d688f019d57c9b17f08b311b427706f23b2ae89aa6192fde82e7e994"
-                          }
-                        ],
-                        "provider": "google",
-                        "id": "100171304431977375879"
-                      },
                       "createdAt": "2020-05-21T19:09:27.093Z",
                       "updatedAt": "2020-05-21T19:09:27.093Z",
                       "__v": 0
@@ -1046,6 +1017,233 @@
           },
           "422": {
             "description": "Wrong data"
+          }
+        }
+      }
+    },
+    "/api/replenish-account": {
+      "post": {
+        "tags": [
+          "Parser"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for replenish account",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "all props are required except memo, allowed cryptoType: HIVE, HBD",
+            "schema": {
+              "example": {
+                "senderName": "borik",
+                "cryptoType": "HIVE",
+                "amount": "2.342",
+                "memo": "some string"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "update successfully",
+            "schema": {
+              "example": {
+                "n": 1,
+                "nModified": 1,
+                "ok": 1
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "503": {
+            "description": "database error"
+          }
+        }
+      }
+    },
+    "/api/set-hive-account": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for set link to hive account",
+        "parameters": [
+          {
+            "name": "access-token",
+            "in": "header",
+            "description": "user access token from response headers /auth/google or facebook ",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "all props are required",
+            "schema": {
+              "example": {
+                "userID": "5ec56424c202e78e90cac356",
+                "hiveName": "borik"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "update successfully",
+            "schema": {
+              "example": {
+                "n": 1,
+                "nModified": 1,
+                "ok": 1
+              }
+            }
+          },
+          "404": {
+            "description": "User not found, or hive name does not exist"
+          },
+          "503": {
+            "description": "database error"
+          }
+        }
+      }
+    },
+    "/api/get-personal-account": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for set link to hive account",
+        "parameters": [
+          {
+            "name": "access-token",
+            "in": "header",
+            "description": "user access token from response headers /auth/google or facebook ",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "userID",
+            "in": "query",
+            "type": "string",
+            "description": "userID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "update successfully",
+            "schema": {
+              "example": {
+                "user": {
+                  "_id": "5ec56424c202e78e90cac356",
+                  "level": 1,
+                  "health": 100,
+                  "numberOfVictories": 20,
+                  "numberOfLosses": 26,
+                  "numberOfFights": 46,
+                  "alias": "yoyoyoyd",
+                  "avatar": "dfgfgddfsd",
+                  "personalAccount": {
+                    "hiveName": "bdfgorfgik",
+                    "steemName": "borik",
+                    "SBD": 0.1234,
+                    "HIVE": 43,
+                    "HBD": 218.5
+                  },
+                  "createdAt": "2020-05-20T17:08:52.990Z",
+                  "updatedAt": "2020-06-09T14:51:20.825Z",
+                  "__v": 0
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "Token not found"
+              }
+            }
+          },
+          "422": {
+            "description": "wrong data",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "error message"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cancel-battle": {
+      "post": {
+        "tags": [
+          "Battle"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "This root for canceling battle if it in WAITING status",
+        "parameters": [
+          {
+            "name": "access-token",
+            "in": "header",
+            "description": "user access token from response headers /auth/google or facebook ",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "all props are required",
+            "schema": {
+              "example": {
+                "battleID": "5ec56424c202e78e90cac356"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "delete successfully",
+            "schema": {
+              "example": {
+                "n": 1,
+                "ok": 1,
+                "deletedCount": 1
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "example": {
+                "success": false,
+                "message": "Token not found"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden: battle already start or ended"
+          },
+          "503": {
+            "description": "database error or transfer error"
           }
         }
       }

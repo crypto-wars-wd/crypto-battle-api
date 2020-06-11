@@ -31,16 +31,6 @@ const updateUserInfo = async ({ id, alias, avatar }) => {
   }
 };
 
-const findUserBySocial = async ({ id, provider }) => User.findOne({ 'auth.provider': provider, 'auth.id': id }).select('+auth').lean();
-
-const findUserById = async (id) => {
-  try {
-    return { user: await User.findOne({ _id: id }).select('+auth').lean() };
-  } catch (error) {
-    return { error };
-  }
-};
-
 const signUpSocial = async ({
   alias, provider, avatar, id, session,
 }) => {
@@ -80,7 +70,15 @@ const findTopWarriors = async ({ limit, skip }) => {
 
 const updateOne = async ({ condition, updateData }) => {
   try {
-    await User.updateOne(condition, updateData);
+    return { user: await User.updateOne(condition, updateData) };
+  } catch (error) {
+    return { error };
+  }
+};
+
+const findOneSelect = async ({ condition, select }) => {
+  try {
+    return { user: await User.findOne(condition).select(select).lean() };
   } catch (error) {
     return { error };
   }
@@ -89,12 +87,11 @@ const updateOne = async ({ condition, updateData }) => {
 module.exports = {
   updateOne,
   destroyLastSession,
-  findUserBySocial,
   findTopWarriors,
   updateUserInfo,
   destroySession,
   updateSession,
   signUpSocial,
   signInSocial,
-  findUserById,
+  findOneSelect,
 };

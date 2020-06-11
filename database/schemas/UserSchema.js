@@ -11,6 +11,15 @@ const UserAuthSchema = new Schema({
   }],
 }, { _id: false });
 
+const AccountSchema = new Schema({
+  hiveName: { type: String },
+  steemName: { type: String },
+  HIVE: { type: Number, default: 0 },
+  HBD: { type: Number, default: 0 },
+  STEEM: { type: Number, default: 0 },
+  SBD: { type: Number, default: 0 },
+}, { _id: false });
+
 const UserSchema = new Schema({
   level: { type: Number, default: 1 },
   health: { type: Number, default: 100 },
@@ -20,6 +29,7 @@ const UserSchema = new Schema({
   alias: { type: String },
   avatar: { type: String },
   auth: { type: UserAuthSchema, select: false },
+  personalAccount: { type: AccountSchema, select: false },
 }, { timestamps: true });
 
 UserAuthSchema.index({ provider: 1, id: 1 }, { unique: true });

@@ -1,5 +1,6 @@
 const { battleModel, cryptoModel, userModel } = require('models');
 const _ = require('lodash');
+const { hiveHelper } = require('utilities/helpers');
 
 module.exports = async (req) => {
   await Promise.all(req.body.stepsCollection.map(async (collection) => {
@@ -9,6 +10,7 @@ module.exports = async (req) => {
 
   if (req.body.endedBattles && req.body.endedBattles.length) {
     await endBattle(req);
+    await sendFundsToWinners(req);
   }
   const { battles, error: findManyError } = await battleModel.findMany(req.body);
   if (findManyError) return { error: { status: 503, message: findManyError.message } };
@@ -46,4 +48,28 @@ const endBattle = async (req) => {
   await Promise.all(warriorsLose.map(async (_id) => {
     await userModel.updateOne({ condition: { _id }, updateData: lose });
   }));
+};
+
+const sendFundsToWinners = async (req) => {
+  const battleID = _.map(req.body.endedBattles, 'battleID');
+  const { battles } = await battleModel.endedBattlesWithBet({ battles: battleID });
+  if (!battles) return;
+  for (const element of battles) {
+    const amount = element.bet.possibleWin.split(' ')[0];
+    const cryptoType = element.bet.possibleWin.split(' ')[1];
+    if (!await hiveHelper.checkBankBalance({ amount, cryptoType })) {
+      console.error('Not enough funds to pay');
+    }
+    const { result, error } = await hiveHelper.transfer({
+      from: process.env.HIVE_ACCOUNT_NAME || '',
+      to: element.winner.cryptoName === element.firstPlayer.cryptoName
+        ? element.firstPlayer.userInfo.personalAccount.hiveName
+        : element.secondPlayer.userInfo.personalAccount.hiveName,
+      amount,
+      activeKey: process.env.HIVE_ACTIVE_KEY || '',
+      cryptoType,
+    });
+    if (error) console.error(error);
+    console.log(result);
+  }
 };

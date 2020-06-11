@@ -6,6 +6,8 @@ exports.createBattleSchema = Joi.object().keys({
   cryptoName: Joi.string().required(),
   playerID: Joi.string().required(),
   healthPoints: Joi.number().required(),
+  betType: Joi.string().valid('HIVE', 'HBD'),
+  amount: Joi.number(),
 }).options(options);
 
 exports.topWarriorsSchema = Joi.object().keys({
@@ -23,6 +25,8 @@ exports.connectBattleShcema = Joi.object().keys({
   playerID: Joi.string().required(),
   battleID: Joi.string().required(),
   message: Joi.string().required(),
+  betType: Joi.string().valid('HIVE', 'HBD'),
+  amount: Joi.number(),
 }).options(options);
 
 exports.getBattlesSchema = Joi.object().keys({
@@ -32,4 +36,8 @@ exports.getBattlesSchema = Joi.object().keys({
   sort: Joi.string().valid('asc', 'desc').default('desc'),
   id: Joi.string(),
   battleID: Joi.string(),
+}).options(options);
+
+exports.cancelBattleSchema = Joi.object().keys({
+  battleID: Joi.string().required(),
 }).options(options);

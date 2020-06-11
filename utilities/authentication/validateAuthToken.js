@@ -8,7 +8,11 @@ const verifyAuthToken = async (req, res, next) => {
 
   if (error) return render.unauthorized(res, error);
 
-  const { user } = await userModel.findUserById(ObjectId(payload.id));
+
+  const { user } = await userModel.findOneSelect({
+    condition: { _id: ObjectId(payload.id) },
+    select: '+auth',
+  });
   if (!user) return render.unauthorized(res, 'User not exist');
   const session = sessions.findSession(
     { sessions: user && user.auth && user.auth.sessions, sid: payload.sid },
@@ -29,7 +33,10 @@ const validateAuthToken = async (req, res, next) => {
 
   if (error) return render.unauthorized(res, error);
 
-  const { user } = await userModel.findUserById(ObjectId(payload.id));
+  const { user } = await userModel.findOneSelect({
+    condition: { _id: ObjectId(payload.id) },
+    select: '+auth',
+  });
   if (!user) return render.unauthorized(res, 'User not exist');
   const session = sessions.findSession(
     { sessions: user.auth && user.auth.sessions, sid: payload.sid },
